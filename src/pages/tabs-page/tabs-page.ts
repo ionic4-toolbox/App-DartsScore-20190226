@@ -15,7 +15,6 @@ export class TabsPage {
   tab1Root: any = SchedulePage;
   tab2Root: any = SpeakerListPage;
   tab3Root: any = MapPage;
-  tab4Root: any = AboutPage;
   mySelectedIndex: number;
 
   constructor(navParams: NavParams) {
