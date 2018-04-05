@@ -16,7 +16,7 @@
 
           <ion-card class="speaker-card">
             <ion-card-header>
-              <button ion-item detail-none (click)="goToSpeakerDetail(speaker)">
+              <button ion-item detail-none>
                 <ion-avatar item-start>
                   <img [src]="speaker.profilePic" alt="Speaker profile pic">
                 </ion-avatar>
@@ -30,7 +30,7 @@
                   <h3>{{session.name}}</h3>
                 </button>
 
-                <button ion-item (click)="goToSpeakerDetail(speaker)">
+                <button ion-item>
                   <h3>About {{speaker.name}}</h3>
                 </button>
               </ion-list>

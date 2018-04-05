@@ -15,10 +15,11 @@ import { PopoverPage } from '../pages/about-popover/about-popover';
 import { AccountPage } from '../pages/account/account';
 import { LoginPage } from '../pages/login/login';
 import { MapPage } from '../pages/map/map';
-import { SchedulePage } from '../pages/schedule/schedule';
-import { ScheduleFilterPage } from '../pages/schedule-filter/schedule-filter';
+import { ScoreListPage } from '../pages/score-list/score-list';
+import { DailyScoreListPage } from '../pages/daily-score-list/daily-score-list';
 import { SessionDetailPage } from '../pages/session-detail/session-detail';
 import { SignupPage } from '../pages/signup/signup';
+import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SupportPage } from '../pages/support/support';
@@ -39,10 +40,11 @@ import { environment } from '../app/environment';
     LoginPage,
     MapPage,
     PopoverPage,
-    SchedulePage,
-    ScheduleFilterPage,
+    ScoreListPage,
+    DailyScoreListPage,
     SessionDetailPage,
     SignupPage,
+    SpeakerListPage,
     TabsPage,
     TutorialPage,
     SupportPage
@@ -57,9 +59,10 @@ import { environment } from '../app/environment';
     IonicModule.forRoot(ConferenceApp, {}, {
       links: [
         { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
-        { component: SchedulePage, name: 'Schedule', segment: 'schedule' },
+        { component: ScoreListPage, name: 'ScoreList', segment: 'scoreList' },
+        { component: DailyScoreListPage, name: 'DailyScoreList', segment: 'dailyScoreList' },
         { component: SessionDetailPage, name: 'SessionDetail', segment: 'sessionDetail/:sessionId' },
-        { component: ScheduleFilterPage, name: 'ScheduleFilter', segment: 'scheduleFilter' },
+        { component: SpeakerListPage, name: 'SpeakerList', segment: 'speakerList' },
         { component: MapPage, name: 'Map', segment: 'map' },
         { component: TutorialPage, name: 'Tutorial', segment: 'tutorial' },
         { component: SupportPage, name: 'SupportPage', segment: 'support' },
@@ -77,10 +80,11 @@ import { environment } from '../app/environment';
     LoginPage,
     MapPage,
     PopoverPage,
-    SchedulePage,
-    ScheduleFilterPage,
+    ScoreListPage,
+    DailyScoreListPage,
     SessionDetailPage,
     SignupPage,
+    SpeakerListPage,
     TabsPage,
     TutorialPage,
     SupportPage
