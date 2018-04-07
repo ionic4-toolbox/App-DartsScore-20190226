@@ -11,6 +11,7 @@ import { AlertController, App, FabContainer, ItemSliding, List, ModalController,
 import { ConferenceData } from '../../providers/conference-data';
 import { UserData } from '../../providers/user-data';
 
+import { ScoreListPage } from '../../pages/score-list/score-list';
 import { SessionDetailPage } from '../session-detail/session-detail';
 
 @Component({
@@ -54,11 +55,12 @@ export class DailyScoreListPage {
     });
   }
 
-  goToSessionDetail(sessionData: any) {
+  goToScoreDetail(scoreDate: any) {
     // go to the session detail page
     // and pass in the session data
 
-    this.navCtrl.push(SessionDetailPage, { sessionId: sessionData.id, name: sessionData.name });
+    this.navCtrl.push(ScoreListPage, { sessionId: scoreDate.id, name: scoreDate.name });
+    // this.navCtrl.push(SessionDetailPage, { sessionId: sessionData.id, name: sessionData.name });
   }
 
   addFavorite(slidingItem: ItemSliding, sessionData: any) {
