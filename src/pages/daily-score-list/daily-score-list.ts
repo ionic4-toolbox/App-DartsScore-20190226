@@ -12,7 +12,7 @@ import { ConferenceData } from '../../providers/conference-data';
 import { UserData } from '../../providers/user-data';
 
 import { ScoreListPage } from '../../pages/score-list/score-list';
-import { SessionDetailPage } from '../session-detail/session-detail';
+// import { SessionDetailPage } from '../session-detail/session-detail';
 
 @Component({
   selector: 'page-daily-score-list',

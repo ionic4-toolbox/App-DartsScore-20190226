@@ -19,7 +19,8 @@ import { ScoreListPage } from '../pages/score-list/score-list';
 import { DailyScoreListPage } from '../pages/daily-score-list/daily-score-list';
 import { SessionDetailPage } from '../pages/session-detail/session-detail';
 import { SignupPage } from '../pages/signup/signup';
-import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
+import { ScorePage } from '../pages/score/score';
+import { DashboardPage } from '../pages/dashboard/dashboard';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SupportPage } from '../pages/support/support';
@@ -44,7 +45,8 @@ import { environment } from '../app/environment';
     DailyScoreListPage,
     SessionDetailPage,
     SignupPage,
-    SpeakerListPage,
+    ScorePage,
+    DashboardPage,
     TabsPage,
     TutorialPage,
     SupportPage
@@ -62,7 +64,8 @@ import { environment } from '../app/environment';
         { component: ScoreListPage, name: 'ScoreList', segment: 'scoreList' },
         { component: DailyScoreListPage, name: 'DailyScoreList', segment: 'dailyScoreList' },
         { component: SessionDetailPage, name: 'SessionDetail', segment: 'sessionDetail/:sessionId' },
-        { component: SpeakerListPage, name: 'SpeakerList', segment: 'speakerList' },
+        { component: ScorePage, name: 'Score', segment: 'score' },
+        { component: DashboardPage, name: 'Dashboard', segment: 'dashboard' },
         { component: MapPage, name: 'Map', segment: 'map' },
         { component: TutorialPage, name: 'Tutorial', segment: 'tutorial' },
         { component: SupportPage, name: 'SupportPage', segment: 'support' },
@@ -84,7 +87,8 @@ import { environment } from '../app/environment';
     DailyScoreListPage,
     SessionDetailPage,
     SignupPage,
-    SpeakerListPage,
+    ScorePage,
+    DashboardPage,
     TabsPage,
     TutorialPage,
     SupportPage

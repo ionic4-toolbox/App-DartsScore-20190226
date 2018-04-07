@@ -3,8 +3,22 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Speakers</ion-title>
+    <ion-title>Score</ion-title>
   </ion-navbar>
+
+  <ion-toolbar no-border-top>
+      <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
+        <ion-segment-button value="count-up">
+          Count Up
+        </ion-segment-button>
+        <ion-segment-button value="zero-one">
+          01 Games
+        </ion-segment-button>
+        <ion-segment-button value="cricket">
+          Cricket
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="outer-content speaker-list">
