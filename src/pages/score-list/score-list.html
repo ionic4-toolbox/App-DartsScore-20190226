@@ -3,10 +3,10 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+    <ion-title>ScoreList</ion-title>
   </ion-navbar>
 
   <ion-toolbar no-border-top>
-
     <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
       <ion-segment-button value="count-up">
         Count Up
@@ -18,12 +18,6 @@
         Cricket
       </ion-segment-button>
     </ion-segment>
-<!--   
-    <ion-searchbar color="primary"
-                   [(ngModel)]="queryText"
-                   (ionInput)="updateSchedule()"
-                   placeholder="Search">
-    </ion-searchbar> -->
   </ion-toolbar>
 </ion-header>
 

@@ -3,6 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+    <ion-title>DailyScoreList</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -23,7 +24,7 @@
 
       <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.track]="session.tracks[0] | lowercase" [hidden]="session.hide">
 
-        <button ion-item (click)="goToSessionDetail(session)">
+        <button ion-item (click)="goToScoreDetail(session)">
           <h3>{{session.name}}</h3>
           <p>
             {{session.timeStart}} &mdash;
