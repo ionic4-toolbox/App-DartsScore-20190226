@@ -38,6 +38,7 @@ export class ConferenceApp {
    * サイドメニューのリスト
    */
   appPages: PageInterface[] = [
+    { title: 'Home', name: 'TabsPage', component: TabsPage, icon: 'home' },
     { title: 'Account', name: 'AccountPage', component: AccountPage, icon: 'person' },
     { title: 'Support', name: 'SupportPage', component: SupportPage, icon: 'help' },
     { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }

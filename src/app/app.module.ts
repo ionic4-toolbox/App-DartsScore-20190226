@@ -14,7 +14,6 @@ import { ConferenceApp } from './app.component';
 import { PopoverPage } from '../pages/about-popover/about-popover';
 import { AccountPage } from '../pages/account/account';
 import { LoginPage } from '../pages/login/login';
-import { MapPage } from '../pages/map/map';
 import { ScoreListPage } from '../pages/score-list/score-list';
 import { DailyScoreListPage } from '../pages/daily-score-list/daily-score-list';
 import { SessionDetailPage } from '../pages/session-detail/session-detail';
@@ -39,7 +38,6 @@ import { environment } from '../app/environment';
     ConferenceApp,
     AccountPage,
     LoginPage,
-    MapPage,
     PopoverPage,
     ScoreListPage,
     DailyScoreListPage,
@@ -66,7 +64,6 @@ import { environment } from '../app/environment';
         { component: SessionDetailPage, name: 'SessionDetail', segment: 'sessionDetail/:sessionId' },
         { component: ScorePage, name: 'Score', segment: 'score' },
         { component: DashboardPage, name: 'Dashboard', segment: 'dashboard' },
-        { component: MapPage, name: 'Map', segment: 'map' },
         { component: TutorialPage, name: 'Tutorial', segment: 'tutorial' },
         { component: SupportPage, name: 'SupportPage', segment: 'support' },
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
@@ -81,7 +78,6 @@ import { environment } from '../app/environment';
     ConferenceApp,
     AccountPage,
     LoginPage,
-    MapPage,
     PopoverPage,
     ScoreListPage,
     DailyScoreListPage,
