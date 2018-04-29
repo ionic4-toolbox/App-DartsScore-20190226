@@ -33,6 +33,8 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../app/environment';
 
+import { ComponentsModule } from '../components/components.module';
+
 @NgModule({
   declarations: [
     ConferenceApp,
@@ -55,6 +57,7 @@ import { environment } from '../app/environment';
     AngularFireAuthModule,
     AngularFireStorageModule,
     HttpModule,
+    ComponentsModule,
     AngularFireModule.initializeApp(environment.firebase),
     IonicModule.forRoot(ConferenceApp, {}, {
       links: [
