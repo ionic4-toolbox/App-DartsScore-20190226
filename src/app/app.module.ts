@@ -1,39 +1,40 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser'
+import { HttpModule } from '@angular/http'
+import { NgModule, ErrorHandler } from '@angular/core'
+import { StoreModule } from '@ngrx/store'
 
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular'
 
-import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { InAppBrowser } from '@ionic-native/in-app-browser'
+import { SplashScreen } from '@ionic-native/splash-screen'
 
-import { IonicStorageModule } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage'
 
-import { ConferenceApp } from './app.component';
+import { ConferenceApp } from './app.component'
+import { PopoverPage } from '../pages/about-popover/about-popover'
+import { AccountPage } from '../pages/account/account'
+import { LoginPage } from '../pages/login/login'
+import { ScoreListPage } from '../pages/score-list/score-list'
+import { DailyScoreListPage } from '../pages/daily-score-list/daily-score-list'
+import { SessionDetailPage } from '../pages/session-detail/session-detail'
+import { SignupPage } from '../pages/signup/signup'
+import { ScorePage } from '../pages/score/score'
+import { DashboardPage } from '../pages/dashboard/dashboard'
+import { TabsPage } from '../pages/tabs-page/tabs-page'
+import { TutorialPage } from '../pages/tutorial/tutorial'
+import { SupportPage } from '../pages/support/support'
 
-import { PopoverPage } from '../pages/about-popover/about-popover';
-import { AccountPage } from '../pages/account/account';
-import { LoginPage } from '../pages/login/login';
-import { ScoreListPage } from '../pages/score-list/score-list';
-import { DailyScoreListPage } from '../pages/daily-score-list/daily-score-list';
-import { SessionDetailPage } from '../pages/session-detail/session-detail';
-import { SignupPage } from '../pages/signup/signup';
-import { ScorePage } from '../pages/score/score';
-import { DashboardPage } from '../pages/dashboard/dashboard';
-import { TabsPage } from '../pages/tabs-page/tabs-page';
-import { TutorialPage } from '../pages/tutorial/tutorial';
-import { SupportPage } from '../pages/support/support';
+import { ConferenceData } from '../providers/conference-data'
+import { UserData } from '../providers/user-data'
 
-import { ConferenceData } from '../providers/conference-data';
-import { UserData } from '../providers/user-data';
+// import { AngularFireModule } from 'angularfire2'
+// import { AngularFirestoreModule } from 'angularfire2/firestore'
+// import { AngularFireStorageModule } from 'angularfire2/storage'
+// import { AngularFireAuthModule } from 'angularfire2/auth'
+// import { environment } from '../app/environment'
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireStorageModule } from 'angularfire2/storage';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { environment } from '../app/environment';
-
-import { ComponentsModule } from '../components/components.module';
+import { ComponentsModule } from '../components/components.module'
+import { reducers } from '../store'
 
 @NgModule({
   declarations: [
@@ -53,12 +54,13 @@ import { ComponentsModule } from '../components/components.module';
   ],
   imports: [
     BrowserModule,
-    AngularFirestoreModule,
-    AngularFireAuthModule,
-    AngularFireStorageModule,
+    // AngularFirestoreModule,
+    // AngularFireAuthModule,
+    // AngularFireStorageModule,
     HttpModule,
     ComponentsModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    // AngularFireModule.initializeApp(environment.firebase),
+    StoreModule.forRoot(reducers),
     IonicModule.forRoot(ConferenceApp, {}, {
       links: [
         { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
+import { Store, select } from '@ngrx/store'
 
 import {
   ActionSheet,
@@ -6,12 +7,15 @@ import {
   ActionSheetOptions,
   Config,
   NavController
-} from 'ionic-angular';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
+} from 'ionic-angular'
+import { InAppBrowser } from '@ionic-native/in-app-browser'
 
-import { ConferenceData } from '../../providers/conference-data';
+import { ConferenceData } from '../../providers/conference-data'
 
-import { SessionDetailPage } from '../session-detail/session-detail';
+import { SessionDetailPage } from '../session-detail/session-detail'
+import * as ScoreAction from './store/action'
+import * as ScoreStore from './store'
+import { Score } from '../../entities/Score'
 
 // TODO remove
 export interface ActionSheetButton {
@@ -27,16 +31,33 @@ export interface ActionSheetButton {
   templateUrl: 'score.html'
 })
 export class ScorePage {
-  actionSheet: ActionSheet;
-  speakers: any[] = [];
+  actionSheet: ActionSheet
+  speakers: any[] = []
+  scoreTable: Score[][] = []
+  _scoreTable: any
 
   constructor(
     public actionSheetCtrl: ActionSheetController,
     public navCtrl: NavController,
     public confData: ConferenceData,
     public config: Config,
-    public inAppBrowser: InAppBrowser
-  ) {}
+    public inAppBrowser: InAppBrowser,
+    private store: Store<ScoreStore.State>
+  ) {
+    for(let i = 0; i < 3; i++) {
+      let scoreRow: Score[] = []
+      for(let j = 0; j < 12; j++) {
+        let score: Score = new Score
+        score.count = 2
+        score.value = "20"
+        scoreRow.push(score)
+      }
+      this.scoreTable.push(scoreRow)
+    }
+    this.store.dispatch(new ScoreAction.Create(this.scoreTable))
+    this.store.pipe(select(ScoreStore.getState))
+      .subscribe(data => this._scoreTable = data.loading)
+  }
 
   ionViewDidLoad() {
     this.confData.getSpeakers().subscribe((speakers: any[]) => {
