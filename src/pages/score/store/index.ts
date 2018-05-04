@@ -8,4 +8,5 @@ export { State, reducer }
  */
 export const getState = createFeatureSelector<State>('score');
 export const getLoading = createSelector(getState, state => state.loading);
-export const getTodos = createSelector(getState, state => state.scores);
+export const getScores = createSelector(getState, state => state.scores);
+export const getResultScores = createSelector(getState, state => state.resultScores);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { Store, select } from '@ngrx/store'
+import { Store } from '@ngrx/store'
 
 import {
   ActionSheet,
@@ -34,6 +34,7 @@ export class ScorePage {
   actionSheet: ActionSheet
   speakers: any[] = []
   scoreTable: Score[][] = []
+  resultScores: Score[] = []
   _scoreTable: any
 
   constructor(
@@ -47,22 +48,33 @@ export class ScorePage {
     for(let i = 0; i < 3; i++) {
       let scoreRow: Score[] = []
       for(let j = 0; j < 12; j++) {
-        let score: Score = new Score
-        score.count = 2
-        score.value = "20"
+        let score: Score = new Score()
+        if (j === 0) {
+          score.count = 0
+          score.value = "0"
+        } else {
+          score.count = 2
+          score.value = "20"
+        }
         scoreRow.push(score)
       }
       this.scoreTable.push(scoreRow)
     }
-    this.store.dispatch(new ScoreAction.Create(this.scoreTable))
-    this.store.pipe(select(ScoreStore.getState))
-      .subscribe(data => this._scoreTable = data.loading)
+    for(let i = 0; i < 12; i++) {
+      let resultScore = new Score()
+      resultScore.add(this.scoreTable[0][i])
+      resultScore.add(this.scoreTable[1][i])
+      resultScore.add(this.scoreTable[2][i])
+      this.resultScores.push(resultScore)
+    }
   }
 
   ionViewDidLoad() {
     this.confData.getSpeakers().subscribe((speakers: any[]) => {
       this.speakers = speakers;
-    });
+    })
+    this.store.dispatch(new ScoreAction.Create(this.scoreTable))
+    this.store.dispatch(new ScoreAction.ChangeScoreResult(this.resultScores))
   }
 
   goToSessionDetail(session: any) {
