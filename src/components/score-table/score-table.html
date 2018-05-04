@@ -1,0 +1,27 @@
+<!-- Generated template for the ScoreTableComponent component -->
+<div class="score-table">
+  <table class="score">
+    <thead class="score-head">
+      <th class="score-roll">Round</th>
+      <th class="score-cell" *ngFor="let value of scoreTable[0]; let i = index">
+        {{i+1}}
+      </th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let scoreRow of scoreTable; let i = index">
+        <td class="score-roll"><b>{{i+1}}投目</b></td>
+        <td class="score-cell" *ngFor="let scoreCol of scoreRow">
+          {{scoreCol.strValue}}
+        </td>
+      </tr>
+    </tbody>
+    <tfoot class="score-footer">
+      <tr>
+        <td class="score-roll">合計</td>
+        <td class="score-cell" *ngFor="let resultScore of resultScores">
+          {{resultScore.summary}}
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

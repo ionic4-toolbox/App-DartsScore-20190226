@@ -3,11 +3,28 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Speakers</ion-title>
+    <ion-title>Score</ion-title>
   </ion-navbar>
+
+  <ion-toolbar no-border-top>
+      <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
+        <ion-segment-button value="count-up">
+          Count Up
+        </ion-segment-button>
+        <ion-segment-button value="zero-one">
+          01 Games
+        </ion-segment-button>
+        <ion-segment-button value="cricket">
+          Cricket
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content class="outer-content speaker-list">
+<ion-content class="outer-content">
+  <score-table></score-table>
+</ion-content>
+<!-- <ion-content class="outer-content speaker-list">
   <ion-list [virtualScroll]="speakers">
     <ion-grid fixed>
       <ion-row align-items-stretch>
@@ -16,7 +33,7 @@
 
           <ion-card class="speaker-card">
             <ion-card-header>
-              <button ion-item detail-none (click)="goToSpeakerDetail(speaker)">
+              <button ion-item detail-none>
                 <ion-avatar item-start>
                   <img [src]="speaker.profilePic" alt="Speaker profile pic">
                 </ion-avatar>
@@ -30,7 +47,7 @@
                   <h3>{{session.name}}</h3>
                 </button>
 
-                <button ion-item (click)="goToSpeakerDetail(speaker)">
+                <button ion-item>
                   <h3>About {{speaker.name}}</h3>
                 </button>
               </ion-list>
@@ -63,4 +80,4 @@
       </ion-row>
     </ion-grid>
   </ion-list>
-</ion-content>
+</ion-content> -->

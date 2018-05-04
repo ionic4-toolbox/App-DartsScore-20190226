@@ -1,75 +1,77 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser'
+import { HttpModule } from '@angular/http'
+import { NgModule, ErrorHandler } from '@angular/core'
+import { StoreModule } from '@ngrx/store'
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular'
 
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser'
+import { SplashScreen } from '@ionic-native/splash-screen'
 
-import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { IonicStorageModule } from '@ionic/storage'
 
-import { IonicStorageModule } from '@ionic/storage';
+import { ConferenceApp } from './app.component'
+import { PopoverPage } from '../pages/about-popover/about-popover'
+import { AccountPage } from '../pages/account/account'
+import { LoginPage } from '../pages/login/login'
+import { ScoreListPage } from '../pages/score-list/score-list'
+import { DailyScoreListPage } from '../pages/daily-score-list/daily-score-list'
+import { SessionDetailPage } from '../pages/session-detail/session-detail'
+import { SignupPage } from '../pages/signup/signup'
+import { ScorePage } from '../pages/score/score'
+import { DashboardPage } from '../pages/dashboard/dashboard'
+import { TabsPage } from '../pages/tabs-page/tabs-page'
+import { TutorialPage } from '../pages/tutorial/tutorial'
+import { SupportPage } from '../pages/support/support'
 
-import { ConferenceApp } from './app.component';
+import { ConferenceData } from '../providers/conference-data'
+import { UserData } from '../providers/user-data'
 
-import { AboutPage } from '../pages/about/about';
-import { PopoverPage } from '../pages/about-popover/about-popover';
-import { AccountPage } from '../pages/account/account';
-import { LoginPage } from '../pages/login/login';
-import { MapPage } from '../pages/map/map';
-import { SchedulePage } from '../pages/schedule/schedule';
-import { ScheduleFilterPage } from '../pages/schedule-filter/schedule-filter';
-import { SessionDetailPage } from '../pages/session-detail/session-detail';
-import { SignupPage } from '../pages/signup/signup';
-import { SpeakerDetailPage } from '../pages/speaker-detail/speaker-detail';
-import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
-import { TabsPage } from '../pages/tabs-page/tabs-page';
-import { TutorialPage } from '../pages/tutorial/tutorial';
-import { SupportPage } from '../pages/support/support';
+// import { AngularFireModule } from 'angularfire2'
+// import { AngularFirestoreModule } from 'angularfire2/firestore'
+// import { AngularFireStorageModule } from 'angularfire2/storage'
+// import { AngularFireAuthModule } from 'angularfire2/auth'
+// import { environment } from '../app/environment'
 
-import { ConferenceData } from '../providers/conference-data';
-import { UserData } from '../providers/user-data';
-
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireStorageModule } from 'angularfire2/storage';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { environment } from '../app/environment';
+import { ComponentsModule } from '../components/components.module'
+import { reducers } from '../store'
 
 @NgModule({
   declarations: [
     ConferenceApp,
-    AboutPage,
     AccountPage,
     LoginPage,
-    MapPage,
     PopoverPage,
-    SchedulePage,
-    ScheduleFilterPage,
+    ScoreListPage,
+    DailyScoreListPage,
     SessionDetailPage,
     SignupPage,
-    SpeakerDetailPage,
-    SpeakerListPage,
+    ScorePage,
+    DashboardPage,
     TabsPage,
     TutorialPage,
     SupportPage
   ],
   imports: [
     BrowserModule,
-    AngularFirestoreModule,
-    AngularFireAuthModule,
-    AngularFireStorageModule,
+    // AngularFirestoreModule,
+    // AngularFireAuthModule,
+    // AngularFireStorageModule,
     HttpModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    ComponentsModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25
+    }),
+    // AngularFireModule.initializeApp(environment.firebase),
+    StoreModule.forRoot(reducers),
     IonicModule.forRoot(ConferenceApp, {}, {
       links: [
         { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
-        { component: SchedulePage, name: 'Schedule', segment: 'schedule' },
+        { component: ScoreListPage, name: 'ScoreList', segment: 'scoreList' },
+        { component: DailyScoreListPage, name: 'DailyScoreList', segment: 'dailyScoreList' },
         { component: SessionDetailPage, name: 'SessionDetail', segment: 'sessionDetail/:sessionId' },
-        { component: ScheduleFilterPage, name: 'ScheduleFilter', segment: 'scheduleFilter' },
-        { component: SpeakerListPage, name: 'SpeakerList', segment: 'speakerList' },
-        { component: SpeakerDetailPage, name: 'SpeakerDetail', segment: 'speakerDetail/:speakerId' },
-        { component: MapPage, name: 'Map', segment: 'map' },
-        { component: AboutPage, name: 'About', segment: 'about' },
+        { component: ScorePage, name: 'Score', segment: 'score' },
+        { component: DashboardPage, name: 'Dashboard', segment: 'dashboard' },
         { component: TutorialPage, name: 'Tutorial', segment: 'tutorial' },
         { component: SupportPage, name: 'SupportPage', segment: 'support' },
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
@@ -82,17 +84,15 @@ import { environment } from '../app/environment';
   bootstrap: [IonicApp],
   entryComponents: [
     ConferenceApp,
-    AboutPage,
     AccountPage,
     LoginPage,
-    MapPage,
     PopoverPage,
-    SchedulePage,
-    ScheduleFilterPage,
+    ScoreListPage,
+    DailyScoreListPage,
     SessionDetailPage,
     SignupPage,
-    SpeakerDetailPage,
-    SpeakerListPage,
+    ScorePage,
+    DashboardPage,
     TabsPage,
     TutorialPage,
     SupportPage

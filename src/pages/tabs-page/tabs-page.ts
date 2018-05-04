@@ -2,20 +2,18 @@ import { Component } from '@angular/core';
 
 import { NavParams } from 'ionic-angular';
 
-import { AboutPage } from '../about/about';
-import { MapPage } from '../map/map';
-import { SchedulePage } from '../schedule/schedule';
-import { SpeakerListPage } from '../speaker-list/speaker-list';
+import { DailyScoreListPage } from '../daily-score-list/daily-score-list';
+import { ScorePage } from '../score/score';
+import { DashboardPage } from '../dashboard/dashboard';
 
 @Component({
   templateUrl: 'tabs-page.html'
 })
 export class TabsPage {
   // set the root pages for each tab
-  tab1Root: any = SchedulePage;
-  tab2Root: any = SpeakerListPage;
-  tab3Root: any = MapPage;
-  tab4Root: any = AboutPage;
+  tab1Root: any = DashboardPage;
+  tab2Root: any = ScorePage;
+  tab3Root: any = DailyScoreListPage;
   mySelectedIndex: number;
 
   constructor(navParams: NavParams) {

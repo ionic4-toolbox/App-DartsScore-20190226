@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
+import { Store } from '@ngrx/store'
 
 import {
   ActionSheet,
@@ -6,13 +7,15 @@ import {
   ActionSheetOptions,
   Config,
   NavController
-} from 'ionic-angular';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
+} from 'ionic-angular'
+import { InAppBrowser } from '@ionic-native/in-app-browser'
 
-import { ConferenceData } from '../../providers/conference-data';
+import { ConferenceData } from '../../providers/conference-data'
 
-import { SessionDetailPage } from '../session-detail/session-detail';
-import { SpeakerDetailPage } from '../speaker-detail/speaker-detail';
+import { SessionDetailPage } from '../session-detail/session-detail'
+import * as ScoreAction from './store/action'
+import * as ScoreStore from './store'
+import { Score } from '../../entities/Score'
 
 // TODO remove
 export interface ActionSheetButton {
@@ -24,33 +27,58 @@ export interface ActionSheetButton {
 };
 
 @Component({
-  selector: 'page-speaker-list',
-  templateUrl: 'speaker-list.html'
+  selector: 'page-score',
+  templateUrl: 'score.html'
 })
-export class SpeakerListPage {
-  actionSheet: ActionSheet;
-  speakers: any[] = [];
+export class ScorePage {
+  actionSheet: ActionSheet
+  speakers: any[] = []
+  scoreTable: Score[][] = []
+  resultScores: Score[] = []
+  _scoreTable: any
 
   constructor(
     public actionSheetCtrl: ActionSheetController,
     public navCtrl: NavController,
     public confData: ConferenceData,
     public config: Config,
-    public inAppBrowser: InAppBrowser
-  ) {}
+    public inAppBrowser: InAppBrowser,
+    private store: Store<ScoreStore.State>
+  ) {
+    for(let i = 0; i < 3; i++) {
+      let scoreRow: Score[] = []
+      for(let j = 0; j < 12; j++) {
+        let score: Score = new Score()
+        if (j === 0) {
+          score.count = 0
+          score.value = "0"
+        } else {
+          score.count = 2
+          score.value = "20"
+        }
+        scoreRow.push(score)
+      }
+      this.scoreTable.push(scoreRow)
+    }
+    for(let i = 0; i < 12; i++) {
+      let resultScore = new Score()
+      resultScore.add(this.scoreTable[0][i])
+      resultScore.add(this.scoreTable[1][i])
+      resultScore.add(this.scoreTable[2][i])
+      this.resultScores.push(resultScore)
+    }
+  }
 
   ionViewDidLoad() {
     this.confData.getSpeakers().subscribe((speakers: any[]) => {
       this.speakers = speakers;
-    });
+    })
+    this.store.dispatch(new ScoreAction.ChangeScores(this.scoreTable))
+    this.store.dispatch(new ScoreAction.ChangeResultScores(this.resultScores))
   }
 
   goToSessionDetail(session: any) {
     this.navCtrl.push(SessionDetailPage, { sessionId: session.id });
-  }
-
-  goToSpeakerDetail(speaker: any) {
-    this.navCtrl.push(SpeakerDetailPage, { speakerId: speaker.id });
   }
 
   goToSpeakerTwitter(speaker: any) {
