@@ -19,8 +19,21 @@ export class Score {
     this._strValue = value
     this._intValue = Number(value)
   }
+
+  public add(score: Score) {
+    this._scores.push(score)
+  }
   
-  private _intValue: number
-  private _strValue: string
-  private _count: number
+  get summary(): number {
+    let sum = 0
+    this._scores.forEach(value => {
+      sum += value._intValue * value._count
+    })
+    return sum
+  }
+  
+  private _intValue: number = -1
+  private _strValue: string = ""
+  private _count: number = 0
+  private _scores: Score[] = []
 }

@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 
+import { Store, select } from '@ngrx/store'
+
+import * as ScoreStore from '../../pages/score/store'
+import { Score } from '../../entities/Score'
 /**
  * Generated class for the ScoreTableComponent component.
  *
@@ -11,12 +15,17 @@ import { Component } from '@angular/core';
   templateUrl: 'score-table.html'
 })
 export class ScoreTableComponent {
+  scoreTable: Score[][]
+  resultScores: Score[]
 
-  text: string;
-
-  constructor() {
-    console.log('Hello ScoreTableComponent Component');
-    this.text = 'Score Table';
+  constructor(
+    private store: Store<ScoreStore.State>
+  ) {
+    this.store.pipe(select(ScoreStore.getState))
+    .subscribe((data: ScoreStore.State) => {
+      this.scoreTable = data.scores
+      this.resultScores = data.resultScores
+    })
   }
 
 }

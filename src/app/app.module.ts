@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { HttpModule } from '@angular/http'
 import { NgModule, ErrorHandler } from '@angular/core'
 import { StoreModule } from '@ngrx/store'
-
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular'
 
 import { InAppBrowser } from '@ionic-native/in-app-browser'
@@ -59,6 +59,9 @@ import { reducers } from '../store'
     // AngularFireStorageModule,
     HttpModule,
     ComponentsModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25
+    }),
     // AngularFireModule.initializeApp(environment.firebase),
     StoreModule.forRoot(reducers),
     IonicModule.forRoot(ConferenceApp, {}, {
