@@ -73,8 +73,8 @@ export class ScorePage {
     this.confData.getSpeakers().subscribe((speakers: any[]) => {
       this.speakers = speakers;
     })
-    this.store.dispatch(new ScoreAction.Create(this.scoreTable))
-    this.store.dispatch(new ScoreAction.ChangeScoreResult(this.resultScores))
+    this.store.dispatch(new ScoreAction.ChangeScores(this.scoreTable))
+    this.store.dispatch(new ScoreAction.ChangeResultScores(this.resultScores))
   }
 
   goToSessionDetail(session: any) {
