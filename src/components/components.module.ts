@@ -1,9 +1,12 @@
-import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core'
 import { IonicModule } from 'ionic-angular'
-import { ScoreTableComponent } from './score-table/score-table';
+import { ScoreTableComponent } from './score-table/score-table'
+import { CricketKeyboardComponent } from './cricket-keyboard/cricket-keyboard'
 @NgModule({
-	declarations: [ScoreTableComponent],
+	declarations: [ScoreTableComponent,
+    CricketKeyboardComponent],
 	imports: [IonicModule],
-	exports: [ScoreTableComponent]
+	exports: [ScoreTableComponent,
+    CricketKeyboardComponent]
 })
 export class ComponentsModule {}
