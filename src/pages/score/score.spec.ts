@@ -1,9 +1,9 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing'
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 import { StoreModule } from '@ngrx/store'
-import { IonicModule, Config } from 'ionic-angular'
-import * as ScoreAction from './store/action'
-import * as ScoreStore from './store'
+import { IonicModule } from 'ionic-angular'
+// import * as ScoreAction from './store/action'
+// import * as ScoreStore from './store'
 import { ScorePage } from './score'
 import { reducers } from '../../store'
 

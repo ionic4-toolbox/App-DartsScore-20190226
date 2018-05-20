@@ -7,14 +7,14 @@
   </ion-navbar>
 
   <ion-toolbar no-border-top>
-      <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
-        <ion-segment-button value="count-up">
+      <ion-segment [(ngModel)]="gameType" (ionChange)="updateSchedule()">
+        <ion-segment-button [value]="GameTypes.COUNTUP">
           Count Up
         </ion-segment-button>
-        <ion-segment-button value="zero-one">
+        <ion-segment-button [value]="GameTypes.ZEROONE">
           01 Games
         </ion-segment-button>
-        <ion-segment-button value="cricket">
+        <ion-segment-button [value]="GameTypes.CRICKET">
           Cricket
         </ion-segment-button>
       </ion-segment>
@@ -23,5 +23,6 @@
 
 <ion-content class="outer-content">
   <score-table></score-table>
-  <cricket-keyboard></cricket-keyboard>
+  <cricket-keyboard *ngIf="gameType === GameTypes.CRICKET"></cricket-keyboard>
+  <default-keyboard *ngIf="gameType !== GameTypes.CRICKET"></default-keyboard>
 </ion-content>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { Store } from '@ngrx/store'
+import { GameType } from '../../entities/GameType'
 
 import {
   ActionSheet,
@@ -28,6 +29,8 @@ export class ScorePage {
   speakers: any[] = []
   scoreTable: Score[][] = []
   resultScores: Score[] = []
+  gameType: GameType = GameType.COUNTUP
+  GameTypes = GameType
   _scoreTable: any
 
   constructor(
@@ -61,6 +64,10 @@ export class ScorePage {
   ionViewDidLoad() {
     this.store.dispatch(new ScoreAction.ChangeScores(this.scoreTable))
     this.store.dispatch(new ScoreAction.ChangeResultScores(this.resultScores))
+  }
+
+  updateSchedule() {
+
   }
 
   // openContact(speaker: any) {

@@ -4,7 +4,7 @@ import { StoreModule } from '@ngrx/store'
 import { IonicModule } from 'ionic-angular'
 // import * as ScoreAction from '../../pages/score/store/action'
 // import * as ScoreStore from '../../pages/score/store/action'
-import { ScoreTableComponent } from './score-table'
+import { DefaultKeyboardComponent } from './default-keyboard'
 import { reducers } from '../../store'
 
 // const mockScoreStore = {
@@ -14,19 +14,19 @@ import { reducers } from '../../store'
 describe('ScorePage', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
-      declarations: [ScoreTableComponent],
-      imports: [IonicModule.forRoot(ScoreTableComponent), StoreModule.forRoot(reducers)],
+      declarations: [DefaultKeyboardComponent],
+      imports: [IonicModule.forRoot(DefaultKeyboardComponent), StoreModule.forRoot(reducers)],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents()
   );
 
   describe('with injection', () => {
-    let fixture: ComponentFixture<ScoreTableComponent>;
-    let scoreTableComponent: ScoreTableComponent;
+    let fixture: ComponentFixture<DefaultKeyboardComponent>;
+    let defaultKeyboardComponent: DefaultKeyboardComponent;
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(ScoreTableComponent);
-      scoreTableComponent = fixture.componentInstance;
+      fixture = TestBed.createComponent(DefaultKeyboardComponent);
+      defaultKeyboardComponent = fixture.componentInstance;
     });
 
     afterEach(() => {
@@ -34,7 +34,7 @@ describe('ScorePage', () => {
     });
 
     it('should be created.', () => {
-      expect(scoreTableComponent).toBeTruthy();
+      expect(defaultKeyboardComponent).toBeTruthy();
     });
   });
 });
