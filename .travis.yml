@@ -9,7 +9,3 @@ language: node_js
     - yarn test
   after_script:
     - "cat ./coverage/lcov.info | coveralls"
-branches:
-  only:
-    - master
-    - feature_test
