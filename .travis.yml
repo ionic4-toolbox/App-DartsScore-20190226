@@ -6,9 +6,9 @@ before_script:
 cache:
   yarn: true
 script:
-- yarn test
+- yarn test --coverage
 after_script:
-- cat coverage/lcov.info | coveralls
+- cat ./coverage/lcov.info | coveralls
 branches:
   only:
   - master
