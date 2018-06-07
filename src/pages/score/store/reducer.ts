@@ -13,9 +13,8 @@ export function reducer(state = initialState, action: ScoreAction.Actions): Stat
     }
     case ScoreAction.INPUT_SCORE: {
       let scores: Score[][] = state.scores
-      console.log("STAT: " + JSON.stringify(state))
-      console.log("AR: " + state.activeRound + ", AS: " + state.activeShot + ", AP : " + action.payload)
-      scores[state.activeRound][state.activeShot] = action.payload
+      console.log(JSON.stringify(action.payload))
+      scores[state.activeRound - 1][state.activeShot - 1] = action.payload
       return Object.assign({}, state, { scores })
     }
     case ScoreAction.CHANGE_RESULT_SCORES: {

@@ -1,10 +1,10 @@
 <!-- Generated template for the CricketKeyboardComponent component -->
 <div class="default-keyboard">
   <ion-row>
-    <ion-col><button class="key" (tap)="onTap($event)">&lt;</button></ion-col>
+    <ion-col><button class="key" (tap)="onPrevious($event)">&lt;</button></ion-col>
     <ion-col><button class="key" (tap)="onTap($event)">Double</button></ion-col>
     <ion-col><button class="key" (tap)="onTap($event)">Triple</button></ion-col>
-    <ion-col><button class="key" (tap)="onTap($event)">&gt;</button></ion-col>
+    <ion-col><button class="key" (tap)="onNext($event)">&gt;</button></ion-col>
   </ion-row>
   <ion-row>
       <ion-col><button class="key" (tap)="onTap($event)">Bull</button></ion-col>
@@ -25,7 +25,7 @@
     <ion-col><button class="key" (tap)="onTap($event)">3</button></ion-col>
   </ion-row>
   <ion-row>
-    <ion-col><button class="key clear-key" (tap)="onTap($event)">Clear</button></ion-col>
-    <ion-col><button class="key save-key" (tap)="onTap($event)">Save</button></ion-col>
+    <ion-col><button class="key clear-key" (tap)="onClear($event)">Clear</button></ion-col>
+    <ion-col><button class="key save-key" (tap)="onSave($event)">Save</button></ion-col>
   </ion-row>
 </div>

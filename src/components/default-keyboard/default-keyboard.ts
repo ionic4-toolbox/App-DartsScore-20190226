@@ -15,16 +15,31 @@ import { Score } from '../../entities/Score'
   templateUrl: 'default-keyboard.html'
 })
 export class DefaultKeyboardComponent {
+  input: string = ''
   constructor(
     private store: Store<ScoreStore.State>
   ) {
   }
 
   onTap(event: any) {
-    console.log(event.target.textContent)
+    this.input += event.target.textContent
+  }
+
+  onNext(event: any) {
     let score: Score = new Score()
-    score.value = '1'
+    score.value = event.target.textContent
     score.count = 1
     this.store.dispatch(new ScoreAction.InputScore(score))
+  }
+
+  onPrevious(event: any) {
+    let score: Score = new Score()
+    score.value = event.target.textContent
+    score.count = 1
+    this.store.dispatch(new ScoreAction.InputScore(score))
+  }
+
+  onClear(event: any) {
+    this.input = ''
   }
 }
