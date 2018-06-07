@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { HttpModule } from '@angular/http'
 import { NgModule, ErrorHandler } from '@angular/core'
-import { StoreModule } from '@ngrx/store'
+import { StoreModule, State } from '@ngrx/store'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular'
 
@@ -35,6 +35,7 @@ import { UserData } from '../providers/user-data'
 
 import { ComponentsModule } from '../components/components.module'
 import { reducers } from '../store'
+import * as ScoreState from '../pages/score/store/state'
 
 @NgModule({
   declarations: [
@@ -63,7 +64,9 @@ import { reducers } from '../store'
       maxAge: 25
     }),
     // AngularFireModule.initializeApp(environment.firebase),
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, {
+      initialState: { score: ScoreState.initialState }
+    }),
     IonicModule.forRoot(ConferenceApp, {}, {
       links: [
         { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
