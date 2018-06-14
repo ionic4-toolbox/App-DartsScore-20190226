@@ -16,8 +16,10 @@ export class ScoreParserProvider {
 
   parse2Score(input: string, option: any): Score {
     if (!this.isValidRegScore(input)) {
+      console.log("ERRRRRRRRRRORRRRR")
       throw new Error("invalid input score")
     }
+    console.log("[REG] input: " + input + ", func: " + this.isValidRegScore(input))
     let score: Score = new Score()
     score.strValue = this.getStringValue(input, option)
     score.intValue = this.getIntValue(input, option)

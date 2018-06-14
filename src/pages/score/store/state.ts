@@ -4,7 +4,6 @@ import { Score } from '../../../entities/Score'
  * 状態
  */
 export interface State {
-  currentScore: string
   loading: boolean
   scores: Score[][]
   resultScores: Score[]
@@ -21,7 +20,6 @@ export interface State {
  * 初期状態
  */
 export const initialState: State = {
-  currentScore: "",
   loading: false,
   scores: [[]],
   resultScores: [],

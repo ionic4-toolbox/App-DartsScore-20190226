@@ -51,14 +51,6 @@ export function reducer(state = initialState, action: ScoreAction.Actions): Stat
         return Object.assign({}, state)
       }
     }
-    case ScoreAction.INPUT_CURRENT_SCORE: {
-      console.log("[INPUT_CURRENT_SCORE]")
-      return Object.assign({}, state, { currentScore: state.currentScore + action.payload })
-    }
-    case ScoreAction.CLEAR_CURRENT_SCORE: {
-      console.log("[CLEAR_CURRENT_SCORE]")
-      return Object.assign({}, state, { currentScore: '' })
-    }
     default: {
       return state
     }

@@ -82,29 +82,10 @@ export class DecrementActivePointer implements Action {
   constructor() {}
 }
 
-/**
- *キーボードで入力された時
- *
- * @export
- * @class InputCurrentScore
- * @implements {Action}
- */
-export class InputCurrentScore implements Action {
-  readonly type = INPUT_CURRENT_SCORE
-  constructor(public payload: string) {}
-}
-
-export class ClearCurrentScore implements Action {
-  readonly type = CLEAR_CURRENT_SCORE
-  constructor() {}
-}
-
 export type Actions = ChangeScores
                     | InputScore
                     | ChangeResultScores
                     | IncrementCurrentPointer
                     | IncrementActivePointer
                     | DecrementActivePointer
-                    | InputCurrentScore
-                    | ClearCurrentScore
                     | any;
