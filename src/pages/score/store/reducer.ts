@@ -16,14 +16,14 @@ export function reducer(state = initialState, action: ScoreAction.Actions): Stat
       let scores: Score[][] = state.scores
       console.log("[INPUT_SCORE]: " + JSON.stringify(action.payload))
       console.log("[INPUT_SCORE]: activeRound: " + state.activeRound + ", activeShot: " + state.activeShot)
-      scores[state.activeRound - 1][state.activeShot - 1] = action.payload
+      scores[state.activeShot - 1][state.activeRound - 1] = action.payload
       return Object.assign({}, state, { scores })
     }
     case ScoreAction.CHANGE_RESULT_SCORES: {
       return Object.assign({}, state, { loading: true, resultScores: action.payload })
     }
     case ScoreAction.INCREMENT_CURRENT_POINTER: {
-      const nextPointer: number = state.currentPointer++
+      const nextPointer: number = state.currentPointer + 1
       const nextRound: number = Math.floor((nextPointer) / 3) + 1
       console.log("[INCREMENT_CURRENT_POINTER]: " + nextPointer + ", currentShot: " + (nextPointer % 3 + 1) + ", currentRound: " + nextRound)
       if (nextRound <= state.limitRound) {
@@ -33,7 +33,7 @@ export function reducer(state = initialState, action: ScoreAction.Actions): Stat
       }
     }
     case ScoreAction.INCREMENT_ACTIVE_POINTER: {
-      const nextPointer: number = state.activePointer++
+      const nextPointer: number = state.activePointer + 1
       const nextRound: number = Math.floor((nextPointer) / 3) + 1
       console.log("[INCREMENT_ACTIVE_POINTER]: " + nextPointer + ", activeShot: " + (nextPointer % 3 + 1) + ", activeRound: " + nextRound)
       if (nextRound <= state.limitRound) {
@@ -43,7 +43,7 @@ export function reducer(state = initialState, action: ScoreAction.Actions): Stat
       }
     }
     case ScoreAction.DECREMENT_ACTIVE_POINTER: {
-      const nextPointer: number = state.activePointer--
+      const nextPointer: number = state.activePointer - 1
       const round: number = Math.floor((nextPointer + 1) / 3) + 1
       console.log("[DECREMENT_ACTIVE_POINTER]: " + nextPointer + ", activeShot: " + (nextPointer % 3 + 1) + ", activeRound: " + round)
       if (state.activePointer > 0) {
