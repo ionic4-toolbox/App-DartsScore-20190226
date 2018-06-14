@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { HttpModule } from '@angular/http'
 import { NgModule, ErrorHandler } from '@angular/core'
-import { StoreModule, State } from '@ngrx/store'
+import { StoreModule } from '@ngrx/store'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular'
 
@@ -36,6 +36,8 @@ import { UserData } from '../providers/user-data'
 import { ComponentsModule } from '../components/components.module'
 import { reducers } from '../store'
 import * as ScoreState from '../pages/score/store/state'
+import { ScoreParserProvider } from '../providers/score-parser/score-parser';
+import { ScoreProvider } from '../providers/score/score';
 
 @NgModule({
   declarations: [
@@ -105,7 +107,9 @@ import * as ScoreState from '../pages/score/store/state'
     ConferenceData,
     UserData,
     InAppBrowser,
-    SplashScreen
+    SplashScreen,
+    ScoreParserProvider,
+    ScoreProvider
   ]
 })
 export class AppModule { }

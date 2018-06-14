@@ -4,6 +4,8 @@ import { Store, select } from '@ngrx/store'
 import * as ScoreAction from '../../pages/score/store/action'
 import * as ScoreStore from '../../pages/score/store'
 import { Score } from '../../entities/Score'
+import { ScoreProvider } from '../../providers/score/score'
+
 /**
  * Generated class for the CricketKeyboardComponent component.
  *
@@ -12,34 +14,59 @@ import { Score } from '../../entities/Score'
  */
 @Component({
   selector: 'default-keyboard',
-  templateUrl: 'default-keyboard.html'
+  templateUrl: 'default-keyboard.html',
+  providers: [ScoreProvider]
 })
 export class DefaultKeyboardComponent {
-  input: string = ''
   constructor(
-    private store: Store<ScoreStore.State>
+    private store: Store<ScoreStore.State>,
+    private scoreProvider: ScoreProvider
   ) {
   }
 
   onTap(event: any) {
-    this.input += event.target.textContent
+    console.log("[onTap]")
+    const input: string = event.target.textContent
+    if (input === 'Triple') {
+      this.store.dispatch(new ScoreAction.InputCurrentScore('T'))
+    } else if (input === 'Double') {
+      this.store.dispatch(new ScoreAction.InputCurrentScore('D'))
+    } else {
+      this.store.dispatch(new ScoreAction.InputCurrentScore(input))
+    }
+    this.store.pipe(select(ScoreStore.getCurrentScore))
+    .subscribe((data: string) => {
+      this.store.dispatch(new ScoreAction.InputScore(this.scoreProvider.getTemporaryScore(data)))
+    })
   }
 
   onNext(event: any) {
-    let score: Score = new Score()
-    score.value = event.target.textContent
-    score.count = 1
-    this.store.dispatch(new ScoreAction.InputScore(score))
+    console.log("[onNext]")
+    this.store.pipe(select(ScoreStore.getCurrentScore))
+    .subscribe((data: string) => {
+      try {
+        this.store.dispatch(new ScoreAction.InputScore(this.scoreProvider.getScore(data)))
+      } catch(e) {
+        // toast
+      }
+      this.store.dispatch(new ScoreAction.ClearCurrentScore())
+      this.store.dispatch(new ScoreAction.IncrementCurrentPointer())
+      this.store.dispatch(new ScoreAction.IncrementActivePointer())
+    })
   }
 
   onPrevious(event: any) {
-    let score: Score = new Score()
-    score.value = event.target.textContent
-    score.count = 1
-    this.store.dispatch(new ScoreAction.InputScore(score))
+    console.log("[onPrevious]")
+    this.store.pipe(select(ScoreStore.getCurrentScore))
+    .subscribe((data: string) => {
+      this.store.dispatch(new ScoreAction.InputScore(this.scoreProvider.getScore(data)))
+      this.store.dispatch(new ScoreAction.ClearCurrentScore())
+      this.store.dispatch(new ScoreAction.DecrementActivePointer())
+    })
   }
 
   onClear(event: any) {
-    this.input = ''
+    console.log("[onClear]")
+    this.store.dispatch(new ScoreAction.ClearCurrentScore())
   }
 }

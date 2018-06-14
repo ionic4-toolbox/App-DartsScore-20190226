@@ -43,10 +43,12 @@ export class ScorePage {
         let score: Score = new Score()
         if (j === 0) {
           score.count = 0
-          score.value = "0"
+          score.strValue = "0"
+          score.intValue = 0
         } else {
           score.count = 2
-          score.value = "20"
+          score.strValue = "20"
+          score.intValue = 20
         }
         scoreRow.push(score)
       }

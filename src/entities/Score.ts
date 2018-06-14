@@ -3,8 +3,16 @@ export class Score {
     return this._strValue
   }
 
+  set strValue(value: string) {
+    this._strValue = value
+  }
+  
   get intValue(): number {
     return this._intValue
+  }
+  
+  set intValue(value: number) {
+    this._intValue = value
   }
 
   get count(): number {
@@ -13,11 +21,6 @@ export class Score {
 
   set count(value: number) {
     this._count = value
-  }
-
-  set value(value: string) {
-    this._strValue = value
-    this._intValue = Number(value)
   }
 
   public add(score: Score) {
