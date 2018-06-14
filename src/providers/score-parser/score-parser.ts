@@ -21,7 +21,7 @@ export class ScoreParserProvider {
     }
     console.log("[REG] input: " + input + ", func: " + this.isValidRegScore(input))
     let score: Score = new Score()
-    score.strValue = this.getStringValue(input, option)
+    score.strValue = input
     score.intValue = this.getIntValue(input, option)
     score.count = this.getCount(input)
     return score
@@ -49,13 +49,6 @@ export class ScoreParserProvider {
     } else {
       return 1
     }
-  }
-
-  private getStringValue(input: string, option: any): string {
-    if (this.isTriple(input) || this.isDouble(input)) {
-      return input.substr(1, input.length)
-    }
-    return input
   }
 
   private getIntValue(input: string, option: any): number {

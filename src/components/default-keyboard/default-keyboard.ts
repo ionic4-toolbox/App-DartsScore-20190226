@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
-import { Store, select } from '@ngrx/store'
+import { Store } from '@ngrx/store'
+import { ToastController } from 'ionic-angular'
 
 import * as ScoreAction from '../../pages/score/store/action'
 import * as ScoreStore from '../../pages/score/store'
@@ -21,7 +22,8 @@ export class DefaultKeyboardComponent {
 
   constructor(
     private store: Store<ScoreStore.State>,
-    private scoreProvider: ScoreProvider
+    private scoreProvider: ScoreProvider,
+    private toastCtrl: ToastController
   ) {
   }
 
@@ -43,7 +45,8 @@ export class DefaultKeyboardComponent {
     try {
       this.store.dispatch(new ScoreAction.InputScore(this.scoreProvider.getScore(this.input)))
     } catch (e) {
-      // todo
+      this.toastError()
+      return 
     }
     this.input = ""
     this.store.dispatch(new ScoreAction.IncrementCurrentPointer())
@@ -55,7 +58,7 @@ export class DefaultKeyboardComponent {
     try {
       this.store.dispatch(new ScoreAction.InputScore(this.scoreProvider.getScore(this.input)))
     } catch(e) {
-      // toast
+      this.toastError()
       return
     }
     this.input = ""
@@ -64,6 +67,15 @@ export class DefaultKeyboardComponent {
 
   onClear() {
     console.log("[onClear]")
-    this.store.dispatch(new ScoreAction.ClearCurrentScore())
+    this.input = ""
+  }
+
+  toastError() {
+    let toast = this.toastCtrl.create({
+      message: 'This is invalid score',
+      duration: 3000,
+      position: 'bottom'
+    })
+    toast.present()
   }
 }
