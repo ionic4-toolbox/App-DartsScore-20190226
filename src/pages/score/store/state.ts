@@ -24,10 +24,10 @@ export const initialState: State = {
   scores: [[]],
   resultScores: [],
   limitRound: 15,
-  currentRound: 0,
-  currentShot: 0,
+  currentRound: 1,
+  currentShot: 1,
   currentPointer: 0,
-  activeRound: 0,
-  activeShot: 0,
+  activeRound: 1,
+  activeShot: 1,
   activePointer: 0
 }
