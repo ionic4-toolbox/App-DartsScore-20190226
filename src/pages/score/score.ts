@@ -56,6 +56,10 @@ export class ScorePage {
     this.store.dispatch(new ScoreAction.ChangeResultScores())
   }
 
+  updateSchedule() {
+
+  }
+
   // openContact(speaker: any) {
   //   let mode = this.config.get('mode');
   // }
