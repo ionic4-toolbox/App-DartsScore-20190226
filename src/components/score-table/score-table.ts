@@ -31,11 +31,6 @@ export class ScoreTableComponent {
       this.activePointer = data.activePointer
       this.scoreTable = data.scores
       this.resultScores = data.resultScores
-      console.log("IS ACTIVE : " + this.isActive(), this.activeRound, this.activeShot, this.activePointer)
     })
-  }
-
-  isActive(): boolean {
-    return this.activePointer === (this.activeRound - 1) * 3 + this.activeShot - 1
   }
 }
