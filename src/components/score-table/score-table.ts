@@ -19,6 +19,7 @@ export class ScoreTableComponent {
   resultScores: Score[]
   activeRound: number
   activeShot: number
+  activePointer: number
 
   constructor(
     private store: Store<ScoreStore.State>
@@ -27,8 +28,9 @@ export class ScoreTableComponent {
     .subscribe((data: ScoreStore.State) => {
       this.activeRound = data.activeRound
       this.activeShot = data.activeShot
+      this.activePointer = data.activePointer
       this.scoreTable = data.scores
-      this.resultScores = data.resultScores   
+      this.resultScores = data.resultScores
     })
   }
 }

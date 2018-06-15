@@ -10,7 +10,7 @@
     <tbody>
       <tr *ngFor="let scoreRow of scoreTable; let i = index">
         <td class="score-roll"><b>{{i+1}}投目</b></td>
-        <td class="score-cell" *ngFor="let scoreCol of scoreRow">
+        <td class="score-cell" *ngFor="let scoreCol of scoreRow; let j = index" [ngClass]="{'active' : activePointer === i + j * 3}">
           {{scoreCol.strValue}}
         </td>
       </tr>
