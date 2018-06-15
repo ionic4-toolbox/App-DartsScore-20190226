@@ -17,15 +17,18 @@ import { Score } from '../../entities/Score'
 export class ScoreTableComponent {
   scoreTable: Score[][]
   resultScores: Score[]
+  activeRound: number
+  activeShot: number
 
   constructor(
     private store: Store<ScoreStore.State>
   ) {
-    this.store.pipe(select(ScoreStore.getState))
+    this.store.pipe(select(ScoreStore.get4ScoreTable))
     .subscribe((data: ScoreStore.State) => {
+      this.activeRound = data.activeRound
+      this.activeShot = data.activeShot
       this.scoreTable = data.scores
-      this.resultScores = data.resultScores
+      this.resultScores = data.resultScores   
     })
   }
-
 }

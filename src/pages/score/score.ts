@@ -31,39 +31,29 @@ export class ScorePage {
   resultScores: Score[] = []
   gameType: GameType = GameType.COUNTUP
   GameTypes = GameType
-  _scoreTable: any
 
   constructor(
     public config: Config,
     private store: Store<ScoreStore.State>
   ) {
+  }
+
+  ionViewWillEnter() {
+    this.scoreTable = []
+    this.store.dispatch(new ScoreAction.ClearScoreInfo())
     for(let i = 0; i < 3; i++) {
       let scoreRow: Score[] = []
       for(let j = 0; j < 12; j++) {
         let score: Score = new Score()
-        if (j === 0) {
-          score.count = 0
-          score.value = "0"
-        } else {
-          score.count = 2
-          score.value = "20"
-        }
+        score.count = 0
+        score.strValue = ""
+        score.intValue = 0
         scoreRow.push(score)
       }
       this.scoreTable.push(scoreRow)
     }
-    for(let i = 0; i < 12; i++) {
-      let resultScore = new Score()
-      resultScore.add(this.scoreTable[0][i])
-      resultScore.add(this.scoreTable[1][i])
-      resultScore.add(this.scoreTable[2][i])
-      this.resultScores.push(resultScore)
-    }
-  }
-
-  ionViewDidLoad() {
     this.store.dispatch(new ScoreAction.ChangeScores(this.scoreTable))
-    this.store.dispatch(new ScoreAction.ChangeResultScores(this.resultScores))
+    this.store.dispatch(new ScoreAction.ChangeResultScores())
   }
 
   updateSchedule() {

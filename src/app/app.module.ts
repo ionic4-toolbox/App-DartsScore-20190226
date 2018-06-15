@@ -35,6 +35,9 @@ import { UserData } from '../providers/user-data'
 
 import { ComponentsModule } from '../components/components.module'
 import { reducers } from '../store'
+import * as ScoreState from '../pages/score/store/state'
+import { ScoreParserProvider } from '../providers/score-parser/score-parser';
+import { ScoreProvider } from '../providers/score/score';
 
 @NgModule({
   declarations: [
@@ -63,7 +66,9 @@ import { reducers } from '../store'
       maxAge: 25
     }),
     // AngularFireModule.initializeApp(environment.firebase),
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, {
+      initialState: { score: ScoreState.initialState }
+    }),
     IonicModule.forRoot(ConferenceApp, {}, {
       links: [
         { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
@@ -102,7 +107,9 @@ import { reducers } from '../store'
     ConferenceData,
     UserData,
     InAppBrowser,
-    SplashScreen
+    SplashScreen,
+    ScoreParserProvider,
+    ScoreProvider
   ]
 })
 export class AppModule { }

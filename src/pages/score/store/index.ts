@@ -6,7 +6,15 @@ export { State, reducer }
 /**
  * セレクタ（Storeから特定の状態を取得する）
  */
-export const getState = createFeatureSelector<State>('score');
-export const getLoading = createSelector(getState, state => state.loading);
-export const getScores = createSelector(getState, state => state.scores);
-export const getResultScores = createSelector(getState, state => state.resultScores);
+export const getState = createFeatureSelector<State>('score')
+export const getLoading = createSelector(getState, state => state.loading)
+export const getScores = createSelector(getState, state => state.scores)
+export const getResultScores = createSelector(getState, state => state.resultScores)
+export const get4ScoreTable = createSelector(getState, state => {
+  return {
+    scores: state.scores,
+    resultScores: state.resultScores,
+    activeRound: state.activeRound,
+    activeShot: state.activeShot
+  }
+})
