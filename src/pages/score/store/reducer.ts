@@ -62,6 +62,10 @@ export function reducer(state = initialState, action: ScoreAction.Actions): Stat
         return Object.assign({}, state)
       }
     }
+    case ScoreAction.CLEAR_SCORE_INFO: {
+      console.log("[CLEAR_SCORE_INFO] " + JSON.stringify(initialState))
+      return Object.assign({}, state, initialState)
+    }
     default: {
       return state
     }

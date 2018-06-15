@@ -7,8 +7,7 @@ export const CHANGE_RESULT_SCORES: string = '[Score] Change Result Scores'
 export const INCREMENT_CURRENT_POINTER: string = '[Score] Increment Current Pointer'
 export const INCREMENT_ACTIVE_POINTER: string = '[Score] Increment Active Pointer'
 export const DECREMENT_ACTIVE_POINTER: string = '[Score] Decrement Active Pointer'
-export const INPUT_CURRENT_SCORE: string = '[Score] Input Current Score'
-export const CLEAR_CURRENT_SCORE: string = '[Score] Clear Current Score'
+export const CLEAR_SCORE_INFO: string = '[Score] Clear Score Info'
 
 /**
  *スコアテーブルが変わった時
@@ -82,10 +81,16 @@ export class DecrementActivePointer implements Action {
   constructor() {}
 }
 
+export class ClearScoreInfo implements Action {
+  readonly type = CLEAR_SCORE_INFO
+  constructor() {}
+}
+
 export type Actions = ChangeScores
                     | InputScore
                     | ChangeResultScores
                     | IncrementCurrentPointer
                     | IncrementActivePointer
                     | DecrementActivePointer
+                    | ClearScoreInfo
                     | any;

@@ -25,7 +25,6 @@ export class DefaultKeyboardComponent {
     private scoreProvider: ScoreProvider,
     private toastCtrl: ToastController
   ) {
-    this.store.dispatch(new ScoreAction.ChangeResultScores())
   }
 
   onTap(event: any) {
