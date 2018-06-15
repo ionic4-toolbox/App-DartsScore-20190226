@@ -45,6 +45,7 @@ export class DefaultKeyboardComponent {
     try {
       this.store.dispatch(new ScoreAction.InputScore(this.scoreProvider.getScore(this.input)))
     } catch (e) {
+      console.log("[onNext ERROR]: " + e.message)
       this.toastError()
       return 
     }
@@ -68,9 +69,10 @@ export class DefaultKeyboardComponent {
   onClear() {
     console.log("[onClear]")
     this.input = ""
+    this.store.dispatch(new ScoreAction.InputScore(this.scoreProvider.getTemporaryScore(this.input)))
   }
 
-  toastError() {
+  private toastError() {
     let toast = this.toastCtrl.create({
       message: 'This is invalid score',
       duration: 3000,

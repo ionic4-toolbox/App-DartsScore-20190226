@@ -16,10 +16,11 @@ export class ScoreParserProvider {
 
   parse2Score(input: string, option: any): Score {
     if (!this.isValidRegScore(input)) {
-      console.log("ERRRRRRRRRRORRRRR")
-      throw new Error("invalid input score")
+      throw new Error("Invalid Input Score")
     }
-    console.log("[REG] input: " + input + ", func: " + this.isValidRegScore(input))
+    if (input.length <= 0) {
+      throw new Error("String Length is lower than 1")
+    }
     let score: Score = new Score()
     score.strValue = input
     score.intValue = this.getIntValue(input, option)
@@ -36,9 +37,6 @@ export class ScoreParserProvider {
   }
 
   private getCount(input: string): number {
-    if (input.length <= 0) {
-      throw new SyntaxError("入力文字列がありません")
-    }
     const prefix: string = this.getPrefix(input)
     if (prefix === 'T') {
       return 3
@@ -52,11 +50,11 @@ export class ScoreParserProvider {
   }
 
   private getIntValue(input: string, option: any): number {
-    const strValue: string = this.getStringValue(input, option)
+    const strValue: string = this.getValueExceptedForDoubleTriple(input)
     if (strValue === '-') {
       return 0
     } else if (strValue === 'Bull') {
-      if (!this.isDouble(input) && option.isBigBull) {
+      if (!this.isDouble(input) && !this.isTriple(input) && option.isBigBull) {
         return 50
       }
       return 25
@@ -67,6 +65,13 @@ export class ScoreParserProvider {
 
   private getPrefix(input: string): string {
     return input.substr(0, 1)
+  }
+
+  private getValueExceptedForDoubleTriple(input: string): string {
+    if (this.isDouble(input) || this.isTriple(input)) {
+      return input.substr(1)
+    }
+    return input
   }
 
   private isValidRegScore(input: string): boolean {
