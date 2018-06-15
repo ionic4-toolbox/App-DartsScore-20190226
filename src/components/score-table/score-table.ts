@@ -28,7 +28,7 @@ export class ScoreTableComponent {
       this.activeRound = data.activeRound
       this.activeShot = data.activeShot
       this.scoreTable = data.scores
-      this.resultScores = data.resultScores
+      this.resultScores = data.resultScores   
     })
   }
 }

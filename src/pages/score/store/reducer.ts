@@ -20,7 +20,17 @@ export function reducer(state = initialState, action: ScoreAction.Actions): Stat
       return Object.assign({}, state, { scores })
     }
     case ScoreAction.CHANGE_RESULT_SCORES: {
-      return Object.assign({}, state, { loading: true, resultScores: action.payload })
+      let resultScores: Score[] = []
+      let result: Score = null
+      const lastRound: number = state.scores[0].length
+      for(let i = 0; i < lastRound; i++) {
+        result = new Score()
+        result.add(state.scores[0][i])
+        result.add(state.scores[1][i])
+        result.add(state.scores[2][i])
+        resultScores.push(result)
+      }
+      return Object.assign({}, state, { loading: true, resultScores })
     }
     case ScoreAction.INCREMENT_CURRENT_POINTER: {
       const nextPointer: number = state.currentPointer + 1

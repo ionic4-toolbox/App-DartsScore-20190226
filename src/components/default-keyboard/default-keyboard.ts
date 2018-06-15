@@ -25,6 +25,7 @@ export class DefaultKeyboardComponent {
     private scoreProvider: ScoreProvider,
     private toastCtrl: ToastController
   ) {
+    this.store.dispatch(new ScoreAction.ChangeResultScores())
   }
 
   onTap(event: any) {
@@ -41,7 +42,6 @@ export class DefaultKeyboardComponent {
   }
 
   onNext() {
-    console.log("[onNext]")
     try {
       this.store.dispatch(new ScoreAction.InputScore(this.scoreProvider.getScore(this.input)))
     } catch (e) {
@@ -50,19 +50,21 @@ export class DefaultKeyboardComponent {
       return 
     }
     this.input = ""
+    this.store.dispatch(new ScoreAction.ChangeResultScores())
     this.store.dispatch(new ScoreAction.IncrementCurrentPointer())
     this.store.dispatch(new ScoreAction.IncrementActivePointer())
   }
 
   onPrevious() {
-    console.log("[onPrevious]")
     try {
       this.store.dispatch(new ScoreAction.InputScore(this.scoreProvider.getScore(this.input)))
     } catch(e) {
+      console.log("[onPrevious ERROR]: " + e.message)
       this.toastError()
       return
     }
     this.input = ""
+    this.store.dispatch(new ScoreAction.ChangeResultScores())
     this.store.dispatch(new ScoreAction.DecrementActivePointer())
   }
 

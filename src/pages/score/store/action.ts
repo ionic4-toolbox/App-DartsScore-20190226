@@ -43,7 +43,7 @@ export class InputScore implements Action {
  */
 export class ChangeResultScores implements Action {
   readonly type = CHANGE_RESULT_SCORES
-  constructor(public payload: Score[]) {}
+  constructor() {}
 }
 
 /**

@@ -35,7 +35,7 @@ export class Score {
     return sum
   }
   
-  private _intValue: number = -1
+  private _intValue: number = 0
   private _strValue: string = ""
   private _count: number = 0
   private _scores: Score[] = []
