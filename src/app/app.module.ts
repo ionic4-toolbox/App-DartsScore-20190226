@@ -38,6 +38,10 @@ import { reducers } from '../store'
 import * as ScoreState from '../pages/score/store/state'
 import { ScoreParserProvider } from '../providers/score-parser/score-parser';
 import { ScoreProvider } from '../providers/score/score';
+import { ScoreCalculatorProvider } from '../providers/score-calculator/score-calculator';
+import { ZerooneCalculatorProvider } from '../providers/zeroone-calculator/zeroone-calculator';
+import { CricketCalculatorProvider } from '../providers/cricket-calculator/cricket-calculator';
+import { CountupCalculatorProvider } from '../providers/countup-calculator/countup-calculator';
 
 @NgModule({
   declarations: [
@@ -109,7 +113,11 @@ import { ScoreProvider } from '../providers/score/score';
     InAppBrowser,
     SplashScreen,
     ScoreParserProvider,
-    ScoreProvider
+    ScoreProvider,
+    ScoreCalculatorProvider,
+    ZerooneCalculatorProvider,
+    CricketCalculatorProvider,
+    CountupCalculatorProvider
   ]
 })
 export class AppModule { }

@@ -1,6 +1,7 @@
 import * as ScoreAction from './action'
 import { Score } from '../../../entities/Score'
 import { State, initialState } from './state'
+import { IfObservable } from 'rxjs/observable/IfObservable';
 
 /**
  * Reducer
@@ -26,6 +27,7 @@ export function reducer(state = initialState, action: ScoreAction.Actions): Stat
         result.add(state.scores[2][i])
         resultScores.push(result)
       }
+      console.log("[CHANGE_RESULT_SCORES]: " + JSON.stringify(resultScores))
       return Object.assign({}, state, { loading: true, resultScores })
     }
     case ScoreAction.INCREMENT_CURRENT_POINTER: {
@@ -79,6 +81,10 @@ export function reducer(state = initialState, action: ScoreAction.Actions): Stat
       }
       console.log("[SET_INITIAL_SCORES] " + JSON.stringify(scoreTable))
       return Object.assign({}, state, { scores: scoreTable })
+    }
+    case ScoreAction.CHANGE_GAME_TYPE: {
+      console.log("[CHANGE_GAME_TYPE]: " + action.payload)
+      return Object.assign({}, state, { gameType: action.payload })
     }
     default: {
       return state

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store'
 import { GameType } from '../../entities/GameType'
 
 import {
-  ActionSheet,
+  // ActionSheet,
   Config,
 } from 'ionic-angular'
 

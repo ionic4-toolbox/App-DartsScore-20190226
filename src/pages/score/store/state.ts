@@ -1,4 +1,5 @@
 import { Score } from '../../../entities/Score'
+import { GameType } from '../../../entities/GameType'
 
 /**
  * 状態
@@ -14,6 +15,7 @@ export interface State {
   activeRound: number    /* 現在入力対象のラウンド数 */
   activeShot: number     /* 現在入力対象のラウンドの投数 */
   activePointer: number  /* 現在入力対象のカーソルのポインタ */
+  gameType: GameType     /* ゲームの種別 */
 }
 
 /**
@@ -29,5 +31,6 @@ export const initialState: State = {
   currentPointer: 0,
   activeRound: 1,
   activeShot: 1,
-  activePointer: 0
+  activePointer: 0,
+  gameType: GameType.ZEROONE
 }

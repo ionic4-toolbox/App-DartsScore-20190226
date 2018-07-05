@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store'
 import { Score } from '../../../entities/Score'
+import { GameType } from '../../../entities/GameType'
 
-export const CHANGE_SCORES: string = '[Score] Change Scores'
 export const INPUT_SCORE: string = '[Score] Input Score'
 export const CHANGE_RESULT_SCORES: string = '[Score] Change Result Scores'
 export const INCREMENT_CURRENT_POINTER: string = '[Score] Increment Current Pointer'
@@ -9,6 +9,7 @@ export const INCREMENT_ACTIVE_POINTER: string = '[Score] Increment Active Pointe
 export const DECREMENT_ACTIVE_POINTER: string = '[Score] Decrement Active Pointer'
 export const CLEAR_SCORE_INFO: string = '[Score] Clear Score Info'
 export const SET_INITIAL_SCORES: string = '[Score] Set Initial Scores'
+export const CHANGE_GAME_TYPE: string = '[Score] Change Game Type'
 
 /**
  *スコアが入力されたとき
@@ -96,12 +97,17 @@ export class SetInitialScores implements Action {
   constructor(public payload: number) {}
 }
 
-export type Actions = ChangeScores
-                    | InputScore
+export class ChangeGameType implements Action {
+  readonly type = CHANGE_GAME_TYPE
+  constructor(public payload: GameType) {}
+}
+
+export type Actions = InputScore
                     | ChangeResultScores
                     | IncrementCurrentPointer
                     | IncrementActivePointer
                     | DecrementActivePointer
                     | ClearScoreInfo
                     | SetInitialScores
+                    | ChangeGameType
                     | any;
