@@ -1,3 +1,11 @@
 score-display {
-
+  .result-score {
+    display: flex;
+    justify-content: center;
+  }
+  .result-score-value {
+    width: 30%;
+    text-align: center;
+    border-bottom: 5px solid rgb(255, 183, 76);
+  }
 }
