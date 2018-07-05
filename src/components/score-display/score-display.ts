@@ -39,8 +39,7 @@ export class ScoreDisplayComponent {
       return this.scoreCalcProvider.calcScore(this.gameType, this.resultScores, this.initScore)
     } catch(e) {
       console.log("[score-table ERROR]: " + e.message)
-      return 0
+      return -1
     }
   }
-
 }
