@@ -32,5 +32,5 @@ export const initialState: State = {
   activeRound: 1,
   activeShot: 1,
   activePointer: 0,
-  gameType: GameType.ZEROONE
+  gameType: GameType.COUNTUP
 }

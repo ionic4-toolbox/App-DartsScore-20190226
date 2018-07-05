@@ -42,8 +42,8 @@ export class ScorePage {
   }
 
   updateGameType() {
-    this.store.dispatch(new ScoreAction.ChangeGameType(this.gameType))
     this.store.dispatch(new ScoreAction.ClearScoreInfo())
+    this.store.dispatch(new ScoreAction.ChangeGameType(this.gameType))
     this.store.dispatch(new ScoreAction.SetInitialScores(15))
     this.store.dispatch(new ScoreAction.ChangeResultScores())
   }

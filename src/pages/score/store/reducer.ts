@@ -1,7 +1,6 @@
 import * as ScoreAction from './action'
 import { Score } from '../../../entities/Score'
 import { State, initialState } from './state'
-import { IfObservable } from 'rxjs/observable/IfObservable';
 
 /**
  * Reducer

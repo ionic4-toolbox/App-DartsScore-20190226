@@ -23,6 +23,7 @@
 
 <ion-content class="outer-content">
   <score-table></score-table>
+  <score-display></score-display>
   <cricket-keyboard *ngIf="gameType === GameTypes.CRICKET"></cricket-keyboard>
   <default-keyboard *ngIf="gameType !== GameTypes.CRICKET"></default-keyboard>
 </ion-content>

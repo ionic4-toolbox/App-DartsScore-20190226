@@ -1,11 +1,9 @@
 import { Component } from '@angular/core'
 
 import { Store, select } from '@ngrx/store'
-import { ScoreCalculatorProvider } from '../../providers/score-calculator/score-calculator'
 
 import * as ScoreStore from '../../pages/score/store'
 import { Score } from '../../entities/Score'
-import { GameType } from '../../entities/GameType'
 /**
  * Generated class for the ScoreTableComponent component.
  *
@@ -14,8 +12,7 @@ import { GameType } from '../../entities/GameType'
  */
 @Component({
   selector: 'score-table',
-  templateUrl: 'score-table.html',
-  providers: [ScoreCalculatorProvider]
+  templateUrl: 'score-table.html'
 })
 export class ScoreTableComponent {
   scoreTable: Score[][]
@@ -23,12 +20,9 @@ export class ScoreTableComponent {
   activeRound: number
   activeShot: number
   activePointer: number
-  initScore: number = 501
-  gameType: GameType
 
   constructor(
-    private store: Store<ScoreStore.State>,
-    private scoreCalcProvider: ScoreCalculatorProvider
+    private store: Store<ScoreStore.State>
   ) {
     this.store.pipe(select(ScoreStore.get4ScoreTable))
     .subscribe((data: ScoreStore.State) => {
@@ -37,16 +31,6 @@ export class ScoreTableComponent {
       this.activePointer = data.activePointer
       this.scoreTable = data.scores
       this.resultScores = data.resultScores
-      this.gameType = data.gameType
     })
-  }
-
-  calcScore(gameType: GameType): number {
-    try {
-      return this.scoreCalcProvider.calcScore(gameType, this.resultScores, this.initScore)
-    } catch(e) {
-      console.log("[score-table ERROR]: " + e.message)
-      return 0
-    }
   }
 }
