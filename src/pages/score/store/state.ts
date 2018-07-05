@@ -21,7 +21,7 @@ export interface State {
  */
 export const initialState: State = {
   loading: false,
-  scores: [[]],
+  scores: [],
   resultScores: [],
   limitRound: 15,
   currentRound: 1,

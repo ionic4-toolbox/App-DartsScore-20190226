@@ -8,18 +8,7 @@ export const INCREMENT_CURRENT_POINTER: string = '[Score] Increment Current Poin
 export const INCREMENT_ACTIVE_POINTER: string = '[Score] Increment Active Pointer'
 export const DECREMENT_ACTIVE_POINTER: string = '[Score] Decrement Active Pointer'
 export const CLEAR_SCORE_INFO: string = '[Score] Clear Score Info'
-
-/**
- *スコアテーブルが変わった時
- *
- * @export
- * @class ChangeScores
- * @implements {Action}
- */
-export class ChangeScores implements Action {
-  readonly type = CHANGE_SCORES
-  constructor(public payload: Score[][]) {}
-}
+export const SET_INITIAL_SCORES: string = '[Score] Set Initial Scores'
 
 /**
  *スコアが入力されたとき
@@ -27,6 +16,7 @@ export class ChangeScores implements Action {
  * @export
  * @class InputScore
  * @implements {Action}
+ * @argument payload 入力されたスコア情報
  */
 export class InputScore implements Action {
   readonly type = INPUT_SCORE
@@ -81,9 +71,29 @@ export class DecrementActivePointer implements Action {
   constructor() {}
 }
 
+/**
+ * スコアに関するすべての情報を初期化する
+ *
+ * @export
+ * @class ClearScoreInfo
+ * @implements {Action}
+ */
 export class ClearScoreInfo implements Action {
   readonly type = CLEAR_SCORE_INFO
   constructor() {}
+}
+
+/**
+ * スコアテーブルに初期のスコアをセットする
+ *
+ * @export
+ * @class SetInitialScores
+ * @implements {Action}
+ * @argument payload ラウンド数
+ */
+export class SetInitialScores implements Action {
+  readonly type = SET_INITIAL_SCORES
+  constructor(public payload: number) {}
 }
 
 export type Actions = ChangeScores
@@ -93,4 +103,5 @@ export type Actions = ChangeScores
                     | IncrementActivePointer
                     | DecrementActivePointer
                     | ClearScoreInfo
+                    | SetInitialScores
                     | any;

@@ -25,10 +25,7 @@ export interface ActionSheetButton {
   templateUrl: 'score.html'
 })
 export class ScorePage {
-  actionSheet: ActionSheet
-  speakers: any[] = []
   scoreTable: Score[][] = []
-  resultScores: Score[] = []
   gameType: GameType = GameType.COUNTUP
   GameTypes = GameType
 
@@ -39,20 +36,8 @@ export class ScorePage {
   }
 
   ionViewWillEnter() {
-    this.scoreTable = []
     this.store.dispatch(new ScoreAction.ClearScoreInfo())
-    for(let i = 0; i < 3; i++) {
-      let scoreRow: Score[] = []
-      for(let j = 0; j < 12; j++) {
-        let score: Score = new Score()
-        score.count = 0
-        score.strValue = ""
-        score.intValue = 0
-        scoreRow.push(score)
-      }
-      this.scoreTable.push(scoreRow)
-    }
-    this.store.dispatch(new ScoreAction.ChangeScores(this.scoreTable))
+    this.store.dispatch(new ScoreAction.SetInitialScores(15))
     this.store.dispatch(new ScoreAction.ChangeResultScores())
   }
 
