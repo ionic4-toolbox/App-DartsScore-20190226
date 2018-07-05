@@ -7,10 +7,6 @@ import { State, initialState } from './state'
  */
 export function reducer(state = initialState, action: ScoreAction.Actions): State {
   switch (action.type) {
-    case ScoreAction.CHANGE_SCORES: {
-      // 作成
-      return Object.assign({}, state, { loading: true, scores: action.payload });
-    }
     case ScoreAction.INPUT_SCORE: {
       console.log("[INPUT_SCORE]: (x, y) = ("+state.currentRound+", " + state.currentShot + ")")
       let scores: Score[][] = state.scores
@@ -30,6 +26,7 @@ export function reducer(state = initialState, action: ScoreAction.Actions): Stat
         result.add(state.scores[2][i])
         resultScores.push(result)
       }
+      console.log("[CHANGE_RESULT_SCORES]: " + JSON.stringify(resultScores))
       return Object.assign({}, state, { loading: true, resultScores })
     }
     case ScoreAction.INCREMENT_CURRENT_POINTER: {
@@ -65,6 +62,28 @@ export function reducer(state = initialState, action: ScoreAction.Actions): Stat
     case ScoreAction.CLEAR_SCORE_INFO: {
       console.log("[CLEAR_SCORE_INFO] " + JSON.stringify(initialState))
       return Object.assign({}, state, initialState)
+    }
+    case ScoreAction.SET_INITIAL_SCORES: {
+      console.log("[SET_INITIAL_SCORES] " + JSON.stringify(action.payload))
+      let scoreTable: Score[][] = []
+      const maxRound: number = action.payload
+      for(let i = 0; i < 3; i++) {
+        let scoreRow: Score[] = []
+        for(let j = 0; j < maxRound; j++) {
+          let score: Score = new Score()
+          score.count = 0
+          score.strValue = ""
+          score.intValue = 0
+          scoreRow.push(score)
+        }
+        scoreTable.push(scoreRow)
+      }
+      console.log("[SET_INITIAL_SCORES] " + JSON.stringify(scoreTable))
+      return Object.assign({}, state, { scores: scoreTable })
+    }
+    case ScoreAction.CHANGE_GAME_TYPE: {
+      console.log("[CHANGE_GAME_TYPE]: " + action.payload)
+      return Object.assign({}, state, { gameType: action.payload })
     }
     default: {
       return state

@@ -19,3 +19,9 @@ export const get4ScoreTable = createSelector(getState, state => {
     activePointer: state.activePointer
   }
 })
+export const get4ScoreDisplay = createSelector(getState, state => {
+  return {
+    resultScores: state.resultScores,
+    gameType: state.gameType
+  }
+})
