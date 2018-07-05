@@ -41,8 +41,11 @@ export class ScorePage {
     this.store.dispatch(new ScoreAction.ChangeResultScores())
   }
 
-  updateSchedule() {
-
+  updateGameType() {
+    this.store.dispatch(new ScoreAction.ChangeGameType(this.gameType))
+    this.store.dispatch(new ScoreAction.ClearScoreInfo())
+    this.store.dispatch(new ScoreAction.SetInitialScores(15))
+    this.store.dispatch(new ScoreAction.ChangeResultScores())
   }
 
   // openContact(speaker: any) {
