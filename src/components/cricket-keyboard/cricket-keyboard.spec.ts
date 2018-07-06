@@ -5,6 +5,7 @@ import { IonicModule } from 'ionic-angular'
 // import * as ScoreAction from '../../pages/score/store/action'
 // import * as ScoreStore from '../../pages/score/store/action'
 import { CricketKeyboardComponent } from './cricket-keyboard'
+import { ScoreParserProvider } from '../../providers/score-parser/score-parser'
 import { reducers } from '../../store'
 
 // const mockScoreStore = {
@@ -16,7 +17,8 @@ describe('ScorePage', () => {
     TestBed.configureTestingModule({
       declarations: [CricketKeyboardComponent],
       imports: [IonicModule.forRoot(CricketKeyboardComponent), StoreModule.forRoot(reducers)],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [ScoreParserProvider]
     }).compileComponents()
   );
 
