@@ -35,6 +35,10 @@ export class Score {
     return sum
   }
   
+  public getAll(): Score[] {
+    return this._scores
+  }
+  
   private _intValue: number = 0
   private _strValue: string = ""
   private _count: number = 0

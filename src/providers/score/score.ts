@@ -17,11 +17,8 @@ export class ScoreProvider {
     console.log('Hello ScoreProvider Provider');
   }
 
-  getScore(inputScore: string): Score {
-    const result: Score = this.scoreParser.parse2Score(inputScore, {
-      isBigBull: true
-    })
-    return result
+  getScore(inputScore: string, option: object): Score {
+    return this.scoreParser.parse2Score(inputScore, option)
   }
 
   getTemporaryScore(inputScore: string): Score {

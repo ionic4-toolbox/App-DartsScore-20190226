@@ -42,7 +42,9 @@ export class DefaultKeyboardComponent {
 
   onNext() {
     try {
-      this.store.dispatch(new ScoreAction.InputScore(this.scoreProvider.getScore(this.input)))
+      this.store.dispatch(new ScoreAction.InputScore(this.scoreProvider.getScore(this.input, {
+        isBigBull: true
+      })))
     } catch (e) {
       console.log("[onNext ERROR]: " + e.message)
       this.toastError()
@@ -56,7 +58,9 @@ export class DefaultKeyboardComponent {
 
   onPrevious() {
     try {
-      this.store.dispatch(new ScoreAction.InputScore(this.scoreProvider.getScore(this.input)))
+      this.store.dispatch(new ScoreAction.InputScore(this.scoreProvider.getScore(this.input, {
+        isBigBull: true
+      })))
     } catch(e) {
       console.log("[onPrevious ERROR]: " + e.message)
       this.toastError()

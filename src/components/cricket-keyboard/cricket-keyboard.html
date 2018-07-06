@@ -1,25 +1,25 @@
 <!-- Generated template for the CricketKeyboardComponent component -->
 <div class="cricket-keyboard">
   <ion-row>
-    <ion-col><button class="key" (tap)="onTap">&lt;</button></ion-col>
-    <ion-col><button class="key" (tap)="onTap">Double</button></ion-col>
-    <ion-col><button class="key" (tap)="onTap">Triple</button></ion-col>
-    <ion-col><button class="key" (tap)="onTap">&gt;</button></ion-col>
+    <ion-col><button class="key" (tap)="onPrevious($event)">&lt;</button></ion-col>
+    <ion-col><button class="key" (tap)="onTap($event)">Double</button></ion-col>
+    <ion-col><button class="key" (tap)="onTap($event)">Triple</button></ion-col>
+    <ion-col><button class="key" (tap)="onNext($event)">&gt;</button></ion-col>
   </ion-row>
   <ion-row>
-    <ion-col><button class="key" (tap)="onTap">Bull</button></ion-col>
-    <ion-col><button class="key" (tap)="onTap">18</button></ion-col>
-    <ion-col><button class="key" (tap)="onTap">19</button></ion-col>
-    <ion-col><button class="key" (tap)="onTap">20</button></ion-col>
+    <ion-col><button class="key" (tap)="onTap($event)">Bull</button></ion-col>
+    <ion-col><button class="key" (tap)="onTap($event)">18</button></ion-col>
+    <ion-col><button class="key" (tap)="onTap($event)">19</button></ion-col>
+    <ion-col><button class="key" (tap)="onTap($event)">20</button></ion-col>
   </ion-row>
   <ion-row>
-    <ion-col><button class="key" (tap)="onTap">-</button></ion-col>
-    <ion-col><button class="key" (tap)="onTap">15</button></ion-col>
-    <ion-col><button class="key" (tap)="onTap">16</button></ion-col>
-    <ion-col><button class="key" (tap)="onTap">17</button></ion-col>
+    <ion-col><button class="key" (tap)="onTap($event)">-</button></ion-col>
+    <ion-col><button class="key" (tap)="onTap($event)">15</button></ion-col>
+    <ion-col><button class="key" (tap)="onTap($event)">16</button></ion-col>
+    <ion-col><button class="key" (tap)="onTap($event)">17</button></ion-col>
   </ion-row>
   <ion-row>
-    <ion-col><button class="key clear-key" (tap)="onTap">Clear</button></ion-col>
-    <ion-col><button class="key save-key" (tap)="onTap">Save</button></ion-col>
+    <ion-col><button class="key clear-key" (tap)="onClear($event)">Clear</button></ion-col>
+    <ion-col><button class="key save-key" (tap)="onSave($event)">Save</button></ion-col>
   </ion-row>
 </div>

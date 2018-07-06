@@ -4,6 +4,7 @@ import { Store, select } from '@ngrx/store'
 
 import * as ScoreStore from '../../pages/score/store'
 import { Score } from '../../entities/Score'
+import { GameType } from '../../entities/GameType'
 /**
  * Generated class for the ScoreTableComponent component.
  *
@@ -20,6 +21,8 @@ export class ScoreTableComponent {
   activeRound: number
   activeShot: number
   activePointer: number
+  gameType: GameType
+  GameType = GameType
 
   constructor(
     private store: Store<ScoreStore.State>
@@ -31,6 +34,7 @@ export class ScoreTableComponent {
       this.activePointer = data.activePointer
       this.scoreTable = data.scores
       this.resultScores = data.resultScores
+      this.gameType = data.gameType
     })
   }
 }
