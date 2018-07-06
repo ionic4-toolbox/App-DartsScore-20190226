@@ -38,7 +38,7 @@ export class ScoreCalculatorProvider {
         break
       }
       case GameType.CRICKET: {
-        score = this.cricketCalc.calcScore()
+        score = this.cricketCalc.calcScore(resultScores)
         break
       }
       case GameType.ZEROONE: {

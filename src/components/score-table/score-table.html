@@ -15,7 +15,7 @@
         </td>
       </tr>
     </tbody>
-    <tfoot class="score-footer">
+    <tfoot class="score-footer" *ngIf="GameType.CRICKET != gameType">
       <tr>
         <td class="score-roll">合計</td>
         <td class="score-cell" *ngFor="let resultScore of resultScores">
