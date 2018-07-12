@@ -16,6 +16,7 @@ export interface State {
   activeShot: number     /* 現在入力対象のラウンドの投数 */
   activePointer: number  /* 現在入力対象のカーソルのポインタ */
   gameType: GameType     /* ゲームの種別 */
+  cricketTable: object   /* クリケットのテーブル */
 }
 
 /**
@@ -32,5 +33,14 @@ export const initialState: State = {
   activeRound: 1,
   activeShot: 1,
   activePointer: 0,
-  gameType: GameType.COUNTUP
+  gameType: GameType.COUNTUP,
+  cricketTable: {
+    15: 0,
+    16: 0,
+    17: 0,
+    18: 0,
+    19: 0,
+    20: 0,
+    25: 0
+  }
 }

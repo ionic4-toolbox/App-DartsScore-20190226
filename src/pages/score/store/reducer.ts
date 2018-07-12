@@ -85,6 +85,19 @@ export function reducer(state = initialState, action: ScoreAction.Actions): Stat
       console.log("[CHANGE_GAME_TYPE]: " + action.payload)
       return Object.assign({}, state, { gameType: action.payload })
     }
+    case ScoreAction.CHANGE_CRICKET_TABLE: {
+      let cricketTable = Object.assign({}, initialState.cricketTable)
+      const result = state.resultScores
+      result.map(score => score.getAll())
+      .reduce((previous, current) => [...previous, ...current], [])
+      .map(score => {
+        if (score.intValue >= 15) {
+          cricketTable[score.intValue] += score.count
+        }
+      })
+      console.log("[CHANGE_GAME_TYPE]: " + JSON.stringify(cricketTable))
+      return Object.assign({}, state, { cricketTable })
+    }
     default: {
       return state
     }

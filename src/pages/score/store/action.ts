@@ -10,6 +10,7 @@ export const DECREMENT_ACTIVE_POINTER: string = '[Score] Decrement Active Pointe
 export const CLEAR_SCORE_INFO: string = '[Score] Clear Score Info'
 export const SET_INITIAL_SCORES: string = '[Score] Set Initial Scores'
 export const CHANGE_GAME_TYPE: string = '[Score] Change Game Type'
+export const CHANGE_CRICKET_TABLE: string = '[Score] Change Cricket Table'
 
 /**
  *スコアが入力されたとき
@@ -97,9 +98,21 @@ export class SetInitialScores implements Action {
   constructor(public payload: number) {}
 }
 
+/**
+ * ゲームの種類が変わった時(クリケット，ゼロワン，カウントアップ)
+ *
+ * @export
+ * @class ChangeGameType
+ * @implements {Action}
+ */
 export class ChangeGameType implements Action {
   readonly type = CHANGE_GAME_TYPE
   constructor(public payload: GameType) {}
+}
+
+export class ChangeCricketTable implements Action {
+  readonly type = CHANGE_CRICKET_TABLE
+  constructor() {}
 }
 
 export type Actions = InputScore
@@ -110,4 +123,5 @@ export type Actions = InputScore
                     | ClearScoreInfo
                     | SetInitialScores
                     | ChangeGameType
+                    | ChangeCricketTable
                     | any;

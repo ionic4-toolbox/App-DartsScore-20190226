@@ -52,6 +52,7 @@ export class CricketKeyboardComponent {
     }
     this.input = ""
     this.store.dispatch(new ScoreAction.ChangeResultScores())
+    this.store.dispatch(new ScoreAction.ChangeCricketTable())
     this.store.dispatch(new ScoreAction.IncrementCurrentPointer())
     this.store.dispatch(new ScoreAction.IncrementActivePointer())
   }
@@ -68,6 +69,7 @@ export class CricketKeyboardComponent {
     }
     this.input = ""
     this.store.dispatch(new ScoreAction.ChangeResultScores())
+    this.store.dispatch(new ScoreAction.ChangeCricketTable())
     this.store.dispatch(new ScoreAction.DecrementActivePointer())
   }
 

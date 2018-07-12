@@ -1,0 +1,15 @@
+cricket-table {
+  .cricket-table {
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .cricket-table-head {
+    border-bottom: 2px solid black;
+  }
+  .cricket-table-head > th {
+    width: 14.2%;
+    padding: 10px;
+  }
+}
