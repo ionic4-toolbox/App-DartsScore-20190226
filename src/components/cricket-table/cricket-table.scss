@@ -12,4 +12,11 @@ cricket-table {
     width: 14.2%;
     padding: 10px;
   }
+  .cricket-table-body > tr > td {
+    width: 14.2%;
+  }
+  .cricket-table-body > tr > td > img {
+    width: 70%;
+    padding: 5px;
+  }
 }
