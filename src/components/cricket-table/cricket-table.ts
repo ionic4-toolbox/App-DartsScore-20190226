@@ -21,7 +21,6 @@ export class CricketTableComponent {
   ) {
     this.store.pipe(select(ScoreStore.getCricketTable))
     .subscribe((data: ScoreStore.State) => {
-      console.log(JSON.stringify(data))
       this.cricketTable = data
     })
   }

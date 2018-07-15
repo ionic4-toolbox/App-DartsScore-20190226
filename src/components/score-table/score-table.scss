@@ -1,7 +1,7 @@
 score-table {
   .score-cell {
     text-align: center;
-    padding: 10px 20px;
+    padding: 10px;
   }
   .score-roll {
     text-align: center;
@@ -14,6 +14,9 @@ score-table {
   }
   .score-head {
     border-bottom: 2px solid black;
+  }
+  .score-head > th.score-cell {
+    padding: 10px 26px;
   }
   .score-footer {
     border-top: 2px solid black;
