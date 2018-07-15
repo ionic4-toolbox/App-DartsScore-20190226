@@ -22,6 +22,7 @@ export class ScoreDisplayComponent {
   resultScores: Score[]
   initScore: number = 501
   gameType: GameType
+  cricketTable: object
 
   constructor(
     private store: Store<ScoreStore.State>,
@@ -31,12 +32,13 @@ export class ScoreDisplayComponent {
     .subscribe((data: ScoreStore.State) => {
       this.resultScores = data.resultScores
       this.gameType = data.gameType
+      this.cricketTable = data.cricketTable
     })
   }
 
   calcScore(): number {
     try {
-      return this.scoreCalcProvider.calcScore(this.gameType, this.resultScores, this.initScore)
+      return this.scoreCalcProvider.calcScore(this.gameType, this.resultScores, this.initScore, this.cricketTable)
     } catch(e) {
       console.log("[score-table ERROR]: " + e.message)
       return -1

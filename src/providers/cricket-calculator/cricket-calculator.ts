@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Score } from '../../entities/Score'
+import { Store } from '@ngrx/store'
 
+import * as ScoreStore from '../../pages/score/store'
 /*
   Generated class for the CricketCalculatorProvider provider.
 
@@ -10,22 +12,7 @@ import { Score } from '../../entities/Score'
 @Injectable()
 export class CricketCalculatorProvider {
 
-  calcScore(resultScores: Score[]): number {
-    const cricketTable = {
-      15: 0,
-      16: 0,
-      17: 0,
-      18: 0,
-      19: 0,
-      20: 0,
-      25: 0
-    }
-    resultScores.map(score => score.getAll())
-    .reduce((previous, current) => [...previous, ...current], [])
-    .map(score => {
-      cricketTable[score.intValue] += score.count
-    })
-
+  calcScore(cricketTable: object): number {
     const result = Object.keys(cricketTable).map(v => {
       return { "num": v, "count": cricketTable[v]}
     })

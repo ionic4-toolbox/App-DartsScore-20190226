@@ -27,6 +27,7 @@ export class ScoreCalculatorProvider {
     type: GameType,
     resultScores: Score[],
     initScore?: number,
+    cricketTable?: object
   ): number {
     if (resultScores.length <= 0) {
       throw new Error("result scores don\'t have score")
@@ -38,7 +39,7 @@ export class ScoreCalculatorProvider {
         break
       }
       case GameType.CRICKET: {
-        score = this.cricketCalc.calcScore(resultScores)
+        score = this.cricketCalc.calcScore(cricketTable)
         break
       }
       case GameType.ZEROONE: {

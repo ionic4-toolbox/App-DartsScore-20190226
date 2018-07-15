@@ -10,6 +10,7 @@ export const getState = createFeatureSelector<State>('score')
 export const getLoading = createSelector(getState, state => state.loading)
 export const getScores = createSelector(getState, state => state.scores)
 export const getResultScores = createSelector(getState, state => state.resultScores)
+export const getCricketTable = createSelector(getState, state => state.cricketTable)
 export const get4ScoreTable = createSelector(getState, state => {
   return {
     scores: state.scores,
@@ -23,6 +24,7 @@ export const get4ScoreTable = createSelector(getState, state => {
 export const get4ScoreDisplay = createSelector(getState, state => {
   return {
     resultScores: state.resultScores,
-    gameType: state.gameType
+    gameType: state.gameType,
+    cricketTable: state.cricketTable
   }
 })
