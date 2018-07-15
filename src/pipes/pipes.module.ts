@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CricketMarkPipe } from './cricket-mark/cricket-mark';
+import { CricketMark } from './cricket-mark/cricket-mark';
 @NgModule({
-	declarations: [CricketMarkPipe],
+	declarations: [CricketMark],
 	imports: [],
-	exports: [CricketMarkPipe]
+	exports: [CricketMark]
 })
 export class PipesModule {}

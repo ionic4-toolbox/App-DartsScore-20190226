@@ -5,7 +5,7 @@ import { CricketKeyboardComponent } from './cricket-keyboard/cricket-keyboard'
 import { DefaultKeyboardComponent } from './default-keyboard/default-keyboard'
 import { ScoreDisplayComponent } from './score-display/score-display'
 import { CricketTableComponent } from './cricket-table/cricket-table'
-import { CricketMark } from '../pipes/cricket-mark/cricket-mark'
+import { PipesModule } from '../pipes/pipes.module'
 
 @NgModule({
 	declarations: [
@@ -13,10 +13,12 @@ import { CricketMark } from '../pipes/cricket-mark/cricket-mark'
 		CricketKeyboardComponent,
 		DefaultKeyboardComponent,
     ScoreDisplayComponent,
-		CricketTableComponent,
-		CricketMark
+		CricketTableComponent
 	],
-	imports: [IonicModule],
+	imports: [
+		IonicModule,
+		PipesModule
+	],
 	exports: [
 		ScoreTableComponent,
 		CricketKeyboardComponent,
