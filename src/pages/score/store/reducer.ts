@@ -21,6 +21,7 @@ export function reducer(state = initialState, action: ScoreAction.Actions): Stat
       const lastRound: number = state.scores[0].length
       for(let i = 0; i < lastRound; i++) {
         result = new Score()
+        result.count = 0
         result.add(state.scores[0][i])
         result.add(state.scores[1][i])
         result.add(state.scores[2][i])

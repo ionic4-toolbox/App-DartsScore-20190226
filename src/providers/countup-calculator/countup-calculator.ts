@@ -11,7 +11,7 @@ import { Score } from '../../entities/Score'
 export class CountupCalculatorProvider {
 
   calcScore(resultScores: Score[]): number {
-    return resultScores.map(v => v.summary).reduce((pre, cul) => pre + cul)
+    return resultScores.map(v => v.summary).reduce((pre, cul) => pre + cul, 0)
   }
 
 }

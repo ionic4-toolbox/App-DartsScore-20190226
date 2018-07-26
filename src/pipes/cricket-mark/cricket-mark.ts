@@ -12,11 +12,7 @@ export class CricketMark implements PipeTransform {
   /**
    * Takes a value and makes it lowercase.
    */
-<<<<<<< HEAD
-  transform(value: number, ...args) {
-=======
   transform(value: number) {
->>>>>>> feature_save_firebase
     let imgUrl: string = ""
     switch(value) {
       case 0: imgUrl = "../assets/img/cricket-0.svg"

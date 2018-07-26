@@ -11,7 +11,7 @@ import { Score } from '../../entities/Score'
 export class ZerooneCalculatorProvider {
 
   calcScore(resultScores: Score[], initScore: number): number {
-    return initScore - resultScores.map(value => value.summary).reduce((pre, cul) => pre + cul)
+    return initScore - resultScores.map(value => value.summary).reduce((pre, cul) => pre + cul, 0)
   }
 
 }
