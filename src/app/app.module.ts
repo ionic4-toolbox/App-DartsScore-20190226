@@ -27,11 +27,11 @@ import { SupportPage } from '../pages/support/support'
 import { ConferenceData } from '../providers/conference-data'
 import { UserData } from '../providers/user-data'
 
-// import { AngularFireModule } from 'angularfire2'
-// import { AngularFirestoreModule } from 'angularfire2/firestore'
-// import { AngularFireStorageModule } from 'angularfire2/storage'
-// import { AngularFireAuthModule } from 'angularfire2/auth'
-// import { environment } from '../app/environment'
+import { AngularFireModule } from 'angularfire2'
+import { AngularFirestoreModule } from 'angularfire2/firestore'
+import { AngularFireDatabaseModule } from 'angularfire2/database'
+import { AngularFireAuthModule } from 'angularfire2/auth'
+import { environment } from '../app/environment'
 
 import { ComponentsModule } from '../components/components.module'
 import { reducers } from '../store'
@@ -61,15 +61,15 @@ import { CountupCalculatorProvider } from '../providers/countup-calculator/count
   ],
   imports: [
     BrowserModule,
-    // AngularFirestoreModule,
-    // AngularFireAuthModule,
-    // AngularFireStorageModule,
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
     HttpModule,
     ComponentsModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25
     }),
-    // AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(environment.firebase),
     StoreModule.forRoot(reducers, {
       initialState: { score: ScoreState.initialState }
     }),

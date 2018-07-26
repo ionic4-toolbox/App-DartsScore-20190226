@@ -1,7 +1,10 @@
 import { Component } from '@angular/core'
 
-import { Store } from '@ngrx/store'
+import { Store, select } from '@ngrx/store'
 import { ToastController } from 'ionic-angular'
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database'
+// import { GameScore } from '../../interfaces/GameScore'
+import * as moment from 'moment'
 
 import * as ScoreAction from '../../pages/score/store/action'
 import * as ScoreStore from '../../pages/score/store'
@@ -19,11 +22,13 @@ import { ScoreProvider } from '../../providers/score/score'
 })
 export class CricketKeyboardComponent {
   input: string = ""
+  userId = "ferretdayo"
 
   constructor(
     private store: Store<ScoreStore.State>,
     private scoreProvider: ScoreProvider,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private db: AngularFireDatabase,
   ) {
   }
 
@@ -77,6 +82,15 @@ export class CricketKeyboardComponent {
     console.log("[onClear]")
     this.input = ""
     this.store.dispatch(new ScoreAction.InputScore(this.scoreProvider.getTemporaryScore(this.input)))
+  }
+
+  onSave() {
+    this.store.pipe(select(ScoreStore.get4SaveGameScore))
+    .subscribe((data: ScoreStore.State) => {
+      this.db.database
+      .ref('game-scores/' + this.userId + '/' + moment().format('YYYYMMDD'))
+      .push({...data, created_at: new Date().getTime()})
+    })
   }
 
   private toastError() {

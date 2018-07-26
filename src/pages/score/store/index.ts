@@ -28,3 +28,11 @@ export const get4ScoreDisplay = createSelector(getState, state => {
     cricketTable: state.cricketTable
   }
 })
+export const get4SaveGameScore = createSelector(getState, state => {
+  return {
+    scores: state.scores,
+    resultScores: state.resultScores,
+    gameType: state.gameType,
+    cricketTable: state.cricketTable
+  }
+})

@@ -25,6 +25,7 @@
   <cricket-table *ngIf="gameType === GameTypes.CRICKET"></cricket-table>
   <score-table></score-table>
   <score-display></score-display>
+  {{(userList | async) | json}}
   <cricket-keyboard *ngIf="gameType === GameTypes.CRICKET"></cricket-keyboard>
   <default-keyboard *ngIf="gameType !== GameTypes.CRICKET"></default-keyboard>
 </ion-content>

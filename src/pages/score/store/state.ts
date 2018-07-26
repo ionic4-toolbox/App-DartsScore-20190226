@@ -17,6 +17,7 @@ export interface State {
   activePointer: number  /* 現在入力対象のカーソルのポインタ */
   gameType: GameType     /* ゲームの種別 */
   cricketTable: object   /* クリケットのテーブル */
+  getData: Function
 }
 
 /**
@@ -42,5 +43,10 @@ export const initialState: State = {
     19: 0,
     20: 0,
     25: 0
+  },
+  getData: function(): object {
+    const result = {};
+    Object.keys(this).map(key => result[key] = this[key]);
+    return result;
   }
 }
