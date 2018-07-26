@@ -1,8 +1,4 @@
 import { Injectable } from '@angular/core'
-import { Score } from '../../entities/Score'
-import { Store } from '@ngrx/store'
-
-import * as ScoreStore from '../../pages/score/store'
 /*
   Generated class for the CricketCalculatorProvider provider.
 

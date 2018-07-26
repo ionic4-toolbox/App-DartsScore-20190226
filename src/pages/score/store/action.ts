@@ -110,6 +110,13 @@ export class ChangeGameType implements Action {
   constructor(public payload: GameType) {}
 }
 
+/**
+ * クリケットのテーブルが変わる時に呼ばれる
+ *
+ * @export
+ * @class ChangeCricketTable
+ * @implements {Action}
+ */
 export class ChangeCricketTable implements Action {
   readonly type = CHANGE_CRICKET_TABLE
   constructor() {}

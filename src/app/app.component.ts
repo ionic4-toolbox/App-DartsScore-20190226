@@ -4,6 +4,7 @@ import { Events, MenuController, Nav, Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Storage } from '@ionic/storage';
+import { AngularFireAuth } from 'angularfire2/auth'
 
 import { AccountPage } from '../pages/account/account';
 // import { LoginPage } from '../pages/login/login';
@@ -52,9 +53,17 @@ export class ConferenceApp {
     public platform: Platform,
     public confData: ConferenceData,
     public storage: Storage,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    public afAuth: AngularFireAuth
   ) {
-
+    // this.afAuth
+    // .auth
+    // .signInWithEmailAndPassword("ferretdayo@hotmail.co.jp", "pass")
+    // .then(() => alert('ログインしました。'))
+    // .catch( err => {
+    //   console.log(err);
+    //   alert('ログインに失敗しました。\n' + err);
+    // })
     // Check if the user has already seen the tutorial
     this.storage.get('hasSeenTutorial')
       .then((hasSeenTutorial) => {
