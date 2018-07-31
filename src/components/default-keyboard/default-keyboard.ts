@@ -8,6 +8,7 @@ import * as moment from 'moment'
 import * as ScoreAction from '../../pages/score/store/action'
 import * as ScoreStore from '../../pages/score/store'
 import { ScoreProvider } from '../../providers/score/score'
+import { GameScore } from '../../interfaces/GameScore'
 
 /**
  * Generated class for the CricketKeyboardComponent component.
@@ -23,6 +24,7 @@ import { ScoreProvider } from '../../providers/score/score'
 export class DefaultKeyboardComponent {
   input: string = ""
   userId = "ferretdayo"
+  gameScore: GameScore
 
   constructor(
     private store: Store<ScoreStore.State>,
@@ -30,6 +32,10 @@ export class DefaultKeyboardComponent {
     private toastCtrl: ToastController,
     private db: AngularFireDatabase,
   ) {
+    this.store.pipe(select(ScoreStore.get4SaveGameScore))
+    .subscribe((data: ScoreStore.State) => {
+      this.gameScore = data
+    })
   }
 
   onTap(event: any) {
@@ -83,20 +89,17 @@ export class DefaultKeyboardComponent {
   }
 
   onSave() {
-    this.store.pipe(select(ScoreStore.get4SaveGameScore))
-    .subscribe((data: ScoreStore.State) => {
-        this.db.database
-        .ref('game-scores/' + this.userId + '/' + moment().format('YYYYMMDD'))
-        .push({...data, created_at: new Date().getTime()})
-        .then(() => {
-          this.showToast('Save Score Data', 'top')
-        }, error => {
-          console.log("[onSave ERROR]: " + error.message)
-          this.showToast('something wrong...', 'middle')
-          return
-        })
-      }
-    )
+    this.db.database
+    .ref('game-scores/' + this.userId + '/' + moment().format('YYYYMMDD'))
+    .push({...this.gameScore, created_at: new Date().getTime()})
+    .then(() => {
+      this.showToast('Save Score Data', 'top')
+      return
+    }, error => {
+      console.log("[onSave ERROR]: " + error.message)
+      this.showToast('something wrong...', 'middle')
+      return
+    })
   }
 
   private showToast(message: string, position: string) {
