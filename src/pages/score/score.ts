@@ -1,7 +1,6 @@
 import { Component } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { GameType } from '../../entities/GameType'
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database'
 
 import {
   // ActionSheet,
@@ -29,12 +28,10 @@ export class ScorePage {
   scoreTable: Score[][] = []
   gameType: GameType = GameType.COUNTUP
   GameTypes = GameType
-  userList: AngularFireList<any>
 
   constructor(
     public config: Config,
-    private store: Store<ScoreStore.State>,
-    private db: AngularFireDatabase
+    private store: Store<ScoreStore.State>
   ) {
     // this.userList = this.db.database.ref('')
   }

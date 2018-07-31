@@ -6,6 +6,9 @@ import { IonicModule } from 'ionic-angular'
 // import * as ScoreStore from '../../pages/score/store/action'
 import { CricketKeyboardComponent } from './cricket-keyboard'
 import { ScoreParserProvider } from '../../providers/score-parser/score-parser'
+import { AngularFireDatabase } from 'angularfire2/database'
+import { AngularFireModule } from 'angularfire2'
+import { environment } from '../../app/environment'
 import { reducers } from '../../store'
 
 // const mockScoreStore = {
@@ -16,9 +19,13 @@ describe('ScorePage', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       declarations: [CricketKeyboardComponent],
-      imports: [IonicModule.forRoot(CricketKeyboardComponent), StoreModule.forRoot(reducers)],
+      imports: [
+        IonicModule.forRoot(CricketKeyboardComponent),
+        StoreModule.forRoot(reducers),
+        AngularFireModule.initializeApp(environment.firebase)
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [ScoreParserProvider]
+      providers: [ScoreParserProvider, AngularFireDatabase]
     }).compileComponents()
   );
 
