@@ -4,6 +4,9 @@ import { StoreModule } from '@ngrx/store'
 import { IonicModule } from 'ionic-angular'
 import { ScoreProvider } from '../../providers/score/score'
 import { ScoreParserProvider } from '../../providers/score-parser/score-parser'
+import { AngularFireDatabase } from 'angularfire2/database'
+import { AngularFireModule } from 'angularfire2'
+import { environment } from '../../app/environment'
 // import * as ScoreAction from '../../pages/score/store/action'
 // import * as ScoreStore from '../../pages/score/store/action'
 import { DefaultKeyboardComponent } from './default-keyboard'
@@ -17,9 +20,13 @@ describe('ScorePage', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       declarations: [DefaultKeyboardComponent],
-      imports: [IonicModule.forRoot(DefaultKeyboardComponent), StoreModule.forRoot(reducers)],
+      imports: [
+        IonicModule.forRoot(DefaultKeyboardComponent),
+        StoreModule.forRoot(reducers),
+        AngularFireModule.initializeApp(environment.firebase)
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [ScoreProvider, ScoreParserProvider]
+      providers: [ScoreProvider, ScoreParserProvider, AngularFireDatabase]
     }).compileComponents()
   );
 

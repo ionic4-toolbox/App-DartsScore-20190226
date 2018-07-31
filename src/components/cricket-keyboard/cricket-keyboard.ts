@@ -2,13 +2,13 @@ import { Component } from '@angular/core'
 
 import { Store, select } from '@ngrx/store'
 import { ToastController } from 'ionic-angular'
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database'
-// import { GameScore } from '../../interfaces/GameScore'
+import { AngularFireDatabase } from 'angularfire2/database'
 import * as moment from 'moment'
 
 import * as ScoreAction from '../../pages/score/store/action'
 import * as ScoreStore from '../../pages/score/store'
 import { ScoreProvider } from '../../providers/score/score'
+import { GameScore } from '../../interfaces/GameScore'
 /**
  * Generated class for the CricketKeyboardComponent component.
  *
@@ -23,6 +23,7 @@ import { ScoreProvider } from '../../providers/score/score'
 export class CricketKeyboardComponent {
   input: string = ""
   userId = "ferretdayo"
+  gameScore: GameScore
 
   constructor(
     private store: Store<ScoreStore.State>,
@@ -30,6 +31,10 @@ export class CricketKeyboardComponent {
     private toastCtrl: ToastController,
     private db: AngularFireDatabase,
   ) {
+    this.store.pipe(select(ScoreStore.get4SaveGameScore))
+    .subscribe((data: ScoreStore.State) => {
+      this.gameScore = data
+    })
   }
 
   onTap(event: any) {
@@ -52,7 +57,7 @@ export class CricketKeyboardComponent {
       })))
     } catch (e) {
       console.log("[onNext ERROR]: " + e.message)
-      this.toastError()
+      this.showToast('This is invalid score', 'bottom')
       return 
     }
     this.input = ""
@@ -69,7 +74,7 @@ export class CricketKeyboardComponent {
       })))
     } catch(e) {
       console.log("[onPrevious ERROR]: " + e.message)
-      this.toastError()
+      this.showToast('This is invalid score', 'bottom')
       return
     }
     this.input = ""
@@ -85,19 +90,24 @@ export class CricketKeyboardComponent {
   }
 
   onSave() {
-    this.store.pipe(select(ScoreStore.get4SaveGameScore))
-    .subscribe((data: ScoreStore.State) => {
-      this.db.database
-      .ref('game-scores/' + this.userId + '/' + moment().format('YYYYMMDD'))
-      .push({...data, created_at: new Date().getTime()})
+    this.db.database
+    .ref('game-scores/' + this.userId + '/' + moment().format('YYYYMMDD'))
+    .push({...this.gameScore, created_at: new Date().getTime()})
+    .then(() => {
+      this.showToast('Save Score Data', 'top')
+      return
+    }, error => {
+      console.log("[onSave ERROR]: " + error.message)
+      this.showToast('something wrong...', 'middle')
+      return
     })
   }
 
-  private toastError() {
+  private showToast(message: string, position: string) {
     let toast = this.toastCtrl.create({
-      message: 'This is invalid score',
+      message,
       duration: 3000,
-      position: 'bottom'
+      position
     })
     toast.present()
   }

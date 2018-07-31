@@ -1,8 +1,6 @@
 import { Component } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { GameType } from '../../entities/GameType'
-import { Observable } from 'rxjs/Observable'
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore'
 
 import {
   // ActionSheet,
@@ -30,16 +28,12 @@ export class ScorePage {
   scoreTable: Score[][] = []
   gameType: GameType = GameType.COUNTUP
   GameTypes = GameType
-  userRef: AngularFirestoreCollection<object>
-  userList: Observable<object>
 
   constructor(
     public config: Config,
-    private store: Store<ScoreStore.State>,
-    private afs: AngularFirestore
+    private store: Store<ScoreStore.State>
   ) {
-    this.userRef = this.afs.collection<object>('userList')
-    this.userList = this.userRef.valueChanges()
+    // this.userList = this.db.database.ref('')
   }
 
   ionViewWillEnter() {
