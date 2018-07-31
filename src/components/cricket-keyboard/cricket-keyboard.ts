@@ -2,8 +2,7 @@ import { Component } from '@angular/core'
 
 import { Store, select } from '@ngrx/store'
 import { ToastController } from 'ionic-angular'
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database'
-// import { GameScore } from '../../interfaces/GameScore'
+import { AngularFireDatabase } from 'angularfire2/database'
 import * as moment from 'moment'
 
 import * as ScoreAction from '../../pages/score/store/action'
@@ -52,7 +51,7 @@ export class CricketKeyboardComponent {
       })))
     } catch (e) {
       console.log("[onNext ERROR]: " + e.message)
-      this.toastError()
+      this.showToast('This is invalid score', 'bottom')
       return 
     }
     this.input = ""
@@ -69,7 +68,7 @@ export class CricketKeyboardComponent {
       })))
     } catch(e) {
       console.log("[onPrevious ERROR]: " + e.message)
-      this.toastError()
+      this.showToast('This is invalid score', 'bottom')
       return
     }
     this.input = ""
@@ -87,17 +86,25 @@ export class CricketKeyboardComponent {
   onSave() {
     this.store.pipe(select(ScoreStore.get4SaveGameScore))
     .subscribe((data: ScoreStore.State) => {
-      this.db.database
-      .ref('game-scores/' + this.userId + '/' + moment().format('YYYYMMDD'))
-      .push({...data, created_at: new Date().getTime()})
-    })
+        this.db.database
+        .ref('game-scores/' + this.userId + '/' + moment().format('YYYYMMDD'))
+        .push({...data, created_at: new Date().getTime()})
+        .then(() => {
+          this.showToast('Save Score Data', 'top')
+        }, error => {
+          console.log("[onSave ERROR]: " + error.message)
+          this.showToast('something wrong...', 'middle')
+          return
+        })
+      }
+    )
   }
 
-  private toastError() {
+  private showToast(message: string, position: string) {
     let toast = this.toastCtrl.create({
-      message: 'This is invalid score',
+      message,
       duration: 3000,
-      position: 'bottom'
+      position
     })
     toast.present()
   }
