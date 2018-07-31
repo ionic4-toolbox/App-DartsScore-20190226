@@ -27,10 +27,12 @@
 
 		<ion-row responsive-sm>
 			<ion-col>
-				<button ion-button (click)="onLogin(loginForm)" type="submit" block>Login</button>
+				<button class="login-button" ion-button outline full (click)="onLogin(loginForm)" color="secondary" type="submit" block>Login</button>
 			</ion-col>
+		</ion-row>
+		<ion-row responsive-sm>
 			<ion-col>
-				<button ion-button (click)="onSignup()" color="light" block>Signup</button>
+				<button class="login-button" ion-button outline full (click)="onSignup()" color="light" block>Signup</button>
 			</ion-col>
 		</ion-row>
 	</form>
