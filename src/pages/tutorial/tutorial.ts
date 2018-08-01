@@ -1,10 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core'
 
-import { MenuController, NavController, Slides } from 'ionic-angular';
+import { MenuController, NavController, Slides } from 'ionic-angular'
 
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage'
 
-import { TabsPage } from '../tabs-page/tabs-page';
+import { TabsPage } from '../tabs-page/tabs-page'
 
 @Component({
   selector: 'page-tutorial',
@@ -12,9 +12,9 @@ import { TabsPage } from '../tabs-page/tabs-page';
 })
 
 export class TutorialPage {
-  showSkip = true;
+  showSkip = true
 
-	@ViewChild('slides') slides: Slides;
+	@ViewChild('slides') slides: Slides
 
   constructor(
     public navCtrl: NavController,
@@ -24,26 +24,26 @@ export class TutorialPage {
 
   startApp() {
     this.navCtrl.push(TabsPage).then(() => {
-      this.storage.set('hasSeenTutorial', 'true');
+      this.storage.set('hasSeenTutorial', 'true')
     })
   }
 
   onSlideChangeStart(slider: Slides) {
-    this.showSkip = !slider.isEnd();
+    this.showSkip = !slider.isEnd()
   }
 
   ionViewWillEnter() {
-    this.slides.update();
+    this.slides.update()
   }
 
   ionViewDidEnter() {
     // the root left menu should be disabled on the tutorial page
-    this.menu.enable(false);
+    this.menu.enable(false)
   }
 
   ionViewDidLeave() {
     // enable the root left menu when leaving the tutorial page
-    this.menu.enable(true);
+    this.menu.enable(true)
   }
 
 }

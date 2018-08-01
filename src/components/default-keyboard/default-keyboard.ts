@@ -2,7 +2,9 @@ import { Component } from '@angular/core'
 import { Store, select } from '@ngrx/store'
 import { ToastController } from 'ionic-angular'
 
+import { UserData } from '../../providers/user-data'
 import { AngularFireDatabase } from 'angularfire2/database'
+import { User } from '@firebase/auth-types'
 import * as moment from 'moment'
 
 import * as ScoreAction from '../../pages/score/store/action'
@@ -23,18 +25,23 @@ import { GameScore } from '../../interfaces/GameScore'
 })
 export class DefaultKeyboardComponent {
   input: string = ""
-  userId = "ferretdayo"
+  userId: string = ""
   gameScore: GameScore
 
   constructor(
     private store: Store<ScoreStore.State>,
     private scoreProvider: ScoreProvider,
     private toastCtrl: ToastController,
+    private userData: UserData,
     private db: AngularFireDatabase,
   ) {
     this.store.pipe(select(ScoreStore.get4SaveGameScore))
     .subscribe((data: ScoreStore.State) => {
       this.gameScore = data
+    })
+    this.userData.getUser()
+    .then((user: User) => {
+      this.userId = user.uid
     })
   }
 

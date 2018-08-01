@@ -21,6 +21,15 @@
 			</p>
 
 			<ion-item class="input-form">
+				<ion-label stacked color="black">Email</ion-label>
+				<ion-input class="input-text" [(ngModel)]="signup.email" name="email" type="email" #email="ngModel" required>
+				</ion-input>
+			</ion-item>
+			<p ion-text class="input-form" [hidden]="email.valid || submitted == false" color="danger" padding-left>
+				Email is required
+			</p>
+
+			<ion-item class="input-form">
 				<ion-label stacked color="black">Password</ion-label>
 				<ion-input class="input-text" [(ngModel)]="signup.password" name="password" type="password" #password="ngModel" required>
 				</ion-input>

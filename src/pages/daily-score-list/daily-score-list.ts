@@ -65,28 +65,28 @@ export class DailyScoreListPage {
 
   addFavorite(slidingItem: ItemSliding, sessionData: any) {
 
-    if (this.user.hasFavorite(sessionData.name)) {
-      // woops, they already favorited it! What shall we do!?
-      // prompt them to remove it
-      this.removeFavorite(slidingItem, sessionData, 'Favorite already added');
-    } else {
-      // remember this session as a user favorite
-      this.user.addFavorite(sessionData.name);
+    // if (this.user.hasFavorite(sessionData.name)) {
+    //   // woops, they already favorited it! What shall we do!?
+    //   // prompt them to remove it
+    //   this.removeFavorite(slidingItem, sessionData, 'Favorite already added');
+    // } else {
+    //   // remember this session as a user favorite
+    //   this.user.addFavorite(sessionData.name);
 
-      // create an alert instance
-      let alert = this.alertCtrl.create({
-        title: 'Favorite Added',
-        buttons: [{
-          text: 'OK',
-          handler: () => {
-            // close the sliding item
-            slidingItem.close();
-          }
-        }]
-      });
-      // now present the alert on top of all other content
-      alert.present();
-    }
+    //   // create an alert instance
+    //   let alert = this.alertCtrl.create({
+    //     title: 'Favorite Added',
+    //     buttons: [{
+    //       text: 'OK',
+    //       handler: () => {
+    //         // close the sliding item
+    //         slidingItem.close();
+    //       }
+    //     }]
+    //   });
+    //   // now present the alert on top of all other content
+    //   alert.present();
+    // }
 
   }
 
@@ -107,7 +107,7 @@ export class DailyScoreListPage {
           text: 'Remove',
           handler: () => {
             // they want to remove this session from their favorites
-            this.user.removeFavorite(sessionData.name);
+            // this.user.removeFavorite(sessionData.name);
             this.updateSchedule();
 
             // close the sliding item and hide the option buttons
