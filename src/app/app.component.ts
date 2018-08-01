@@ -7,7 +7,7 @@ import { Storage } from '@ionic/storage';
 import { AngularFireAuth } from 'angularfire2/auth'
 
 import { AccountPage } from '../pages/account/account';
-// import { LoginPage } from '../pages/login/login';
+import { LoginPage } from '../pages/login/login';
 // import { SignupPage } from '../pages/signup/signup';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 import { TutorialPage } from '../pages/tutorial/tutorial';
@@ -68,7 +68,8 @@ export class ConferenceApp {
     this.storage.get('hasSeenTutorial')
       .then((hasSeenTutorial) => {
         if (hasSeenTutorial) {
-          this.rootPage = TabsPage;
+          // this.rootPage = TabsPage;
+          this.rootPage = LoginPage
         } else {
           this.rootPage = TutorialPage;
         }
