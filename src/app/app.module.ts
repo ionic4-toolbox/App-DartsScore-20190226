@@ -12,7 +12,6 @@ import { IonicStorageModule } from '@ionic/storage'
 
 import { ConferenceApp } from './app.component'
 import { PopoverPage } from '../pages/about-popover/about-popover'
-import { AccountPage } from '../pages/account/account'
 import { LoginPage } from '../pages/login/login'
 import { ScoreListPage } from '../pages/score-list/score-list'
 import { DailyScoreListPage } from '../pages/daily-score-list/daily-score-list'
@@ -46,7 +45,6 @@ import { CountupCalculatorProvider } from '../providers/countup-calculator/count
 @NgModule({
   declarations: [
     ConferenceApp,
-    AccountPage,
     LoginPage,
     PopoverPage,
     ScoreListPage,
@@ -84,7 +82,6 @@ import { CountupCalculatorProvider } from '../providers/countup-calculator/count
         { component: TutorialPage, name: 'Tutorial', segment: 'tutorial' },
         { component: SupportPage, name: 'SupportPage', segment: 'support' },
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
-        { component: AccountPage, name: 'AccountPage', segment: 'account' },
         { component: SignupPage, name: 'SignupPage', segment: 'signup' }
       ]
     }),
@@ -93,7 +90,6 @@ import { CountupCalculatorProvider } from '../providers/countup-calculator/count
   bootstrap: [IonicApp],
   entryComponents: [
     ConferenceApp,
-    AccountPage,
     LoginPage,
     PopoverPage,
     ScoreListPage,

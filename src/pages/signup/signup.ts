@@ -5,7 +5,7 @@ import { NavController, Platform } from 'ionic-angular'
 import { UserData } from '../../providers/user-data'
 
 import { AngularFireAuth } from 'angularfire2/auth'
-import { UserCredential, User } from '@firebase/auth-types'
+import { UserCredential } from '@firebase/auth-types'
 import { UserOptions } from '../../interfaces/user-options'
 
 import { TutorialPage } from '../tutorial/tutorial'
@@ -33,17 +33,13 @@ export class SignupPage {
     .createUserWithEmailAndPassword(this.signup.email, this.signup.password)
     .then((userCredential: UserCredential) => { 
       if (form.valid) {
-        // User created now create the database user
-        this.afAuth.authState
-        .subscribe((user: User) => {
-          user.updateProfile({
-            displayName: this.signup.username,
-            photoURL: 'some/url'
-          })
-          .then(() => {
-            this.userData.signup(user)
-            this.navCtrl.push(TutorialPage)
-          })
+        userCredential.user.updateProfile({
+          displayName: this.signup.username,
+          photoURL: 'some/url'
+        })
+        .then(() => {
+          this.userData.signup(userCredential.user)
+          this.navCtrl.push(TutorialPage)
         })
       }
     })

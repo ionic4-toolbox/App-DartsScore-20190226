@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen'
 
 import { AccountPage } from '../pages/account/account'
 import { LoginPage } from '../pages/login/login'
-// import { SignupPage } from '../pages/signup/signup'
 import { TabsPage } from '../pages/tabs-page/tabs-page'
 import { TutorialPage } from '../pages/tutorial/tutorial'
 import { SupportPage } from '../pages/support/support'
@@ -49,17 +48,15 @@ export class ConferenceApp {
     public platform: Platform,
     public splashScreen: SplashScreen
   ) {
-    // Check if the user has already seen the tutorial
-    this.rootPage = LoginPage
     this.platformReady()
-
     // decide which menu items should be hidden by current login status stored in local storage
-    this.userData.hasLoggedIn().then((/*hasLoggedIn*/) => {
-      // this.enableMenu(hasLoggedIn === true)
+    this.userData.hasLoggedIn().then((hasLoggedIn: boolean) => {
+      if (hasLoggedIn) {
+        this.rootPage = TabsPage
+      } else {
+        this.rootPage = LoginPage
+      }
     })
-    // this.enableMenu(true)
-
-    this.listenToLoginEvents()
   }
 
   openPage(page: PageInterface) {
@@ -93,25 +90,6 @@ export class ConferenceApp {
   openTutorial() {
     this.nav.setRoot(TutorialPage)
   }
-
-  listenToLoginEvents() {
-    this.events.subscribe('user:login', () => {
-      // this.enableMenu(true)
-    })
-
-    this.events.subscribe('user:signup', () => {
-      // this.enableMenu(true)
-    })
-
-    this.events.subscribe('user:logout', () => {
-      // this.enableMenu(false)
-    })
-  }
-
-  // enableMenu(loggedIn: boolean) {
-  //   this.menu.enable(loggedIn, 'loggedInMenu')
-  //   this.menu.enable(!loggedIn, 'loggedOutMenu')
-  // }
 
   platformReady() {
     // Call any initial plugins when ready
