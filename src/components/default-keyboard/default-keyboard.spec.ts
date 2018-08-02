@@ -2,8 +2,11 @@ import { TestBed, ComponentFixture } from '@angular/core/testing'
 import { NO_ERRORS_SCHEMA } from '@angular/core'
 import { StoreModule } from '@ngrx/store'
 import { IonicModule } from 'ionic-angular'
+import { IonicStorageModule } from '@ionic/storage'
+import { AngularFireAuthModule } from 'angularfire2/auth'
 import { ScoreProvider } from '../../providers/score/score'
 import { ScoreParserProvider } from '../../providers/score-parser/score-parser'
+import { UserData } from '../../providers/user-data'
 import { AngularFireDatabase } from 'angularfire2/database'
 import { AngularFireModule } from 'angularfire2'
 import { environment } from '../../app/environment'
@@ -23,10 +26,12 @@ describe('ScorePage', () => {
       imports: [
         IonicModule.forRoot(DefaultKeyboardComponent),
         StoreModule.forRoot(reducers),
-        AngularFireModule.initializeApp(environment.firebase)
+        AngularFireModule.initializeApp(environment.firebase),
+        IonicStorageModule.forRoot(),
+        AngularFireAuthModule
       ],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [ScoreProvider, ScoreParserProvider, AngularFireDatabase]
+      providers: [ScoreProvider, ScoreParserProvider, AngularFireDatabase, UserData]
     }).compileComponents()
   );
 
