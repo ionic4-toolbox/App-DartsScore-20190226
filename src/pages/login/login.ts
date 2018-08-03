@@ -28,20 +28,20 @@ export class LoginPage {
   }
 
   onLogin(form: NgForm) {
-    this.afAuth
-    .auth
-    .signInWithEmailAndPassword(this.login.email, this.login.password)
-    .then(() => {
-      if (form.valid) {
+    this.submitted = true
+    if(form.valid) {
+      this.afAuth
+      .auth
+      .signInWithEmailAndPassword(this.login.email, this.login.password)
+      .then(() => {
         this.userData.login(this.afAuth.auth.currentUser)
         this.navCtrl.push(TabsPage)
-      }
-      alert('ログインしました。')
-    })
-    .catch(err => {
-      alert('ログインに失敗しました。\n' + err)
-    })
-    this.submitted = true
+        alert('ログインしました。')
+      })
+      .catch(err => {
+        alert('ログインに失敗しました。\n' + err)
+      })
+    }
   }
 
   onSignup() {

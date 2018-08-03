@@ -28,6 +28,9 @@
 			<p ion-text class="input-form" [hidden]="email.valid || submitted == false" color="danger" padding-left>
 				Email is required
 			</p>
+			<p ion-text class="input-form" [hidden]="formError.code != 'auth/invalid-email'" color="danger" padding-left>
+				The email address is badly formatted
+			</p>
 
 			<ion-item class="input-form">
 				<ion-label stacked color="black">Password</ion-label>
@@ -36,6 +39,9 @@
 			</ion-item>
 			<p ion-text class="input-form" [hidden]="password.valid || submitted == false" color="danger" padding-left>
 				Password is required
+			</p>
+			<p ion-text class="input-form" [hidden]="formError.code != 'auth/weak-password'" color="danger" padding-left>
+				Password should be at least 6 characters
 			</p>
 		</ion-list>
 

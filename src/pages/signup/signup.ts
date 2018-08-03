@@ -10,6 +10,10 @@ import { UserOptions } from '../../interfaces/user-options'
 
 import { TutorialPage } from '../tutorial/tutorial'
 
+type FormError = {
+  code: '',
+  message: ''
+}
 
 @Component({
   selector: 'page-signup',
@@ -18,6 +22,7 @@ import { TutorialPage } from '../tutorial/tutorial'
 export class SignupPage {
   signup: UserOptions = { username: '', email: '' , password: '' }
   submitted = false
+  formError: FormError
 
   constructor(
     public navCtrl: NavController,
@@ -44,7 +49,7 @@ export class SignupPage {
       }
     })
     .catch(err => {
-      alert('Something went wrong:' + err.message)
+      this.formError = err
     })
   }
 }
