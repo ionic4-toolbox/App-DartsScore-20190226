@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { NgForm } from '@angular/forms'
 
-import { NavController } from 'ionic-angular'
+import { NavController, ToastController } from 'ionic-angular'
 import { AngularFireAuth } from 'angularfire2/auth'
 
 import { UserData } from '../../providers/user-data'
@@ -10,7 +10,6 @@ import { UserOptions } from '../../interfaces/user-options'
 
 import { TabsPage } from '../tabs-page/tabs-page'
 import { SignupPage } from '../signup/signup'
-
 
 @Component({
   selector: 'page-login',
@@ -22,6 +21,7 @@ export class LoginPage {
 
   constructor(
     public navCtrl: NavController,
+    public toastCtrl: ToastController,
     public userData: UserData,
     public afAuth: AngularFireAuth
   ) {
@@ -36,15 +36,23 @@ export class LoginPage {
       .then(() => {
         this.userData.login(this.afAuth.auth.currentUser)
         this.navCtrl.push(TabsPage)
-        alert('ログインしました。')
       })
       .catch(err => {
-        alert('ログインに失敗しました。\n' + err)
+        this.showToast("The login attempt failed", 'top')
       })
     }
   }
 
   onSignup() {
     this.navCtrl.push(SignupPage)
+  }
+
+  private showToast(message: string, position: string) {
+    let toast = this.toastCtrl.create({
+      message,
+      duration: 3000,
+      position
+    })
+    toast.present()
   }
 }
