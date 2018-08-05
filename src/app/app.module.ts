@@ -41,6 +41,8 @@ import { ScoreCalculatorProvider } from '../providers/score-calculator/score-cal
 import { ZerooneCalculatorProvider } from '../providers/zeroone-calculator/zeroone-calculator';
 import { CricketCalculatorProvider } from '../providers/cricket-calculator/cricket-calculator';
 import { CountupCalculatorProvider } from '../providers/countup-calculator/countup-calculator';
+import { AuthProvider } from '../providers/auth/auth';
+import { FirebaseAuthProvider } from '../providers/firebase-auth/firebase-auth';
 
 @NgModule({
   declarations: [
@@ -113,7 +115,9 @@ import { CountupCalculatorProvider } from '../providers/countup-calculator/count
     ScoreCalculatorProvider,
     ZerooneCalculatorProvider,
     CricketCalculatorProvider,
-    CountupCalculatorProvider
+    CountupCalculatorProvider,
+    AuthProvider,
+    FirebaseAuthProvider
   ]
 })
 export class AppModule { }
