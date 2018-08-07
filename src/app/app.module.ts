@@ -30,6 +30,7 @@ import { AngularFireModule } from 'angularfire2'
 import { AngularFirestoreModule } from 'angularfire2/firestore'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
 import { AngularFireAuthModule } from 'angularfire2/auth'
+import { AngularFireStorageModule } from 'angularfire2/storage'
 import { environment } from '../app/environment'
 
 import { ComponentsModule } from '../components/components.module'
@@ -64,6 +65,7 @@ import { FirebaseAuthProvider } from '../providers/firebase-auth/firebase-auth';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
     HttpModule,
     ComponentsModule,
     StoreDevtoolsModule.instrument({

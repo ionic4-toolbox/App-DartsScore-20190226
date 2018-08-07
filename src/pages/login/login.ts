@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { NgForm } from '@angular/forms'
 
-import { NavController, ToastController } from 'ionic-angular'
+import { NavController, ToastController, LoadingController } from 'ionic-angular'
 import { AuthProvider } from '../../providers/auth/auth'
 
 import { UserData } from '../../providers/user-data'
@@ -25,6 +25,7 @@ export class LoginPage {
 
   constructor(
     public navCtrl: NavController,
+    public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
     public userData: UserData,
     public authProvider: AuthProvider
@@ -32,18 +33,24 @@ export class LoginPage {
     this.auth = authProvider.firebaseAuth
   }
 
-  onLogin(form: NgForm) {
+  async onLogin(form: NgForm) {
     this.submitted = true
     if(form.valid) {
-      this.auth
-      .loginWithEmail(this.login.email, this.login.password)
-      .then((userCredential: UserCredential) => {
-        this.userData.login(userCredential.user)
-        this.navCtrl.push(TabsPage)
+      let loading = this.loadingCtrl.create({
+        content: 'Please wait...'
       })
-      .catch(err => {
-        this.showToast("The login attempt failed", 'top')
-      })
+      loading.present()
+      const userCredential: UserCredential
+        = await this.auth
+            .loginWithEmail(this.login.email, this.login.password)
+            .catch((/*err*/) => {
+              this.showToast("The login attempt failed", 'top')
+              loading.dismiss()
+              return
+            })
+      this.userData.login(userCredential.user)
+      this.navCtrl.push(TabsPage)
+      loading.dismiss()
     }
   }
 
