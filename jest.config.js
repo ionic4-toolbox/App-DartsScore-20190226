@@ -4,5 +4,6 @@ module.exports = {
   // testRegex: '\\.spec\\.ts$',
   // testRegex: "tests/.*\\.(js|jsx)$",
   setupTestFrameworkScriptFile: '<rootDir>/src/setupJest.ts',
-  transformIgnorePatterns: ['node_modules/(?!@ngrx|@ionic-native|@ionic)']
+  transformIgnorePatterns: ['node_modules/(?!@ngrx|@ionic-native|@ionic)'],
+  testURL: "http://localhost/"
 };
