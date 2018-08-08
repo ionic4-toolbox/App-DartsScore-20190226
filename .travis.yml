@@ -1,8 +1,9 @@
 language: node_js
 node_js:
 - '9'
+os:
+  - osx
 before_script:
-- npm i -g yarn
 - yarn install
 cache:
   yarn: true
