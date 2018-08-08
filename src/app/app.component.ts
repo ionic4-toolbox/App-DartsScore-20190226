@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core'
 
 import { Events, MenuController, Nav, Platform } from 'ionic-angular'
 import { SplashScreen } from '@ionic-native/splash-screen'
+import { AuthProvider } from '../providers/auth/auth'
+import { AuthAbstract } from '../providers/auth/authAbstract'
 
 import { AccountPage } from '../pages/account/account'
 import { LoginPage } from '../pages/login/login'
@@ -23,7 +25,8 @@ export interface PageInterface {
 }
 
 @Component({
-  templateUrl: 'app.template.html'
+  templateUrl: 'app.template.html',
+  providers: [AuthProvider]
 })
 export class ConferenceApp {
   // the root nav is a child of the root app component
@@ -40,17 +43,22 @@ export class ConferenceApp {
     { title: 'Logout', name: 'LoginPage', component: LoginPage, icon: 'log-out', logsOut: true }
   ]
   rootPage: any
+  isLoggedIn: boolean = false
+  auth: AuthAbstract
 
   constructor(
     public events: Events,
     public userData: UserData,
     public menu: MenuController,
     public platform: Platform,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    public authProvider: AuthProvider
   ) {
+    this.auth = this.authProvider.firebaseAuth
     this.platformReady()
     // decide which menu items should be hidden by current login status stored in local storage
     this.userData.hasLoggedIn().then((hasLoggedIn: boolean) => {
+      this.isLoggedIn = hasLoggedIn
       if (hasLoggedIn) {
         this.rootPage = TabsPage
       } else {
@@ -83,7 +91,8 @@ export class ConferenceApp {
 
     if (page.logsOut === true) {
       // Give the menu time to close before changing to logged out
-      this.userData.logout()
+      this.auth.logout()
+      .then(() => this.userData.logout())
     }
   }
 

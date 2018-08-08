@@ -30,4 +30,9 @@ export class FirebaseAuthProvider extends AuthAbstract {
       .createUserWithEmailAndPassword(email, password)
   }
 
+  public logout(): Promise<void> {
+    return this.afAuth
+      .auth.signOut()
+  }
+
 }

@@ -9,4 +9,5 @@ import { UserCredential } from "../../../node_modules/@firebase/auth-types";
 export abstract class AuthAbstract {
   abstract loginWithEmail(email: string, password: string): Promise<any>
   abstract signUp(email: string, password: string): Promise<any | UserCredential>
+  abstract logout(): Promise<void>
 }
