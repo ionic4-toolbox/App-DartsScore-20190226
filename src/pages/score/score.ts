@@ -2,7 +2,6 @@ import { Component } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { GameType } from '../../entities/GameType'
 import { UserData } from '../../providers/user-data'
-import { User } from '@firebase/auth-types'
 
 import {
   // ActionSheet,
@@ -36,11 +35,6 @@ export class ScorePage {
     public userData: UserData,
     private store: Store<ScoreStore.State>
   ) {
-    this.userData.getUser()
-    .then((user: User) => {
-      alert(JSON.stringify(user))
-    })
-    // this.userList = this.db.database.ref('')
   }
 
   ionViewWillEnter() {
