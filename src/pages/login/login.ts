@@ -36,9 +36,7 @@ export class LoginPage {
   async onLogin(form: NgForm) {
     this.submitted = true
     if(form.valid) {
-      let loading = this.loadingCtrl.create({
-        content: 'Please wait...'
-      })
+      let loading = this.loadingCtrl.create()
       loading.present()
       const userCredential: UserCredential
         = await this.auth
@@ -46,8 +44,9 @@ export class LoginPage {
             .catch((/*err*/) => {
               this.showToast("The login attempt failed", 'top')
               loading.dismiss()
-              return
             })
+      if (!userCredential) return
+
       this.userData.login(userCredential.user)
       this.navCtrl.push(TabsPage)
       loading.dismiss()

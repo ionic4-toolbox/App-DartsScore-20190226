@@ -29,7 +29,7 @@ export class SignupPage {
   submitted = false
   formError: FormError = { code: '', message: '' }
   auth: AuthAbstract
-  imageData: string = ''
+  imageData: string = 'assets/img/camera.svg'
   readonly options: CameraOptions = {
     quality: 100,
     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
@@ -53,9 +53,7 @@ export class SignupPage {
   async onSignup(form: NgForm) {
     this.submitted = true
     if (form.valid) {
-      let loading = this.loadingCtrl.create({
-        content: 'Please wait...'
-      })
+      let loading = this.loadingCtrl.create()
       loading.present()
       const userCredential: UserCredential
         = await this.auth
@@ -63,8 +61,9 @@ export class SignupPage {
             .catch(err => {
               this.formError = err
               loading.dismiss()
-              return
             })
+      if(!userCredential) return
+
       const uploadTaskSnapshot: UploadTaskSnapshot 
         = await this.afStorage
             .ref(userCredential.user.uid + '/profile-image')
@@ -72,10 +71,11 @@ export class SignupPage {
             .catch(err => {
               alert(JSON.stringify(err))
               loading.dismiss()
-              return
             })
-      
+      if(!uploadTaskSnapshot) return
+
       const url = await uploadTaskSnapshot.ref.getDownloadURL()
+      if(!url) return
 
       await userCredential.user.updateProfile({
         displayName: this.signup.username,
@@ -93,8 +93,9 @@ export class SignupPage {
       = await this.camera.getPicture(this.options)
           .catch(err => {
             alert(JSON.stringify(err))
-            return
           })
-    this.imageData = 'data:image/jpeg;base64,' + imageData
+    if (imageData) {
+      this.imageData = 'data:image/jpeg;base64,' + imageData
+    }
   }
 }
