@@ -43,7 +43,6 @@ export class ConferenceApp {
     { title: 'Logout', name: 'LoginPage', component: LoginPage, icon: 'log-out', logsOut: true }
   ]
   rootPage: any
-  isLoggedIn: boolean = false
   auth: AuthAbstract
 
   constructor(
@@ -58,7 +57,6 @@ export class ConferenceApp {
     this.platformReady()
     // decide which menu items should be hidden by current login status stored in local storage
     this.userData.hasLoggedIn().then((hasLoggedIn: boolean) => {
-      this.isLoggedIn = hasLoggedIn
       if (hasLoggedIn) {
         this.rootPage = TabsPage
       } else {

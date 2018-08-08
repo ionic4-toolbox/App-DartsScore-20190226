@@ -29,7 +29,7 @@ export class SignupPage {
   submitted = false
   formError: FormError = { code: '', message: '' }
   auth: AuthAbstract
-  imageData: string = 'assets/img/camera.svg'
+  imageData: string = 'assets/img/none.png'
   readonly options: CameraOptions = {
     quality: 100,
     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
