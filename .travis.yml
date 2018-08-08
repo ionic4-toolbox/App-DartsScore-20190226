@@ -3,8 +3,9 @@ node_js:
 - '9'
 before_script:
 - yarn install
+- yarn upgrade
 cache:
-  yarn: false
+  yarn: true
 script:
 - yarn test --coverage
 after_script:
