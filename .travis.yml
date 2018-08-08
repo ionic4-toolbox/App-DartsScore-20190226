@@ -2,8 +2,8 @@ language: node_js
 node_js:
 - '9'
 before_script:
+- npm i -g yarn
 - yarn install
-- yarn upgrade
 cache:
   yarn: true
 script:
