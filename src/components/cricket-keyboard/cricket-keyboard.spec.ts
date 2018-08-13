@@ -13,7 +13,7 @@ import { UserData } from '../../providers/user-data'
 import { AngularFireDatabase } from 'angularfire2/database'
 import { AngularFireModule } from 'angularfire2'
 import { environment } from '../../app/environment'
-import { reducers } from '../../store'
+import { reducers } from '../../ngrx'
 
 // const mockScoreStore = {
 //   push: jest.fn()

@@ -13,7 +13,7 @@ import { environment } from '../../app/environment'
 // import * as ScoreAction from '../../pages/score/store/action'
 // import * as ScoreStore from '../../pages/score/store/action'
 import { DefaultKeyboardComponent } from './default-keyboard'
-import { reducers } from '../../store'
+import { reducers } from '../../ngrx'
 
 // const mockScoreStore = {
 //   push: jest.fn()

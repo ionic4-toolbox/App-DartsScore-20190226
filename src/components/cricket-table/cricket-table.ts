@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 
 import { Store, select } from '@ngrx/store'
-import * as ScoreStore from '../../pages/score/store'
+import * as ScoreStore from '../../ngrx/score/stores'
 /**
  * Generated class for the CricketTableComponent component.
  *

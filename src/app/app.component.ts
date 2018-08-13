@@ -89,8 +89,8 @@ export class ConferenceApp {
 
     if (page.logsOut === true) {
       // Give the menu time to close before changing to logged out
-      this.auth.logout()
-      .then(() => this.userData.logout())
+      // this.auth.logout()
+      // .then(() => this.userData.logout())
     }
   }
 

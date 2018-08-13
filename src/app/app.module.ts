@@ -4,10 +4,9 @@ import { NgModule, ErrorHandler } from '@angular/core'
 import { StoreModule } from '@ngrx/store'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular'
-
 import { InAppBrowser } from '@ionic-native/in-app-browser'
 import { SplashScreen } from '@ionic-native/splash-screen'
-
+import { EffectsModule } from '@ngrx/effects'
 import { IonicStorageModule } from '@ionic/storage'
 
 import { ConferenceApp } from './app.component'
@@ -34,8 +33,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage'
 import { environment } from '../app/environment'
 
 import { ComponentsModule } from '../components/components.module'
-import { reducers } from '../store'
-import * as ScoreState from '../pages/score/store/state'
+import { reducers } from '../ngrx'
 import { ScoreParserProvider } from '../providers/score-parser/score-parser';
 import { ScoreProvider } from '../providers/score/score';
 import { ScoreCalculatorProvider } from '../providers/score-calculator/score-calculator';
@@ -44,6 +42,8 @@ import { CricketCalculatorProvider } from '../providers/cricket-calculator/crick
 import { CountupCalculatorProvider } from '../providers/countup-calculator/countup-calculator';
 import { AuthProvider } from '../providers/auth/auth';
 import { FirebaseAuthProvider } from '../providers/firebase-auth/firebase-auth';
+import { AuthModule } from '../ngrx/auth/auth.module';
+import { ScoreModule } from '../ngrx/score/score.module';
 
 @NgModule({
   declarations: [
@@ -68,13 +68,14 @@ import { FirebaseAuthProvider } from '../providers/firebase-auth/firebase-auth';
     AngularFireStorageModule,
     HttpModule,
     ComponentsModule,
+    AuthModule,
+    ScoreModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25
     }),
     AngularFireModule.initializeApp(environment.firebase),
-    StoreModule.forRoot(reducers, {
-      initialState: { score: ScoreState.initialState }
-    }),
+    StoreModule.forRoot(reducers, {}),
+    EffectsModule.forRoot([]),
     IonicModule.forRoot(ConferenceApp, {}, {
       links: [
         { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },

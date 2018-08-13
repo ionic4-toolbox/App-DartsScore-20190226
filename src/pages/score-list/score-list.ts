@@ -9,7 +9,6 @@ import { AlertController, App, /*FabContainer, ItemSliding,*/ List, ModalControl
 // import moment from 'moment';
 
 import { ConferenceData } from '../../providers/conference-data';
-import { UserData } from '../../providers/user-data';
 
 // import { SessionDetailPage } from '../session-detail/session-detail';
 
@@ -36,7 +35,6 @@ export class ScoreListPage {
     public navCtrl: NavController,
     public toastCtrl: ToastController,
     public confData: ConferenceData,
-    public user: UserData,
   ) {}
 
   // ionViewDidLoad() {

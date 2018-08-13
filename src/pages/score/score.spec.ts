@@ -11,7 +11,7 @@ import { UserData } from '../../providers/user-data'
 // import * as ScoreAction from './store/action'
 // import * as ScoreStore from './store'
 import { ScorePage } from './score'
-import { reducers } from '../../store'
+import { reducers } from '../../ngrx'
 
 // const mockScoreStore = {
 //   push: jest.fn()

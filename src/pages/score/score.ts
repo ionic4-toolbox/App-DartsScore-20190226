@@ -1,15 +1,14 @@
 import { Component } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { GameType } from '../../entities/GameType'
-import { UserData } from '../../providers/user-data'
 
 import {
   // ActionSheet,
   Config,
 } from 'ionic-angular'
 
-import * as ScoreAction from './store/action'
-import * as ScoreStore from './store'
+import * as ScoreAction from '../../ngrx/score/stores/action'
+import * as ScoreStore from '../../ngrx/score/stores/state'
 import { Score } from '../../entities/Score'
 
 // TODO remove
@@ -32,7 +31,6 @@ export class ScorePage {
 
   constructor(
     public config: Config,
-    public userData: UserData,
     private store: Store<ScoreStore.State>
   ) {
   }
