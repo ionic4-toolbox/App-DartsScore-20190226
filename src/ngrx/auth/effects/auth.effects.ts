@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Actions, Effect, ofType } from '@ngrx/effects'
-import { LoadingController, ToastController, Loading, App } from 'ionic-angular'
+import { Storage } from '@ionic/storage'
+import { LoadingController, ToastController, App } from 'ionic-angular'
 import { of } from 'rxjs'
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators'
 
@@ -9,21 +10,26 @@ import {
   Login,
   LoginFailure,
   LoginSuccess,
+  Signup,
 } from '../stores/action'
 
 import { UserCredential } from '@firebase/auth-types'
 import { UserOptions } from '../../../interfaces/user-options'
 import { AuthProvider } from '../../../providers/auth/auth'
-import { TutorialPage } from '../../../pages/tutorial/tutorial';
-import { LoginPage } from '../../../pages/login/login';
+import { TutorialPage } from '../../../pages/tutorial/tutorial'
+import { LoginPage } from '../../../pages/login/login'
+import { AngularFireStorage } from 'angularfire2/storage'
+import { TabsPage } from '../../../pages/tabs-page/tabs-page'
 
 @Injectable()
 export class AuthEffects {
-  loading: Loading
+  HAS_LOGGED_IN = 'hasLoggedIn'
   constructor(
     private actions$: Actions,
     private loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
+    public storage: Storage,
+    public afStorage: AngularFireStorage,
     private app: App,
     private authProvider: AuthProvider,
   ) {
@@ -34,17 +40,43 @@ export class AuthEffects {
     ofType<Login>(AuthActionTypes.LOGIN),
     map((action: any) => action.payload),
     exhaustMap((user: UserOptions) => {
-      this.loading = this.loadingCtrl.create()
-      this.loading.present()
+      let loading = this.loadingCtrl.create()
+      loading.present()
       return this.authProvider.firebaseAuth.loginWithEmail(user.email, user.password)
       .pipe(
-        map((user: UserCredential) => {
-          this.loading.dismiss()
-          return new LoginSuccess(user)
+        map((userCredential: UserCredential) => {
+          loading.dismiss()
+          this.storage.set(this.HAS_LOGGED_IN, true)
+          return new LoginSuccess(userCredential.user)
         }),
         catchError(error => {
           this.showToast("The login attempt failed", 'top')
-          this.loading.dismiss()
+          loading.dismiss()
+          this.storage.remove(this.HAS_LOGGED_IN)
+          return of(new LoginFailure(error))
+        })
+      )
+    })
+  )
+
+  @Effect()
+  signup$ = this.actions$.pipe(
+    ofType<Signup>(AuthActionTypes.SIGNUP),
+    map((action: any) => action.payload),
+    exhaustMap((user: UserOptions) => {
+      let loading = this.loadingCtrl.create()
+      loading.present()
+      return this.authProvider.firebaseAuth.signUp(user.email, user.password)
+      .pipe(
+        map((userCredential: UserCredential) => {
+          loading.dismiss()
+          this.storage.set(this.HAS_LOGGED_IN, true)
+          return new LoginSuccess(userCredential.user)
+        }),
+        catchError(error => {
+          this.showToast("The login attempt failed", 'top')
+          loading.dismiss()
+          this.storage.remove(this.HAS_LOGGED_IN)
           return of(new LoginFailure(error))
         })
       )
@@ -54,13 +86,23 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   loginSuccess$ = this.actions$.pipe(
     ofType(AuthActionTypes.LOGIN_SUCCESS),
-    tap(() => this.app.getActiveNav().push(TutorialPage))
+    tap(() => {
+      this.storage.get('hasSeenTutorial')
+      .then(data => {
+        if (data) {
+          this.app.getActiveNav().push(TabsPage)
+        } else {
+          this.app.getActiveNav().push(TutorialPage)
+        }
+      })
+    })
   )
 
   @Effect({ dispatch: false })
   loginRedirect$ = this.actions$.pipe(
     ofType(AuthActionTypes.LOGIN_REDIRECT, AuthActionTypes.LOGOUT),
     exhaustMap(() => {
+      this.storage.remove(this.HAS_LOGGED_IN)
       return this.authProvider.firebaseAuth.logout()
     }),
     tap(() => this.app.getActiveNav().push(LoginPage))

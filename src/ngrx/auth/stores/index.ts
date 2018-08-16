@@ -8,3 +8,4 @@ export { State, reducer }
  */
 export const getState = createFeatureSelector<State>('auth')
 export const getUser = createSelector(getState, state => state.user)
+export const getHasLoggedIn = createSelector(getState, state => state.hasLoggedIn)

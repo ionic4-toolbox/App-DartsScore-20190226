@@ -8,7 +8,6 @@ import { AngularFireAuthModule } from 'angularfire2/auth'
 // import * as ScoreStore from '../../pages/score/store/action'
 import { CricketKeyboardComponent } from './cricket-keyboard'
 import { ScoreParserProvider } from '../../providers/score-parser/score-parser'
-import { UserData } from '../../providers/user-data'
 
 import { AngularFireDatabase } from 'angularfire2/database'
 import { AngularFireModule } from 'angularfire2'
@@ -31,7 +30,7 @@ describe('ScorePage', () => {
         AngularFireAuthModule
       ],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [ScoreParserProvider, AngularFireDatabase, UserData]
+      providers: [ScoreParserProvider, AngularFireDatabase]
     }).compileComponents()
   );
 

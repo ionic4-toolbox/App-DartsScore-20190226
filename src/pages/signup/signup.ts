@@ -8,12 +8,9 @@ import { AngularFireStorage } from 'angularfire2/storage'
 import { NavController, Platform, LoadingController } from 'ionic-angular'
 import { AuthProvider } from '../../providers/auth/auth'
 
-// import { UserCredential, /*User*/ } from '@firebase/auth-types'
 import { UserOptions } from '../../interfaces/user-options'
 
-// import { TutorialPage } from '../tutorial/tutorial'
 import { AuthAbstract } from '../../providers/auth/authAbstract'
-// import { UploadTaskSnapshot } from '@firebase/storage-types';
 
 type FormError = {
   code: '',
@@ -52,23 +49,13 @@ export class SignupPage {
     this.auth = authProvider.firebaseAuth
   }
 
-  async onSignup(form: NgForm) {
+  onSignup(form: NgForm) {
     this.submitted = true
     if (form.valid) {
-      // let loading = this.loadingCtrl.create()
-      // loading.present()
       this.store.dispatch(new authActions.Login({
         email: this.signup.email,
         password: this.signup.password
       }))
-      // const userCredential: UserCredential
-      //   = await this.auth
-      //       .signUp(this.signup.email, this.signup.password)
-      //       .catch(err => {
-      //         this.formError = err
-      //         loading.dismiss()
-      //       })
-      // if(!userCredential) return
     }
     //   const uploadTaskSnapshot: UploadTaskSnapshot 
     //     = await this.afStorage
@@ -94,14 +81,14 @@ export class SignupPage {
     // }
   }
   
-  async setIcon() {
-    const imageData: string
-      = await this.camera.getPicture(this.options)
-          .catch(err => {
-            alert(JSON.stringify(err))
-          })
-    if (imageData) {
-      this.imageData = 'data:image/jpeg;base64,' + imageData
-    }
-  }
+  // async setIcon() {
+  //   const imageData: string
+  //     = await this.camera.getPicture(this.options)
+  //         .catch(err => {
+  //           alert(JSON.stringify(err))
+  //         })
+  //   if (imageData) {
+  //     this.imageData = 'data:image/jpeg;base64,' + imageData
+  //   }
+  // }
 }

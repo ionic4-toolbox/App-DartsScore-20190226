@@ -6,7 +6,6 @@ import { IonicStorageModule } from '@ionic/storage'
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { ScoreProvider } from '../../providers/score/score'
 import { ScoreParserProvider } from '../../providers/score-parser/score-parser'
-import { UserData } from '../../providers/user-data'
 import { AngularFireDatabase } from 'angularfire2/database'
 import { AngularFireModule } from 'angularfire2'
 import { environment } from '../../app/environment'
@@ -31,7 +30,7 @@ describe('ScorePage', () => {
         AngularFireAuthModule
       ],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [ScoreProvider, ScoreParserProvider, AngularFireDatabase, UserData]
+      providers: [ScoreProvider, ScoreParserProvider, AngularFireDatabase]
     }).compileComponents()
   );
 

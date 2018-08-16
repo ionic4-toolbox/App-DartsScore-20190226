@@ -7,7 +7,6 @@ import { AngularFireModule } from 'angularfire2'
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { environment } from '../../app/environment'
 
-import { UserData } from '../../providers/user-data'
 // import * as ScoreAction from './store/action'
 // import * as ScoreStore from './store'
 import { ScorePage } from './score'
@@ -29,7 +28,7 @@ describe('ScorePage', () => {
         AngularFireAuthModule
       ],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [UserData]
+      providers: []
     }).compileComponents()
   );
 

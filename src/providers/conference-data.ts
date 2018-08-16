@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { Http } from '@angular/http';
 
-import { UserData } from './user-data';
-
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
@@ -13,7 +11,7 @@ import 'rxjs/add/observable/of';
 export class ConferenceData {
   data: any;
 
-  constructor(public http: Http, public user: UserData) { }
+  constructor(public http: Http) { }
 
   load(): any {
     if (this.data) {

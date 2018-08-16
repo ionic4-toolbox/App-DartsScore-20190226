@@ -23,7 +23,6 @@ import { TutorialPage } from '../pages/tutorial/tutorial'
 import { SupportPage } from '../pages/support/support'
 
 import { ConferenceData } from '../providers/conference-data'
-import { UserData } from '../providers/user-data'
 
 import { AngularFireModule } from 'angularfire2'
 import { AngularFirestoreModule } from 'angularfire2/firestore'
@@ -110,7 +109,6 @@ import { ScoreModule } from '../ngrx/score/score.module';
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ConferenceData,
-    UserData,
     InAppBrowser,
     SplashScreen,
     ScoreParserProvider,

@@ -11,7 +11,10 @@ import { TabsPage } from '../pages/tabs-page/tabs-page'
 import { TutorialPage } from '../pages/tutorial/tutorial'
 import { SupportPage } from '../pages/support/support'
 
-import { UserData } from '../providers/user-data'
+import { Storage } from '../../node_modules/@ionic/storage'
+import * as authActions from '../ngrx/auth/stores/action'
+import * as fromAuth from '../ngrx/auth/stores/state'
+import { Store } from '@ngrx/store'
 
 export interface PageInterface {
   title: string
@@ -44,19 +47,22 @@ export class ConferenceApp {
   ]
   rootPage: any
   auth: AuthAbstract
+  hasLoggedIn: boolean
 
   constructor(
     public events: Events,
-    public userData: UserData,
+    public storage: Storage,
     public menu: MenuController,
     public platform: Platform,
+    public store: Store<fromAuth.State>,
     public splashScreen: SplashScreen,
     public authProvider: AuthProvider
   ) {
     this.auth = this.authProvider.firebaseAuth
     this.platformReady()
     // decide which menu items should be hidden by current login status stored in local storage
-    this.userData.hasLoggedIn().then((hasLoggedIn: boolean) => {
+    this.getHasLoggedIn().then((hasLoggedIn: boolean) => {
+      this.hasLoggedIn = hasLoggedIn
       if (hasLoggedIn) {
         this.rootPage = TabsPage
       } else {
@@ -67,30 +73,20 @@ export class ConferenceApp {
 
   openPage(page: PageInterface) {
     let params = {}
-
-    // the nav component was found using @ViewChild(Nav)
-    // setRoot on the nav to remove previous pages and only have this page
-    // we wouldn't want the back button to show in this scenario
     if (page.index) {
       params = { tabIndex: page.index }
     }
 
-    // If we are already on tabs just change the selected tab
-    // don't setRoot again, this maintains the history stack of the
-    // tabs even if changing them from the menu
     if (this.nav.getActiveChildNavs().length && page.index != undefined) {
       this.nav.getActiveChildNavs()[0].select(page.index)
     } else {
-      // Set the root of the nav with params if it's a tab index
       this.nav.setRoot(page.name, params).catch((err: any) => {
         console.log(`Didn't set nav root: ${err}`)
       })
     }
 
     if (page.logsOut === true) {
-      // Give the menu time to close before changing to logged out
-      // this.auth.logout()
-      // .then(() => this.userData.logout())
+      this.store.dispatch(new authActions.Logout())
     }
   }
 
@@ -99,7 +95,6 @@ export class ConferenceApp {
   }
 
   platformReady() {
-    // Call any initial plugins when ready
     this.platform.ready().then(() => {
       this.splashScreen.hide()
     })
@@ -107,8 +102,6 @@ export class ConferenceApp {
 
   isActive(page: PageInterface) {
     let childNav = this.nav.getActiveChildNavs()[0]
-
-    // Tabs are a special case because they have their own navigation
     if (childNav) {
       if (childNav.getSelected() && childNav.getSelected().root === page.tabComponent) {
         return 'primary'
@@ -120,5 +113,11 @@ export class ConferenceApp {
       return 'primary'
     }
     return
+  }
+
+  getHasLoggedIn(): Promise<boolean> {
+    return this.storage.get('hasLoggedIn').then((value) => {
+      return value === true
+    })
   }
 }

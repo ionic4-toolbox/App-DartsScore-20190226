@@ -1,8 +1,9 @@
 import { Action } from '@ngrx/store'
-import { UserCredential } from '@firebase/auth-types'
+import { User } from '@firebase/auth-types'
 
 export enum AuthActionTypes {
   LOGIN = '[Auth] Login',
+  SIGNUP = '[Auth] Signup',
   LOGOUT = '[Auth] Logout',
   LOGIN_SUCCESS = '[Auth] Login Success',
   LOGIN_FAILURE = '[Auth] Login Failure',
@@ -19,6 +20,11 @@ export enum AuthActionTypes {
  */
 export class Login implements Action {
   readonly type = AuthActionTypes.LOGIN
+  constructor(public payload: {email: string, password: string}) {}
+}
+
+export class Signup implements Action {
+  readonly type = AuthActionTypes.SIGNUP
   constructor(public payload: {email: string, password: string}) {}
 }
 
@@ -43,7 +49,7 @@ export class Logout implements Action {
  */
 export class LoginSuccess implements Action {
   readonly type = AuthActionTypes.LOGIN_SUCCESS
-  constructor(public payload: UserCredential) {}
+  constructor(public payload: User) {}
 }
 
 /**
@@ -59,7 +65,7 @@ export class LoginFailure implements Action {
 }
 
 /**
- * ログインが成功し，リダイレクトするとき
+ * ログイン画面にリダイレクトするとき
  *
  * @export
  * @class LoginRedirect
