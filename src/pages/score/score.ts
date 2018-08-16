@@ -7,8 +7,8 @@ import {
   Config,
 } from 'ionic-angular'
 
-import * as ScoreAction from './store/action'
-import * as ScoreStore from './store'
+import * as ScoreAction from '../../ngrx/score/stores/action'
+import * as ScoreStore from '../../ngrx/score/stores/state'
 import { Score } from '../../entities/Score'
 
 // TODO remove
@@ -33,7 +33,6 @@ export class ScorePage {
     public config: Config,
     private store: Store<ScoreStore.State>
   ) {
-    // this.userList = this.db.database.ref('')
   }
 
   ionViewWillEnter() {

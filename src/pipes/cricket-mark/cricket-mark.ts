@@ -15,15 +15,15 @@ export class CricketMark implements PipeTransform {
   transform(value: number) {
     let imgUrl: string = ""
     switch(value) {
-      case 0: imgUrl = "../assets/img/cricket-0.svg"
+      case 0: imgUrl = "assets/img/cricket-0.svg"
         break
-      case 1: imgUrl = "../assets/img/cricket-1.svg"
+      case 1: imgUrl = "assets/img/cricket-1.svg"
         break
-      case 2: imgUrl = "../assets/img/cricket-2.svg"
+      case 2: imgUrl = "assets/img/cricket-2.svg"
         break
-      case 3: imgUrl = "../assets/img/cricket-3.svg"
+      case 3: imgUrl = "assets/img/cricket-3.svg"
         break
-      default: imgUrl = "../assets/img/cricket-3.svg"
+      default: imgUrl = "assets/img/cricket-3.svg"
         break
     }
     return imgUrl;

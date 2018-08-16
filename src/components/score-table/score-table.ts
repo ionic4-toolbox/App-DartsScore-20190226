@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 
 import { Store, select } from '@ngrx/store'
 
-import * as ScoreStore from '../../pages/score/store'
+import * as ScoreStore from '../../ngrx/score/stores'
 import { Score } from '../../entities/Score'
 import { GameType } from '../../entities/GameType'
 /**

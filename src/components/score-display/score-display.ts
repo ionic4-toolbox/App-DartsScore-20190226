@@ -4,7 +4,7 @@ import { Store, select } from '@ngrx/store'
 import { GameType } from '../../entities/GameType'
 import { ScoreCalculatorProvider } from '../../providers/score-calculator/score-calculator'
 
-import * as ScoreStore from '../../pages/score/store'
+import * as ScoreStore from '../../ngrx/score/stores'
 import { Score } from '../../entities/Score'
 /**
  * Generated class for the ScoreDisplayComponent component.

@@ -5,4 +5,19 @@ page-signup {
   .input-form .input-text {
     border-bottom: 1px solid rgb(141, 141, 141);
   }
+  .profile-image {
+    margin: 15px;
+    background-color: rgba($color: #0c0c0c, $alpha: 0.4);
+    position: relative;
+  }
+  .profile-image-cover {
+    padding: 30px;
+    margin: 15px;
+    position: absolute;
+    background-color: transparent;
+    left: 0;
+  }
+  .image-form {
+    margin: 0 !important;
+  }
 }

@@ -10,6 +10,10 @@
 <ion-content class="signup-page">
 
 	<form #signupForm="ngForm" novalidate>
+		<!-- <ion-list class="image-form" no-lines>
+			<ion-img class="profile-image" width="100" height="100" [src]="imageData"></ion-img>
+			<ion-img class="profile-image-cover" (tap)="setIcon()" width="100" height="100" src="./assets/img/camera.svg"></ion-img>
+		</ion-list> -->
 		<ion-list no-lines>
 			<ion-item class="input-form">
 				<ion-label stacked color="black">Username</ion-label>
@@ -21,6 +25,18 @@
 			</p>
 
 			<ion-item class="input-form">
+				<ion-label stacked color="black">Email</ion-label>
+				<ion-input class="input-text" [(ngModel)]="signup.email" name="email" type="email" #email="ngModel" required>
+				</ion-input>
+			</ion-item>
+			<p ion-text class="input-form" [hidden]="email.valid || submitted == false" color="danger" padding-left>
+				Email is required
+			</p>
+			<p ion-text class="input-form" [hidden]="formError.code != 'auth/invalid-email'" color="danger" padding-left>
+				The email address is badly formatted
+			</p>
+
+			<ion-item class="input-form">
 				<ion-label stacked color="black">Password</ion-label>
 				<ion-input class="input-text" [(ngModel)]="signup.password" name="password" type="password" #password="ngModel" required>
 				</ion-input>
@@ -28,10 +44,13 @@
 			<p ion-text class="input-form" [hidden]="password.valid || submitted == false" color="danger" padding-left>
 				Password is required
 			</p>
+			<p ion-text class="input-form" [hidden]="formError.code != 'auth/weak-password'" color="danger" padding-left>
+				Password should be at least 6 characters
+			</p>
 		</ion-list>
 
 		<div padding>
-			<button ion-button (click)="onSignup(signupForm)" type="submit" block>Create</button>
+			<button ion-button outline full (click)="onSignup(signupForm)" type="submit" block>Create</button>
 		</div>
 	</form>
 

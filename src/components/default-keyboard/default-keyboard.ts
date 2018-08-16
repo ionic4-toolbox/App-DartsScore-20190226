@@ -3,10 +3,12 @@ import { Store, select } from '@ngrx/store'
 import { ToastController } from 'ionic-angular'
 
 import { AngularFireDatabase } from 'angularfire2/database'
+import { User } from '@firebase/auth-types'
 import * as moment from 'moment'
 
-import * as ScoreAction from '../../pages/score/store/action'
-import * as ScoreStore from '../../pages/score/store'
+import * as ScoreAction from '../../ngrx/score/stores/action'
+import * as ScoreStore from '../../ngrx/score/stores'
+import * as AuthStore from '../../ngrx/auth/stores'
 import { ScoreProvider } from '../../providers/score/score'
 import { GameScore } from '../../interfaces/GameScore'
 
@@ -23,7 +25,7 @@ import { GameScore } from '../../interfaces/GameScore'
 })
 export class DefaultKeyboardComponent {
   input: string = ""
-  userId = "ferretdayo"
+  user: User
   gameScore: GameScore
 
   constructor(
@@ -33,9 +35,9 @@ export class DefaultKeyboardComponent {
     private db: AngularFireDatabase,
   ) {
     this.store.pipe(select(ScoreStore.get4SaveGameScore))
-    .subscribe((data: ScoreStore.State) => {
-      this.gameScore = data
-    })
+    .subscribe((data: ScoreStore.State) => this.gameScore = data)
+    this.store.pipe(select(AuthStore.getUser))
+    .subscribe((data: User) => this.user = data)
   }
 
   onTap(event: any) {
@@ -90,7 +92,7 @@ export class DefaultKeyboardComponent {
 
   onSave() {
     this.db.database
-    .ref('game-scores/' + this.userId + '/' + moment().format('YYYYMMDD'))
+    .ref('game-scores/' + this.user.uid + '/' + moment().format('YYYYMMDD'))
     .push({...this.gameScore, created_at: new Date().getTime()})
     .then(() => {
       this.showToast('Save Score Data', 'top')

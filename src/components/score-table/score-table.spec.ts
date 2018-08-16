@@ -5,7 +5,7 @@ import { IonicModule } from 'ionic-angular'
 // import * as ScoreAction from '../../pages/score/store/action'
 // import * as ScoreStore from '../../pages/score/store/action'
 import { ScoreTableComponent } from './score-table'
-import { reducers } from '../../store'
+import { reducers } from '../../ngrx'
 
 // const mockScoreStore = {
 //   push: jest.fn()
