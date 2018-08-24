@@ -4,8 +4,6 @@ import { MenuController, NavController, Slides, IonicPage } from 'ionic-angular'
 
 import { Storage } from '@ionic/storage'
 
-// import { TabsPage } from '../tabs-page/tabs-page'
-
 @IonicPage()
 @Component({
   selector: 'page-tutorial',

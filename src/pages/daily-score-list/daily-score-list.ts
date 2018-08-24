@@ -10,9 +10,6 @@ import { AlertController, App, IonicPage, /*FabContainer, ItemSliding, */List, M
 
 import { ConferenceData } from '../../providers/conference-data'
 
-// import { ScoreListPage } from '../../pages/score-list/score-list'
-// import { SessionDetailPage } from '../session-detail/session-detail'
-
 @IonicPage()
 @Component({
   selector: 'page-daily-score-list',

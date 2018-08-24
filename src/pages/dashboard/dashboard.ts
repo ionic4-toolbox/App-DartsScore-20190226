@@ -12,8 +12,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser'
 
 import { ConferenceData } from '../../providers/conference-data'
 
-// import { SessionDetailPage } from '../session-detail/session-detail'
-
 // TODO remove
 export interface ActionSheetButton {
   text?: string

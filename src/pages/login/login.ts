@@ -6,7 +6,6 @@ import { AuthProvider } from '../../providers/auth/auth'
 
 import { UserOptions } from '../../interfaces/user-options'
 
-// import { SignupPage } from '../signup/signup'
 import { AuthAbstract } from '../../providers/auth/authAbstract'
 import * as fromAuth from '../../ngrx/auth/stores/state'
 import * as AuthActions from '../../ngrx/auth/stores/action'
