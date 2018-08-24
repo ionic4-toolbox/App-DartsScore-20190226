@@ -1,11 +1,12 @@
 import { Component } from '@angular/core'
 
-import { NavParams } from 'ionic-angular'
+import { NavParams, IonicPage } from 'ionic-angular'
 
 import { DailyScoreListPage } from '../daily-score-list/daily-score-list'
 import { ScorePage } from '../score/score'
 import { DashboardPage } from '../dashboard/dashboard'
 
+@IonicPage()
 @Component({
   templateUrl: 'tabs-page.html'
 })

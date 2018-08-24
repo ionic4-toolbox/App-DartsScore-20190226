@@ -5,13 +5,13 @@ import { SplashScreen } from '@ionic-native/splash-screen'
 import { AuthProvider } from '../providers/auth/auth'
 import { AuthAbstract } from '../providers/auth/authAbstract'
 
-import { AccountPage } from '../pages/account/account'
-import { LoginPage } from '../pages/login/login'
-import { TabsPage } from '../pages/tabs-page/tabs-page'
-import { TutorialPage } from '../pages/tutorial/tutorial'
-import { SupportPage } from '../pages/support/support'
+// import { AccountPage } from '../pages/account/account'
+// import { LoginPage } from '../pages/login/login'
+// import { TabsPage } from '../pages/tabs-page/tabs-page'
+// import { TutorialPage } from '../pages/tutorial/tutorial'
+// import { SupportPage } from '../pages/support/support'
 
-import { Storage } from '../../node_modules/@ionic/storage'
+import { Storage } from '@ionic/storage'
 import * as authActions from '../ngrx/auth/stores/action'
 import * as fromAuth from '../ngrx/auth/stores/state'
 import { Store } from '@ngrx/store'
@@ -40,10 +40,10 @@ export class ConferenceApp {
    * サイドメニューのリスト
    */
   appPages: PageInterface[] = [
-    { title: 'Home', name: 'TabsPage', component: TabsPage, icon: 'home' },
-    { title: 'Account', name: 'AccountPage', component: AccountPage, icon: 'person' },
-    { title: 'Support', name: 'SupportPage', component: SupportPage, icon: 'help' },
-    { title: 'Logout', name: 'LoginPage', component: LoginPage, icon: 'log-out', logsOut: true }
+    { title: 'Home', name: 'TabsPage', component: 'TabsPage', icon: 'home' },
+    { title: 'Account', name: 'AccountPage', component: 'AccountPage', icon: 'person' },
+    { title: 'Support', name: 'SupportPage', component: 'SupportPage', icon: 'help' },
+    { title: 'Logout', name: 'LoginPage', component: 'LoginPage', icon: 'log-out', logsOut: true }
   ]
   rootPage: any
   auth: AuthAbstract
@@ -64,9 +64,9 @@ export class ConferenceApp {
     this.getHasLoggedIn().then((hasLoggedIn: boolean) => {
       this.hasLoggedIn = hasLoggedIn
       if (hasLoggedIn) {
-        this.rootPage = TabsPage
+        this.rootPage = 'TabsPage'
       } else {
-        this.rootPage = LoginPage
+        this.rootPage = 'LoginPage'
       }
     })
   }
@@ -78,8 +78,10 @@ export class ConferenceApp {
     }
 
     if (this.nav.getActiveChildNavs().length && page.index != undefined) {
+      console.log("hhiohiohoho", this.nav.getActiveChildNavs().length, page.index)
       this.nav.getActiveChildNavs()[0].select(page.index)
     } else {
+      console.log("iiiiii", this.nav.getActiveChildNavs().length, page.index)
       this.nav.setRoot(page.name, params).catch((err: any) => {
         console.log(`Didn't set nav root: ${err}`)
       })
@@ -91,7 +93,7 @@ export class ConferenceApp {
   }
 
   openTutorial() {
-    this.nav.setRoot(TutorialPage)
+    this.nav.setRoot('TutorialPage')
   }
 
   platformReady() {

@@ -1,34 +1,36 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 
 import {
   ActionSheet,
   ActionSheetController,
   ActionSheetOptions,
   Config,
-  NavController
-} from 'ionic-angular';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
+  NavController,
+  IonicPage
+} from 'ionic-angular'
+import { InAppBrowser } from '@ionic-native/in-app-browser'
 
-import { ConferenceData } from '../../providers/conference-data';
+import { ConferenceData } from '../../providers/conference-data'
 
-import { SessionDetailPage } from '../session-detail/session-detail';
+// import { SessionDetailPage } from '../session-detail/session-detail'
 
 // TODO remove
 export interface ActionSheetButton {
-  text?: string;
-  role?: string;
-  icon?: string;
-  cssClass?: string;
-  handler?: () => boolean|void;
-};
+  text?: string
+  role?: string
+  icon?: string
+  cssClass?: string
+  handler?: () => boolean|void
+}
 
+@IonicPage()
 @Component({
   selector: 'page-dashboard',
   templateUrl: 'dashboard.html'
 })
 export class DashboardPage {
-  actionSheet: ActionSheet;
-  speakers: any[] = [];
+  actionSheet: ActionSheet
+  speakers: any[] = []
 
   constructor(
     public actionSheetCtrl: ActionSheetController,
@@ -40,19 +42,19 @@ export class DashboardPage {
 
   ionViewDidLoad() {
     this.confData.getSpeakers().subscribe((speakers: any[]) => {
-      this.speakers = speakers;
-    });
+      this.speakers = speakers
+    })
   }
 
   goToSessionDetail(session: any) {
-    this.navCtrl.push(SessionDetailPage, { sessionId: session.id });
+    this.navCtrl.push('SessionDetailPage', { sessionId: session.id })
   }
 
   goToSpeakerTwitter(speaker: any) {
     this.inAppBrowser.create(
       `https://twitter.com/${speaker.twitter}`,
       '_blank'
-    );
+    )
   }
 
   openSpeakerShare(speaker: any) {
@@ -62,11 +64,11 @@ export class DashboardPage {
         {
           text: 'Copy Link',
           handler: () => {
-            console.log('Copy link clicked on https://twitter.com/' + speaker.twitter);
+            console.log('Copy link clicked on https://twitter.com/' + speaker.twitter)
             if ( (window as any)['cordova'] && (window as any)['cordova'].plugins.clipboard) {
               (window as any)['cordova'].plugins.clipboard.copy(
                 'https://twitter.com/' + speaker.twitter
-              );
+              )
             }
           }
         } as ActionSheetButton,
@@ -78,13 +80,13 @@ export class DashboardPage {
           role: 'cancel'
         } as ActionSheetButton
       ]
-    } as ActionSheetOptions);
+    } as ActionSheetOptions)
 
-    actionSheet.present();
+    actionSheet.present()
   }
 
   openContact(speaker: any) {
-    let mode = this.config.get('mode');
+    let mode = this.config.get('mode')
 
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Contact ' + speaker.name,
@@ -93,19 +95,19 @@ export class DashboardPage {
           text: `Email ( ${speaker.email} )`,
           icon: mode !== 'ios' ? 'mail' : null,
           handler: () => {
-            window.open('mailto:' + speaker.email);
+            window.open('mailto:' + speaker.email)
           }
         } as ActionSheetButton,
         {
           text: `Call ( ${speaker.phone} )`,
           icon: mode !== 'ios' ? 'call' : null,
           handler: () => {
-            window.open('tel:' + speaker.phone);
+            window.open('tel:' + speaker.phone)
           }
         } as ActionSheetButton
       ]
-    } as ActionSheetOptions);
+    } as ActionSheetOptions)
 
-    actionSheet.present();
+    actionSheet.present()
   }
 }
