@@ -10,18 +10,6 @@ import { EffectsModule } from '@ngrx/effects'
 import { IonicStorageModule } from '@ionic/storage'
 
 import { ConferenceApp } from './app.component'
-import { PopoverPage } from '../pages/about-popover/about-popover'
-import { LoginPage } from '../pages/login/login'
-import { ScoreListPage } from '../pages/score-list/score-list'
-import { DailyScoreListPage } from '../pages/daily-score-list/daily-score-list'
-import { SessionDetailPage } from '../pages/session-detail/session-detail'
-import { SignupPage } from '../pages/signup/signup'
-import { ScorePage } from '../pages/score/score'
-import { DashboardPage } from '../pages/dashboard/dashboard'
-import { TabsPage } from '../pages/tabs-page/tabs-page'
-import { TutorialPage } from '../pages/tutorial/tutorial'
-import { SupportPage } from '../pages/support/support'
-
 import { ConferenceData } from '../providers/conference-data'
 
 import { AngularFireModule } from 'angularfire2'
@@ -31,33 +19,22 @@ import { AngularFireAuthModule } from 'angularfire2/auth'
 import { AngularFireStorageModule } from 'angularfire2/storage'
 import { environment } from '../app/environment'
 
-import { ComponentsModule } from '../components/components.module'
+import { PagesModule } from '../pages/pages.module'
 import { reducers } from '../ngrx'
-import { ScoreParserProvider } from '../providers/score-parser/score-parser';
-import { ScoreProvider } from '../providers/score/score';
-import { ScoreCalculatorProvider } from '../providers/score-calculator/score-calculator';
-import { ZerooneCalculatorProvider } from '../providers/zeroone-calculator/zeroone-calculator';
-import { CricketCalculatorProvider } from '../providers/cricket-calculator/cricket-calculator';
-import { CountupCalculatorProvider } from '../providers/countup-calculator/countup-calculator';
-import { AuthProvider } from '../providers/auth/auth';
-import { FirebaseAuthProvider } from '../providers/firebase-auth/firebase-auth';
-import { AuthModule } from '../ngrx/auth/auth.module';
-import { ScoreModule } from '../ngrx/score/score.module';
+import { ScoreParserProvider } from '../providers/score-parser/score-parser'
+import { ScoreProvider } from '../providers/score/score'
+import { ScoreCalculatorProvider } from '../providers/score-calculator/score-calculator'
+import { ZerooneCalculatorProvider } from '../providers/zeroone-calculator/zeroone-calculator'
+import { CricketCalculatorProvider } from '../providers/cricket-calculator/cricket-calculator'
+import { CountupCalculatorProvider } from '../providers/countup-calculator/countup-calculator'
+import { AuthProvider } from '../providers/auth/auth'
+import { FirebaseAuthProvider } from '../providers/firebase-auth/firebase-auth'
+import { AuthModule } from '../ngrx/auth/auth.module'
+import { ScoreModule } from '../ngrx/score/score.module'
 
 @NgModule({
   declarations: [
-    ConferenceApp,
-    LoginPage,
-    PopoverPage,
-    ScoreListPage,
-    DailyScoreListPage,
-    SessionDetailPage,
-    SignupPage,
-    ScorePage,
-    DashboardPage,
-    TabsPage,
-    TutorialPage,
-    SupportPage
+    ConferenceApp
   ],
   imports: [
     BrowserModule,
@@ -66,7 +43,7 @@ import { ScoreModule } from '../ngrx/score/score.module';
     AngularFireDatabaseModule,
     AngularFireStorageModule,
     HttpModule,
-    ComponentsModule,
+    PagesModule,
     AuthModule,
     ScoreModule,
     StoreDevtoolsModule.instrument({
@@ -75,36 +52,12 @@ import { ScoreModule } from '../ngrx/score/score.module';
     AngularFireModule.initializeApp(environment.firebase),
     StoreModule.forRoot(reducers, {}),
     EffectsModule.forRoot([]),
-    IonicModule.forRoot(ConferenceApp, {}, {
-      links: [
-        { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
-        { component: ScoreListPage, name: 'ScoreList', segment: 'scoreList' },
-        { component: DailyScoreListPage, name: 'DailyScoreList', segment: 'dailyScoreList' },
-        { component: SessionDetailPage, name: 'SessionDetail', segment: 'sessionDetail/:sessionId' },
-        { component: ScorePage, name: 'Score', segment: 'score' },
-        { component: DashboardPage, name: 'Dashboard', segment: 'dashboard' },
-        { component: TutorialPage, name: 'Tutorial', segment: 'tutorial' },
-        { component: SupportPage, name: 'SupportPage', segment: 'support' },
-        { component: LoginPage, name: 'LoginPage', segment: 'login' },
-        { component: SignupPage, name: 'SignupPage', segment: 'signup' }
-      ]
-    }),
+    IonicModule.forRoot(ConferenceApp),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    ConferenceApp,
-    LoginPage,
-    PopoverPage,
-    ScoreListPage,
-    DailyScoreListPage,
-    SessionDetailPage,
-    SignupPage,
-    ScorePage,
-    DashboardPage,
-    TabsPage,
-    TutorialPage,
-    SupportPage
+    ConferenceApp
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

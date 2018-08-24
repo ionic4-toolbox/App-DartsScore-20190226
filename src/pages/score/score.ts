@@ -5,6 +5,7 @@ import { GameType } from '../../entities/GameType'
 import {
   // ActionSheet,
   Config,
+  IonicPage,
 } from 'ionic-angular'
 
 import * as ScoreAction from '../../ngrx/score/stores/action'
@@ -20,6 +21,7 @@ export interface ActionSheetButton {
   handler?: () => boolean|void;
 }
 
+@IonicPage()
 @Component({
   selector: 'page-score',
   templateUrl: 'score.html'

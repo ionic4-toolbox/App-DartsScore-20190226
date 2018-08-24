@@ -5,7 +5,7 @@ import * as fromAuth from '../../ngrx/auth/stores/state'
 import * as authActions from '../../ngrx/auth/stores/action'
 import { Camera, CameraOptions } from '@ionic-native/camera'
 import { AngularFireStorage } from 'angularfire2/storage'
-import { NavController, Platform, LoadingController } from 'ionic-angular'
+import { NavController, Platform, LoadingController, IonicPage } from 'ionic-angular'
 import { AuthProvider } from '../../providers/auth/auth'
 
 import { UserOptions } from '../../interfaces/user-options'
@@ -17,6 +17,7 @@ type FormError = {
   message: ''
 }
 
+@IonicPage()
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',

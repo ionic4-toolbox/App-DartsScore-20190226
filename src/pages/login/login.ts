@@ -1,16 +1,16 @@
 import { Component } from '@angular/core'
 import { NgForm } from '@angular/forms'
 import { Store } from '@ngrx/store'
-import { NavController } from 'ionic-angular'
+import { NavController, IonicPage } from 'ionic-angular'
 import { AuthProvider } from '../../providers/auth/auth'
 
 import { UserOptions } from '../../interfaces/user-options'
 
-import { SignupPage } from '../signup/signup'
 import { AuthAbstract } from '../../providers/auth/authAbstract'
 import * as fromAuth from '../../ngrx/auth/stores/state'
 import * as AuthActions from '../../ngrx/auth/stores/action'
 
+@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -40,6 +40,6 @@ export class LoginPage {
   }
 
   onSignup() {
-    this.navCtrl.push(SignupPage)
+    this.navCtrl.push('SignupPage')
   }
 }

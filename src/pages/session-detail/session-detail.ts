@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { Component } from '@angular/core'
+import { NavParams, IonicPage } from 'ionic-angular'
 
-import { ConferenceData } from '../../providers/conference-data';
+import { ConferenceData } from '../../providers/conference-data'
 
+@IonicPage()
 @Component({
   selector: 'page-session-detail',
   templateUrl: 'session-detail.html'
 })
 export class SessionDetailPage {
-  session: any;
+  session: any
 
   constructor(
     public dataProvider: ConferenceData,
@@ -27,13 +28,13 @@ export class SessionDetailPage {
           if (group && group.sessions) {
             for (const session of group.sessions) {
               if (session && session.id === this.navParams.data.sessionId) {
-                this.session = session;
-                break;
+                this.session = session
+                break
               }
             }
           }
         }
       }
-    });
+    })
   }
 }

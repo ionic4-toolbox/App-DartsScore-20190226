@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 
-import { App, NavController, ModalController, ViewController } from 'ionic-angular';
+import { App, NavController, ModalController, ViewController } from 'ionic-angular'
 
 
 @Component({
@@ -24,12 +24,12 @@ export class PopoverPage {
   ) { }
 
   support() {
-    this.app.getRootNav().push('SupportPage');
-    this.viewCtrl.dismiss();
+    this.app.getRootNav().push('SupportPage')
+    this.viewCtrl.dismiss()
   }
 
   close(url: string) {
-    window.open(url, '_blank');
-    this.viewCtrl.dismiss();
+    window.open(url, '_blank')
+    this.viewCtrl.dismiss()
   }
 }

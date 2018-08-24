@@ -16,10 +16,10 @@ import {
 import { UserCredential } from '@firebase/auth-types'
 import { UserOptions } from '../../../interfaces/user-options'
 import { AuthProvider } from '../../../providers/auth/auth'
-import { TutorialPage } from '../../../pages/tutorial/tutorial'
-import { LoginPage } from '../../../pages/login/login'
+// import { TutorialPage } from '../../../pages/tutorial/tutorial'
+// import { LoginPage } from '../../../pages/login/login'
 import { AngularFireStorage } from 'angularfire2/storage'
-import { TabsPage } from '../../../pages/tabs-page/tabs-page'
+// import { TabsPage } from '../../../pages/tabs-page/tabs-page'
 
 @Injectable()
 export class AuthEffects {
@@ -90,9 +90,9 @@ export class AuthEffects {
       this.storage.get('hasSeenTutorial')
       .then(data => {
         if (data) {
-          this.app.getActiveNav().push(TabsPage)
+          this.app.getActiveNav().push('TabsPage')
         } else {
-          this.app.getActiveNav().push(TutorialPage)
+          this.app.getActiveNav().push('TutorialPage')
         }
       })
     })
@@ -105,7 +105,7 @@ export class AuthEffects {
       this.storage.remove(this.HAS_LOGGED_IN)
       return this.authProvider.firebaseAuth.logout()
     }),
-    tap(() => this.app.getActiveNav().push(LoginPage))
+    tap(() => this.app.getActiveNav().push('LoginPage'))
   )
 
   private showToast(message: string, position: string) {
