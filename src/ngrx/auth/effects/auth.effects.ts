@@ -13,13 +13,10 @@ import {
   Signup,
 } from '../stores/action'
 
-import { UserCredential } from '@firebase/auth-types'
+import { UserCredential, User } from '@firebase/auth-types'
 import { UserOptions } from '../../../interfaces/user-options'
 import { AuthProvider } from '../../../providers/auth/auth'
-// import { TutorialPage } from '../../../pages/tutorial/tutorial'
-// import { LoginPage } from '../../../pages/login/login'
 import { AngularFireStorage } from 'angularfire2/storage'
-// import { TabsPage } from '../../../pages/tabs-page/tabs-page'
 
 @Injectable()
 export class AuthEffects {
@@ -45,6 +42,7 @@ export class AuthEffects {
       return this.authProvider.firebaseAuth.loginWithEmail(user.email, user.password)
       .pipe(
         map((userCredential: UserCredential) => {
+          console.log("loginwithemail: ", JSON.stringify(userCredential))
           loading.dismiss()
           this.storage.set(this.HAS_LOGGED_IN, true)
           return new LoginSuccess(userCredential.user)
@@ -63,15 +61,27 @@ export class AuthEffects {
   signup$ = this.actions$.pipe(
     ofType<Signup>(AuthActionTypes.SIGNUP),
     map((action: any) => action.payload),
-    exhaustMap((user: UserOptions) => {
+    exhaustMap((user: any) => {
       let loading = this.loadingCtrl.create()
       loading.present()
       return this.authProvider.firebaseAuth.signUp(user.email, user.password)
       .pipe(
-        map((userCredential: UserCredential) => {
-          loading.dismiss()
-          this.storage.set(this.HAS_LOGGED_IN, true)
-          return new LoginSuccess(userCredential.user)
+        map(() => {
+          return this.authProvider.firebaseAuth.saveProfile(user.username, user.thumbnail)
+          .subscribe((user: User) => {
+              console.log("saveProfile: ", JSON.stringify(user))
+              loading.dismiss()
+              this.storage.set(this.HAS_LOGGED_IN, true)
+              return new LoginSuccess(user)
+            },
+            error => {
+              this.showToast("something wrong", 'top')
+              loading.dismiss()
+              this.authProvider.firebaseAuth.deleteUser()
+              this.storage.remove(this.HAS_LOGGED_IN)
+              return of(new LoginFailure(error))
+            }
+          )
         }),
         catchError(error => {
           this.showToast("The login attempt failed", 'top')
@@ -87,8 +97,10 @@ export class AuthEffects {
   loginSuccess$ = this.actions$.pipe(
     ofType(AuthActionTypes.LOGIN_SUCCESS),
     tap(() => {
+      console.log("loginsuccess: ")
       this.storage.get('hasSeenTutorial')
       .then(data => {
+        console.log("inner loginsuccess: ", JSON.stringify(data))
         if (data) {
           this.app.getActiveNav().push('TabsPage')
         } else {

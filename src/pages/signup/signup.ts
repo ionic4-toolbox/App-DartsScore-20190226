@@ -1,20 +1,18 @@
 import { Component } from '@angular/core'
 import { NgForm } from '@angular/forms'
-import { Store } from '@ngrx/store'
+import { Store, select } from '@ngrx/store'
+import { Camera, CameraOptions } from '@ionic-native/camera'
 import * as fromAuth from '../../ngrx/auth/stores/state'
 import * as authActions from '../../ngrx/auth/stores/action'
-import { Camera, CameraOptions } from '@ionic-native/camera'
-import { AngularFireStorage } from 'angularfire2/storage'
+import * as authStores from '../../ngrx/auth/stores'
 import { NavController, Platform, LoadingController, IonicPage } from 'ionic-angular'
 import { AuthProvider } from '../../providers/auth/auth'
-
-import { UserOptions } from '../../interfaces/user-options'
 
 import { AuthAbstract } from '../../providers/auth/authAbstract'
 
 type FormError = {
-  code: '',
-  message: ''
+  code: string,
+  message: string
 }
 
 @IonicPage()
@@ -24,11 +22,11 @@ type FormError = {
   providers: [AuthProvider, Camera]
 })
 export class SignupPage {
-  signup: UserOptions = { username: '', email: '' , password: '' }
+  signup: any = { username: '', email: '' , password: '' }
+  imageData: string = 'assets/img/none.png'
   submitted = false
   formError: FormError = { code: '', message: '' }
   auth: AuthAbstract
-  imageData: string = 'assets/img/none.png'
   readonly options: CameraOptions = {
     quality: 100,
     allowEdit: true,
@@ -40,56 +38,41 @@ export class SignupPage {
 
   constructor(
     public navCtrl: NavController,
+    public camera: Camera,
     public loadingCtrl: LoadingController,
     public platform: Platform,
     public authProvider: AuthProvider,
-    public camera: Camera,
-    public afStorage: AngularFireStorage,
     private store: Store<fromAuth.State>,
   ) {
     this.auth = authProvider.firebaseAuth
+    this.store.pipe(select(authStores.getSignUpFormError))
+    .subscribe(data => this.formError = data)
   }
 
   onSignup(form: NgForm) {
     this.submitted = true
+    if (this.imageData == 'assets/img/none.png') {
+      this.formError.code = "thumbnail/invalid"
+      return
+    }
     if (form.valid) {
-      this.store.dispatch(new authActions.Login({
+      this.store.dispatch(new authActions.Signup({
         email: this.signup.email,
-        password: this.signup.password
+        password: this.signup.password,
+        thumbnail: this.imageData,
+        username: this.signup.username
       }))
     }
-    //   const uploadTaskSnapshot: UploadTaskSnapshot 
-    //     = await this.afStorage
-    //         .ref(userCredential.user.uid + '/profile-image')
-    //         .putString(this.imageData, 'data_url')
-    //         .catch(err => {
-    //           alert(JSON.stringify(err))
-    //           loading.dismiss()
-    //         })
-    //   if(!uploadTaskSnapshot) return
-
-    //   const url = await uploadTaskSnapshot.ref.getDownloadURL()
-    //   if(!url) return
-
-    //   await userCredential.user.updateProfile({
-    //     displayName: this.signup.username,
-    //     photoURL: url
-    //   })
-
-    //   this.userData.signup(userCredential.user)
-    //   this.navCtrl.push(TutorialPage)
-    //   loading.dismiss()
-    // }
   }
-  
-  // async setIcon() {
-  //   const imageData: string
-  //     = await this.camera.getPicture(this.options)
-  //         .catch(err => {
-  //           alert(JSON.stringify(err))
-  //         })
-  //   if (imageData) {
-  //     this.imageData = 'data:image/jpeg;base64,' + imageData
-  //   }
-  // }
+
+  async setIcon() {
+    const imageData: string
+      = await this.camera.getPicture(this.options)
+          .catch(err => {
+            alert(JSON.stringify(err))
+          })
+    if (imageData) {
+      this.imageData = 'data:image/jpeg;base64,' + imageData
+    }
+  }
 }

@@ -25,7 +25,7 @@ export class Login implements Action {
 
 export class Signup implements Action {
   readonly type = AuthActionTypes.SIGNUP
-  constructor(public payload: {email: string, password: string}) {}
+  constructor(public payload: {email: string, password: string, username: string, thumbnail: string}) {}
 }
 
 /**
@@ -77,6 +77,7 @@ export class LoginRedirect implements Action {
 }
 
 export type Actions = Login
+                    | Signup
                     | LoginSuccess
                     | LoginFailure
                     | LoginRedirect
