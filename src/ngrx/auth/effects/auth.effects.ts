@@ -67,28 +67,30 @@ export class AuthEffects {
       return this.authProvider.firebaseAuth.signUp(user.email, user.password)
       .pipe(
         map(() => {
-          return this.authProvider.firebaseAuth.saveProfile(user.username, user.thumbnail)
-          .subscribe((user: User) => {
-              console.log("saveProfile: ", JSON.stringify(user))
+          let updatedUser: User
+          let error
+          try {
+            updatedUser = this.authProvider.firebaseAuth.saveProfile(user.username, user.thumbnail)
+            if(updatedUser) {
+              console.log("saveProfile: ", JSON.stringify(updatedUser))
               loading.dismiss()
               this.storage.set(this.HAS_LOGGED_IN, true)
-              return new LoginSuccess(user)
-            },
-            error => {
-              this.showToast("something wrong", 'top')
-              loading.dismiss()
-              this.authProvider.firebaseAuth.deleteUser()
-              this.storage.remove(this.HAS_LOGGED_IN)
-              return of(new LoginFailure(error))
+              return new LoginSuccess(updatedUser)
             }
-          )
+          } catch (e) {
+            this.showToast("something wrong", 'top')
+            loading.dismiss()
+            this.authProvider.firebaseAuth.deleteUser()
+            this.storage.remove(this.HAS_LOGGED_IN)
+            return of(new LoginFailure(error))
+          }
         }),
         catchError(error => {
           this.showToast("The login attempt failed", 'top')
           loading.dismiss()
           this.storage.remove(this.HAS_LOGGED_IN)
           return of(new LoginFailure(error))
-        })
+        }),
       )
     })
   )

@@ -38,40 +38,23 @@ export class FirebaseAuthProvider extends AuthAbstract {
     )
   }
 
-  public saveProfile(username: string, thumbnail: string): Observable<User> {
-    const user = this.afAuth.auth.currentUser
-    return from(
-      this.afStorage
-      .ref(user.uid + '/profile-image')
-      .putString(thumbnail, 'data_url')
-      .then((uploadTaskSnapshot: UploadTaskSnapshot) => {
-        if(!uploadTaskSnapshot) {
-          throw new Error("写真情報がない")
-        }
-        return uploadTaskSnapshot.ref.getDownloadURL()
-        .then((url: string) => {
-          if(!url) {
-            throw new Error("写真のURLがない")
-          }
-          return this.afAuth.auth.currentUser.updateProfile({
-            photoURL: url,
-            displayName: username
-          })
-          .then(() => {
-            return this.afAuth.auth.currentUser
-          })
-          .catch(error => {
-            throw new Error(error)
-          })
-        })
-        .catch(error => {
-          throw new Error(error)
-        })
-      })
-      .catch(error => {
-        throw new Error(error)
-      })
-    )
+  public async saveProfile(username: string, thumbnail: string): User {
+    const user: User = this.afAuth.auth.currentUser
+    const uploadTaskSnapshot: UploadTaskSnapshot = await this.afStorage
+    .ref(user.uid + '/profile-image')
+    .putString(thumbnail, 'data_url')
+    if(!uploadTaskSnapshot) {
+      throw new Error("写真情報がない")
+    }
+    const url: string = await uploadTaskSnapshot.ref.getDownloadURL()
+    if(!url) {
+      throw new Error("写真のURLがない")
+    }
+    await this.afAuth.auth.currentUser.updateProfile({
+      photoURL: url,
+      displayName: username
+    })
+    return this.afAuth.auth.currentUser
   }
 
   public deleteUser(): Observable<void> {
