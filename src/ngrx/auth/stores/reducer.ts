@@ -7,8 +7,7 @@ import { State, initialState } from './state'
 export function reducer(state = initialState, action: AuthAction.Actions): State {
   switch (action.type) {
     case AuthAction.AuthActionTypes.LOGIN_SUCCESS: {
-      console.log("SUCCESS: ", action.payload)
-      return Object.assign({}, state, { hasLoggedIn: true, user: action.payload })
+      return Object.assign({}, state, { hasLoggedIn: true, user: action.payload, signUpFormError: initialState.signUpFormError })
     }
     case AuthAction.AuthActionTypes.LOGOUT: {
       return Object.assign({}, state, initialState)

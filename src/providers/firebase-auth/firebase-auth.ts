@@ -7,7 +7,6 @@ import { UserCredential, User } from '@firebase/auth-types'
 import { UploadTaskSnapshot } from 'firebase/storage'
 
 import { from, Observable } from 'rxjs'
-// import { map, catchError, flatMap, } from '../../../node_modules/rxjs/operators'
 /*
   Generated class for the FirebaseAuthProvider provider.
 
@@ -30,23 +29,19 @@ export class FirebaseAuthProvider extends AuthAbstract {
       .signInWithEmailAndPassword(email, password))
   }
 
-  public signUp(email: string, password: string): Observable<UserCredential> {
-    console.log("SINGUP: ", email, password)
-    return from(
-      this.afAuth.auth
+  public signUp(email: string, password: string): Promise<UserCredential> {
+    return this.afAuth.auth
       .createUserWithEmailAndPassword(email, password)
-    )
   }
 
-  public async saveProfile(username: string, thumbnail: string): User {
-    const user: User = this.afAuth.auth.currentUser
-    const uploadTaskSnapshot: UploadTaskSnapshot = await this.afStorage
-    .ref(user.uid + '/profile-image')
-    .putString(thumbnail, 'data_url')
+  public async saveProfile(username: string, thumbnail: string): Promise<User> {
+    let user: User = this.afAuth.auth.currentUser
+    const thumbnailPath = user.uid + '/profile-image'
+    const uploadTaskSnapshot: UploadTaskSnapshot = await this.afStorage.ref(thumbnailPath).putString(thumbnail, 'data_url')
     if(!uploadTaskSnapshot) {
       throw new Error("写真情報がない")
     }
-    const url: string = await uploadTaskSnapshot.ref.getDownloadURL()
+    const url: string = await this.afStorage.ref(thumbnailPath).getDownloadURL().toPromise()
     if(!url) {
       throw new Error("写真のURLがない")
     }

@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core'
 
 import { Events, MenuController, Nav, Platform } from 'ionic-angular'
+import { AngularFireAuth } from 'angularfire2/auth'
 import { SplashScreen } from '@ionic-native/splash-screen'
 import { AuthProvider } from '../providers/auth/auth'
 import { AuthAbstract } from '../providers/auth/authAbstract'
@@ -14,7 +15,9 @@ import { AuthAbstract } from '../providers/auth/authAbstract'
 import { Storage } from '@ionic/storage'
 import * as authActions from '../ngrx/auth/stores/action'
 import * as fromAuth from '../ngrx/auth/stores/state'
-import { Store } from '@ngrx/store'
+import * as AuthStore from '../ngrx/auth/stores'
+import { Store, select } from '@ngrx/store'
+import { User } from '@firebase/auth-types'
 
 export interface PageInterface {
   title: string
@@ -56,17 +59,18 @@ export class ConferenceApp {
     public platform: Platform,
     public store: Store<fromAuth.State>,
     public splashScreen: SplashScreen,
-    public authProvider: AuthProvider
+    public authProvider: AuthProvider,
+    public afAuth: AngularFireAuth
   ) {
     this.auth = this.authProvider.firebaseAuth
     this.platformReady()
-    // decide which menu items should be hidden by current login status stored in local storage
-    this.getHasLoggedIn().then((hasLoggedIn: boolean) => {
-      this.hasLoggedIn = hasLoggedIn
-      if (hasLoggedIn) {
+    this.afAuth.auth.onAuthStateChanged((user: User) => {
+      if (user) {
         this.rootPage = 'TabsPage'
+        this.store.dispatch(new authActions.LoginSuccess(user))
       } else {
         this.rootPage = 'LoginPage'
+        this.store.dispatch(new authActions.Logout())
       }
     })
   }
@@ -88,7 +92,9 @@ export class ConferenceApp {
     }
 
     if (page.logsOut === true) {
-      this.store.dispatch(new authActions.Logout())
+      this.nav.setRoot('LoginPage').then(() => {
+        this.store.dispatch(new authActions.Logout())
+      })
     }
   }
 
@@ -115,11 +121,5 @@ export class ConferenceApp {
       return 'primary'
     }
     return
-  }
-
-  getHasLoggedIn(): Promise<boolean> {
-    return this.storage.get('hasLoggedIn').then((value) => {
-      return value === true
-    })
   }
 }
