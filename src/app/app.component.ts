@@ -64,6 +64,10 @@ export class ConferenceApp {
   ) {
     this.auth = this.authProvider.firebaseAuth
     this.platformReady()
+    this.store.pipe(select(AuthStore.getHasLoggedIn))
+    .subscribe((data: boolean) => {
+      this.hasLoggedIn = data
+    })
     this.afAuth.auth.onAuthStateChanged((user: User) => {
       if (user) {
         this.rootPage = 'TabsPage'
@@ -82,10 +86,8 @@ export class ConferenceApp {
     }
 
     if (this.nav.getActiveChildNavs().length && page.index != undefined) {
-      console.log("hhiohiohoho", this.nav.getActiveChildNavs().length, page.index)
       this.nav.getActiveChildNavs()[0].select(page.index)
     } else {
-      console.log("iiiiii", this.nav.getActiveChildNavs().length, page.index)
       this.nav.setRoot(page.name, params).catch((err: any) => {
         console.log(`Didn't set nav root: ${err}`)
       })

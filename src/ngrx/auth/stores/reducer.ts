@@ -15,6 +15,9 @@ export function reducer(state = initialState, action: AuthAction.Actions): State
     case AuthAction.AuthActionTypes.LOGIN_FAILURE: {
       return Object.assign({}, state, { signUpFormError: action.payload })
     }
+    case AuthAction.AuthActionTypes.CHANGE_USER_STATE: {
+      return Object.assign({}, state, { user: action.payload })
+    }
     default: {
       return state
     }

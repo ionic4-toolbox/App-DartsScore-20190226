@@ -36,6 +36,14 @@ export class FirebaseAuthProvider extends AuthAbstract {
 
   public async saveProfile(username: string, thumbnail: string): Promise<User> {
     let user: User = this.afAuth.auth.currentUser
+    if (thumbnail === user.photoURL) {
+      await this.afAuth.auth.currentUser.updateProfile({
+        photoURL: user.photoURL,
+        displayName: username
+      })
+      return this.afAuth.auth.currentUser
+    }
+    
     const thumbnailPath = user.uid + '/profile-image'
     const uploadTaskSnapshot: UploadTaskSnapshot = await this.afStorage.ref(thumbnailPath).putString(thumbnail, 'data_url')
     if(!uploadTaskSnapshot) {
