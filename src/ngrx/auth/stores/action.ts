@@ -8,6 +8,7 @@ export enum AuthActionTypes {
   LOGIN_SUCCESS = '[Auth] Login Success',
   LOGIN_FAILURE = '[Auth] Login Failure',
   LOGIN_REDIRECT = '[Auth] Login Redirect',
+  CHANGE_USER_STATE = '[Auth] Change User State',
 }
 
 /**
@@ -25,7 +26,7 @@ export class Login implements Action {
 
 export class Signup implements Action {
   readonly type = AuthActionTypes.SIGNUP
-  constructor(public payload: {email: string, password: string}) {}
+  constructor(public payload: {email: string, password: string, username: string, thumbnail: string}) {}
 }
 
 /**
@@ -76,8 +77,15 @@ export class LoginRedirect implements Action {
   constructor() {}
 }
 
+export class ChangeUserState implements Action {
+  readonly type = AuthActionTypes.CHANGE_USER_STATE
+  constructor(public payload: User) {}
+}
+
 export type Actions = Login
+                    | Signup
                     | LoginSuccess
                     | LoginFailure
                     | LoginRedirect
                     | Logout
+                    | ChangeUserState

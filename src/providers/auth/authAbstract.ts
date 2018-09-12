@@ -1,4 +1,4 @@
-import { UserCredential } from "@firebase/auth-types"
+import { UserCredential, User } from "@firebase/auth-types"
 import { Observable } from 'rxjs'
 /*
   Generated class for the AuthProvider provider.
@@ -8,6 +8,7 @@ import { Observable } from 'rxjs'
 */
 export abstract class AuthAbstract {
   abstract loginWithEmail(email: string, password: string): Observable<any| UserCredential>
-  abstract signUp(email: string, password: string): Observable<any | UserCredential>
+  abstract signUp(email: string, password: string): Promise<any | UserCredential>
   abstract logout(): Observable<void>
+  abstract saveProfile(username: string, thumbnail: string): Promise<User>
 }

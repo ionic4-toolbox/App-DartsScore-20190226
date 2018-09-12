@@ -17,7 +17,7 @@ import * as AuthActions from '../../ngrx/auth/stores/action'
   providers: [AuthProvider]
 })
 export class LoginPage {
-  login: UserOptions = { username: '', email: '', password: '' }
+  login: UserOptions = { email: '', password: '' }
   submitted = false
   auth: AuthAbstract
 

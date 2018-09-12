@@ -1,20 +1,19 @@
 import { Component } from '@angular/core'
 import { NgForm } from '@angular/forms'
-import { Store } from '@ngrx/store'
+import { Store, select } from '@ngrx/store'
+import { UserCredential, User } from '@firebase/auth-types'
+import { Camera, CameraOptions } from '@ionic-native/camera'
 import * as fromAuth from '../../ngrx/auth/stores/state'
 import * as authActions from '../../ngrx/auth/stores/action'
-import { Camera, CameraOptions } from '@ionic-native/camera'
-import { AngularFireStorage } from 'angularfire2/storage'
-import { NavController, Platform, LoadingController, IonicPage } from 'ionic-angular'
+import * as authStores from '../../ngrx/auth/stores'
+import { ToastController, Platform, LoadingController, IonicPage } from 'ionic-angular'
 import { AuthProvider } from '../../providers/auth/auth'
-
-import { UserOptions } from '../../interfaces/user-options'
-
+import { Storage } from '@ionic/storage'
 import { AuthAbstract } from '../../providers/auth/authAbstract'
 
 type FormError = {
-  code: '',
-  message: ''
+  code: string,
+  message: string
 }
 
 @IonicPage()
@@ -24,11 +23,11 @@ type FormError = {
   providers: [AuthProvider, Camera]
 })
 export class SignupPage {
-  signup: UserOptions = { username: '', email: '' , password: '' }
+  signup: any = { username: '', email: '' , password: '' }
+  imageData: string = 'assets/img/none.png'
   submitted = false
   formError: FormError = { code: '', message: '' }
   auth: AuthAbstract
-  imageData: string = 'assets/img/none.png'
   readonly options: CameraOptions = {
     quality: 100,
     allowEdit: true,
@@ -38,58 +37,74 @@ export class SignupPage {
     mediaType: this.camera.MediaType.PICTURE
   }
 
+  HAS_LOGGED_IN = 'hasLoggedIn'
   constructor(
-    public navCtrl: NavController,
+    public camera: Camera,
     public loadingCtrl: LoadingController,
     public platform: Platform,
     public authProvider: AuthProvider,
-    public camera: Camera,
-    public afStorage: AngularFireStorage,
+    public toastCtrl: ToastController,
+    public storage: Storage,
     private store: Store<fromAuth.State>,
   ) {
     this.auth = authProvider.firebaseAuth
+    this.store.pipe(select(authStores.getSignUpFormError))
+    .subscribe(data => this.formError = data)
   }
 
-  onSignup(form: NgForm) {
+  async onSignup(form: NgForm) {
     this.submitted = true
-    if (form.valid) {
-      this.store.dispatch(new authActions.Login({
-        email: this.signup.email,
-        password: this.signup.password
-      }))
+    if (this.imageData == 'assets/img/none.png') {
+      this.formError.code = "thumbnail/invalid"
+      return
     }
-    //   const uploadTaskSnapshot: UploadTaskSnapshot 
-    //     = await this.afStorage
-    //         .ref(userCredential.user.uid + '/profile-image')
-    //         .putString(this.imageData, 'data_url')
-    //         .catch(err => {
-    //           alert(JSON.stringify(err))
-    //           loading.dismiss()
-    //         })
-    //   if(!uploadTaskSnapshot) return
+    if (form.valid) {
+      let loading = this.loadingCtrl.create()
+      loading.present()
+      const userCredencial: UserCredential = await this.auth.signUp(this.signup.email, this.signup.password)
+      .catch ((error) => {
+        this.showToast("The login attempt failed", 'top')
+        loading.dismiss()
+        this.storage.remove(this.HAS_LOGGED_IN)
+        this.store.dispatch(new authActions.LoginFailure(error))
+        return null
+      })
+      if (!userCredencial) return
 
-    //   const url = await uploadTaskSnapshot.ref.getDownloadURL()
-    //   if(!url) return
+      const signupedUser: User = await this.auth.saveProfile(this.signup.username, this.imageData)
+      .catch ((error) => {
+        this.showToast("something wrong", 'top')
+        loading.dismiss()
+        this.authProvider.firebaseAuth.deleteUser()
+        this.storage.remove(this.HAS_LOGGED_IN)
+        this.store.dispatch(new authActions.LoginFailure(error))
+        return null
+      })
+      if (!signupedUser) return
 
-    //   await userCredential.user.updateProfile({
-    //     displayName: this.signup.username,
-    //     photoURL: url
-    //   })
+      this.storage.set(this.HAS_LOGGED_IN, true)
+      this.store.dispatch(new authActions.LoginSuccess(signupedUser))
+      loading.dismiss()
+    }
+  }
 
-    //   this.userData.signup(userCredential.user)
-    //   this.navCtrl.push(TutorialPage)
-    //   loading.dismiss()
-    // }
+  async setIcon() {
+    const imageData: string
+      = await this.camera.getPicture(this.options)
+          .catch(err => {
+            alert(JSON.stringify(err))
+          })
+    if (imageData) {
+      this.imageData = 'data:image/jpeg;base64,' + imageData
+    }
   }
   
-  // async setIcon() {
-  //   const imageData: string
-  //     = await this.camera.getPicture(this.options)
-  //         .catch(err => {
-  //           alert(JSON.stringify(err))
-  //         })
-  //   if (imageData) {
-  //     this.imageData = 'data:image/jpeg;base64,' + imageData
-  //   }
-  // }
+  private showToast(message: string, position: string) {
+    let toast = this.toastCtrl.create({
+      message,
+      duration: 3000,
+      position
+    })
+    toast.present()
+  }
 }
